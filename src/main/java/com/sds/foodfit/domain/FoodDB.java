@@ -15,4 +15,5 @@ public class FoodDB {	//식품영양성분DB 오픈API에서 가져오는 데이
 	public int NUTR_CONT4;	// 지방(g)
 	public int NUTR_CONT6;	// 나트륨(mg) - 당뇨질환자 대상
 
+
 }
