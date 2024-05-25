@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><!-- Basic -->
+<html lang="zxx" xmlns:th="http://thymeleaf.org"> //타임리프 라이브러리 주소
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">   
@@ -13,22 +13,9 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">    
-	<!-- Site CSS -->
-    <link rel="stylesheet" href="css/style.css">    
-	<!-- Pickadate CSS -->
-    <link rel="stylesheet" href="css/classic.css">    
-	<link rel="stylesheet" href="css/classic.date.css">    
-	<link rel="stylesheet" href="css/classic.time.css">    
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
+	<!-- header_link begin -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+    <!-- header_link end -->
 
     <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -39,7 +26,7 @@
 
 <body>
 	<!-- Start header -->
-		<th:block th:replace="~{fragments/header :: header}"/>
+	<th:block th:replace="~{fragments/header :: header}"/>
 	<!-- End header -->
 	
 	<!-- Start All Pages -->
@@ -233,22 +220,10 @@
 	<!-- End Footer -->
 	
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+	
+	<!-- footer_link begin -->
+	<th:block th:replace="~(fragments/footer_link :: footer_link)"/>
+	<!-- footer_link end -->
 
-	<!-- ALL JS FILES -->
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-    <!-- ALL PLUGINS -->
-	<script src="js/jquery.superslides.min.js"></script>
-	<script src="js/images-loded.min.js"></script>
-	<script src="js/isotope.min.js"></script>
-	<script src="js/baguetteBox.min.js"></script>
-	<script src="js/picker.js"></script>
-	<script src="js/picker.date.js"></script>
-	<script src="js/picker.time.js"></script>
-	<script src="js/legacy.js"></script>
-	<script src="js/form-validator.min.js"></script>
-    <script src="js/contact-form-script.js"></script>
-    <script src="js/custom.js"></script>
 </body>
 </html>
