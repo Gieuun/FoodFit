@@ -153,7 +153,7 @@ section.notice {
 </style>
 </head>
 <body>
-
+<div th:include="fragments/header :: header"></div>
 	<section class="notice">
 		<div class="page-title">
 			<div class="container">
@@ -227,5 +227,18 @@ section.notice {
 		</div>
 
 	</section>
+	<div th:include="fragments/footer :: footer"></div>
+	<!-- ALL JS FILES -->
+	<script src="site/js/jquery-3.2.1.min.js"></script>
+	<script src="site/js/popper.min.js"></script>
+	<script src="site/js/bootstrap.min.js"></script>
+	<!-- ALL PLUGINS -->
+	<script src="site/js/jquery.superslides.min.js"></script>
+	<script src="site/js/images-loded.min.js"></script>
+	<script src="site/js/isotope.min.js"></script>
+	<script src="site/js/baguetteBox.min.js"></script>
+	<script src="site/js/form-validator.min.js"></script>
+	<script src="site/js/contact-form-script.js"></script>
+	<script src="site/js/custom.js"></script>
 </body>
 </html>
