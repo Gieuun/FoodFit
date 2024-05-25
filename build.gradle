@@ -22,14 +22,16 @@ repositories {
 }
 
 dependencies {
-	implementation 'org.springframework.boot:spring-boot-starter-data-mongodb'
-	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
-	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-web-services'
 	implementation 'org.springframework.boot:spring-boot-starter-webflux'
 	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
+	// 보안관련 의존성 추가 (static 리소스 제어때 막혀서 추가함)
+	implementation 'org.springframework.boot:spring-boot-starter-security'
+		
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	annotationProcessor 'org.projectlombok:lombok'
@@ -38,23 +40,15 @@ dependencies {
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
+	//mysql 의존성 수가
+	// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
 	implementation 'com.mysql:mysql-connector-j:8.4.0'
 	
-	//spring jdbc(스프링 부트에서 데이터 베이스 연동을 위해 사용 필수 jar)
-	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.4'
 	
-	//mybatis spring 버전 좀 높은거... @Mapper가 지원 
-	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
-		
-	// json 관련 라이브러리 활용위해 json simple이랑 gson 의존성 추가
+	//json 사용하기 위해 json simple 최근버전 의존성 추가
+	// https://mvnrepository.com/artifact/com.googlecode.json-simple/json-simple
 	implementation 'com.googlecode.json-simple:json-simple:1.1.1'
-	implementation 'com.google.code.gson:gson:2.8.8'
 	
-	//HttpGet사용하기위해 선언
-	implementation 'org.apache.httpcomponents:httpclient-android:4.3.5.1'
-	
-	// https://mvnrepository.com/artifact/javax.servlet/javax.servlet-api
-	compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
 }
 
 tasks.named('test') {
