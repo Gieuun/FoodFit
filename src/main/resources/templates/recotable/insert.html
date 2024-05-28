@@ -13,14 +13,11 @@
     <meta name="description" content="">
     <meta name="author" content="">
     
-     <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-    
-
 	<!-- header_link begin -->
-		<div th:replace="~{fragments/header_link :: header_link}"/>
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
     <!-- header_link end -->
+
+
 
     <!--[if lt IE 9]>
       <script src="site/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -39,7 +36,7 @@
 		<div class="container text-center">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1>Reservation</h1>
+					<h1>밥상진단</h1>
 				</div>
 			</div>
 		</div>
@@ -52,8 +49,8 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="heading-title text-center">
-						<h2>Reservation</h2>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
+						<h2>밥상진단</h2>
+						<p>오늘 먹은것들을 기반으로 식단을 추천해 드립니다</p>
 					</div>
 				</div>
 			</div>
@@ -115,7 +112,7 @@
 								</div>
 								<div class="col-md-12">
 									<div class="submit-button text-center">
-										<button class="btn btn-common" id="submit" type="submit">Book Table</button>
+										<button class="btn btn-common" id="submit" type="submit">진단 받기</button>
 										<div id="msgSubmit" class="h3 text-center hidden"></div> 
 										<div class="clearfix"></div> 
 									</div>
@@ -227,7 +224,7 @@
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 	
 	<!-- footer_link begin -->
-		<div th:replace="~{fragments/footer_link :: footer_link}"/>
+	<th:block th:replace="~(fragments/footer_link :: footer_link)"/>
 	<!-- footer_link end -->
 
 </body>
