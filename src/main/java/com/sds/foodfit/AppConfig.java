@@ -9,11 +9,6 @@ import org.springframework.web.client.RestTemplate;
 public class AppConfig {
 
 	@Bean
-	public String key() {
-		return "b7819c165e724c0ab5cd";
-	}
-
-	@Bean
 	public RestTemplate restTemplate() {
 		return new RestTemplate();
 	}
