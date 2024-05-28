@@ -21,7 +21,7 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public List selectAll(Map map) {
+	public List<Notice> selectAll(Map<String, Integer> map) {
 		return noticeDAO.selectAll(map);
 	}
 
@@ -55,5 +55,9 @@ public class NoticeServiceImpl implements NoticeService{
 			throw new NoticeException("글 삭제 실패");
 		}
 	}
+	 @Override
+	    public List<Notice> searchNoticesByTitle(Map<String, Object> map) {
+	        return noticeDAO.searchNoticesByTitle(map);
+	    }
 
 }

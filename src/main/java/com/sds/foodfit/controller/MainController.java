@@ -13,7 +13,7 @@ public class MainController {
   	
   	@GetMapping("/demo")
 	public String goDemo() {
-		return "demo/input_form";
+		return "demo/input-form";
 		
 	}
 }

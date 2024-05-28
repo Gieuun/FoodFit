@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><!-- Basic -->
+<html lang="zxx" xmlns:th="http://thymeleaf.org"> //타임리프 라이브러리 주소
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">   
@@ -8,27 +8,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
  
      <!-- Site Metas -->
-    <title>Yamifood Restaurant - Responsive HTML5 Template</title>  
+    <title>밥상진단</title>  
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">    
-	<!-- Site CSS -->
-    <link rel="stylesheet" href="css/style.css">    
-	<!-- Pickadate CSS -->
-    <link rel="stylesheet" href="css/classic.css">    
-	<link rel="stylesheet" href="css/classic.date.css">    
-	<link rel="stylesheet" href="css/classic.time.css">    
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
+	<!-- header_link begin -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+    <!-- header_link end -->
 
     <!--[if lt IE 9]>
       <script src="site/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
@@ -39,7 +26,7 @@
 
 <body>
 	<!-- Start header -->
-		<th:block th:replace="~{fragments/header :: header}"/>
+	<th:block th:replace="~{fragments/header :: header}"/>
 	<!-- End header -->
 	
 	<!-- Start All Pages -->
@@ -233,6 +220,11 @@
 	<!-- End Footer -->
 	
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+	
+	<!-- footer_link begin -->
+	<th:block th:replace="~(fragments/footer_link :: footer_link)"/>
+	<!-- footer_link end -->
+
 
 	<!-- ALL JS FILES -->
 	<script src="site/js/jquery-3.2.1.min.js"></script>

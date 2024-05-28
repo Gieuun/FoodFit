@@ -1,231 +1,237 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
-<html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css">
-<script
-	src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+<!-- Site Icons -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- header_link begin -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+    <!-- header_link end -->
+<title>공지사항</title>
+
 <style>
+/* Custom styles */
 table {
-	border-collapse: collapse;
-	border-spacing: 0;
+    border-collapse: collapse;
+    border-spacing: 0;
 }
 
 section.notice {
-	padding: 80px 0;
+    padding: 80px 0;
 }
 
 .page-title {
-	margin-bottom: 60px;
+    margin-bottom: 60px;
 }
 
 .page-title h3 {
-	font-size: 28px;
-	color: #333333;
-	font-weight: 400;
-	text-align: center;
+    font-size: 28px;
+    color: #333333;
+    font-weight: 400;
+    text-align: center;
 }
 
 #board-search .search-window {
-	padding: 15px 0;
-	background-color: #f9f7f9;
+    padding: 15px 0;
+    background-color: #f9f7f9;
 }
 
 #board-search .search-window .search-wrap {
-	position: relative;
-	/*   padding-right: 124px; */
-	margin: 0 auto;
-	width: 80%;
-	max-width: 564px;
+    position: relative;
+    margin: 0 auto;
+    width: 80%;
+    max-width: 564px;
 }
 
 #board-search .search-window .search-wrap input {
-	height: 40px;
-	width: 100%;
-	font-size: 14px;
-	padding: 7px 14px;
-	border: 1px solid #ccc;
+    height: 40px;
+    width: 100%;
+    font-size: 14px;
+    padding: 7px 14px;
+    border: 1px solid #ccc;
 }
 
 #board-search .search-window .search-wrap input:focus {
-	border-color: #333;
-	outline: 0;
-	border-width: 1px;
+    border-color: #333;
+    outline: 0;
+    border-width: 1px;
 }
 
 #board-search .search-window .search-wrap .btn {
-	position: absolute;
-	right: 0;
-	top: 0;
-	bottom: 0;
-	width: 108px;
-	padding: 0;
-	font-size: 16px;
+    position: absolute;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    width: 108px;
+    padding: 0;
+    font-size: 16px;
 }
 
 .board-table {
-	font-size: 13px;
-	width: 100%;
-	border-top: 1px solid #ccc;
-	border-bottom: 1px solid #ccc;
+    font-size: 13px;
+    width: 100%;
+    border-top: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
 }
 
 .board-table a {
-	color: #333;
-	display: inline-block;
-	line-height: 1.4;
-	word-break: break-all;
-	vertical-align: middle;
+    color: #333;
+    display: inline-block;
+    line-height: 1.4;
+    word-break: break-all;
+    vertical-align: middle;
 }
 
 .board-table a:hover {
-	text-decoration: underline;
+    text-decoration: underline;
 }
 
 .board-table th {
-	text-align: center;
+    text-align: center;
 }
 
 .board-table .th-num {
-	width: 100px;
-	text-align: center;
+    width: 100px;
+    text-align: center;
 }
 
 .board-table .th-date {
-	width: 200px;
+    width: 200px;
 }
 
 .board-table th, .board-table td {
-	padding: 14px 0;
+    padding: 14px 0;
 }
 
 .board-table tbody td {
-	border-top: 1px solid #e7e7e7;
-	text-align: center;
+    border-top: 1px solid #e7e7e7;
+    text-align: center;
 }
 
 .board-table tbody th {
-	padding-left: 28px;
-	padding-right: 14px;
-	border-top: 1px solid #e7e7e7;
-	text-align: left;
+    padding-left: 28px;
+    padding-right: 14px;
+    border-top: 1px solid #e7e7e7;
+    text-align: left;
 }
 
 .board-table tbody th p {
-	display: none;
+    display: none;
 }
 
 /* reset */
 * {
-	list-style: none;
-	text-decoration: none;
-	padding: 0;
-	margin: 0;
-	box-sizing: border-box;
+    list-style: none;
+    text-decoration: none;
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
 }
 
 .clearfix:after {
-	content: '';
-	display: block;
-	clear: both;
+    content: '';
+    display: block;
+    clear: both;
 }
 
 .container {
-	width: 1100px;
-	margin: 0 auto;
+    width: 1100px;
+    margin: 0 auto;
 }
 
 .blind {
-	position: absolute;
-	overflow: hidden;
-	clip: rect(0, 0, 0, 0);
-	margin: -1px;
-	width: 1px;
-	height: 1px;
+    position: absolute;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    margin: -1px;
+    width: 1px;
+    height: 1px;
 }
 </style>
 </head>
 <body>
+<div th:include="fragments/header :: header"></div>
+    <section class="notice">
+        <div class="page-title">
+            <div class="container">
+                <h3>공지사항</h3>
+            </div>
+        </div>
 
-	<section class="notice">
-		<div class="page-title">
-			<div class="container">
-				<h3>공지사항</h3>
-			</div>
-		</div>
+        <!-- board seach area -->
+       <div id="board-search">
+        <div class="container">
+            <div class="search-window">
+                <form action="/notice/search" method="get">
+                    <div class="search-wrap">
+                        <label for="search" class="blind">공지사항 제목 검색</label>
+                        <input id="search" type="search" name="query" placeholder="검색어를 입력해주세요." value="">
+                        <button type="submit" class="btn btn-dark">검색</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
 
-		<!-- board seach area -->
-		<div id="board-search">
-			<div class="container">
-				<div class="search-window">
-					<form action="">
-						<div class="search-wrap">
-							<label for="search" class="blind">공지사항 내용 검색</label> <input
-								id="search" type="search" name="" placeholder="검색어를 입력해주세요."
-								value="">
-							<button type="button" class="btn btn-dark">검색</button>
-						</div>
-					</form>
-				</div>
-			</div>
-		</div>
-
-		<div id="board-list">
-			<div class="container">
-				<table class="board-table">
-					<thead>
-						<tr>
-							<th scope="col" class="th-num">번호</th>
-							<th scope="col" class="th-title">제목</th>
-							<th scope="col" class="th-writer">작성자</th>
-							<th scope="col" class="th-date">등록일</th>
-							<th scope="col" class="th-hit">조회수</th>
-						</tr>
-					</thead>
-					<tbody>
-						<tr th:each=" notice, i : ${noticeList}">
-							<td th:text="${pager.num-i.index}"></td>
-							<td><a
-								th:href="@{/notice/detail(notice_idx=${notice.notice_idx})}"
-								th:text="${notice.title}"></a></td>
-							<td th:text="${notice.writer}"></td>
-							<td th:text="${notice.regdate}"></td>
-							<td th:text="${notice.hit}"></td>
-						</tr>
-						<tr>
-							<td colspan="5">
-								<div class="d-flex justify-content-between align-items-center">
-									<div class="d-flex justify-content-center flex-grow-1">
-										<ul class="pagination mb-0">
-											<li class="page-item"><a class="page-link" href="#">Previous</a></li>
-											<li
-												th:each="i:${#numbers.sequence(pager.firstPage, pager.lastPage)}"
-												th:class="${pager.currentPage==i}? 'page-item active' : 'page-item'">
-												<a class="page-link"
-												th:href="@{/notice/list(currentPage=${i})}" th:text="${i}"></a>
-											</li>
-											<li class="page-item"><a class="page-link" href="#">Next</a></li>
-										</ul>
-									</div>
-									<div class="d-flex justify-content-end flex-grow-0">
-										<button class="btn btn-primary"
-											onClick="location.href='/notice/writeform';">글등록</button>
-									</div>
+        <div id="board-list">
+            <div class="container">
+                <table class="board-table">
+                    <thead>
+                        <tr>
+                            <th scope="col" class="th-num">번호</th>
+                            <th scope="col" class="th-title">제목</th>
+                            <th scope="col" class="th-writer">작성자</th>
+                            <th scope="col" class="th-date">등록일</th>
+                            <th scope="col" class="th-hit">조회수</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each=" notice, i : ${noticeList}">
+                            <td th:text="${pager.num-i.index}"></td>
+                            <td><a th:href="@{/notice/detail(notice_idx=${notice.notice_idx})}" th:text="${notice.title}"></a></td>
+                            <td th:text="${notice.writer}"></td>
+                            <td th:text="${notice.regdate}"></td>
+                            <td th:text="${notice.hit}"></td>
+                        </tr>
+                        <tr>
+                            <td colspan="5">
+                                <div class="d-flex justify-content-between align-items-center">
+                                    <div class="d-flex justify-content-center flex-grow-1">
+                                        <ul class="pagination mb-0">
+                                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
+                                            <li th:each="i:${#numbers.sequence(pager.firstPage, pager.lastPage)}" th:class="${pager.currentPage==i}? 'page-item active' : 'page-item'">
+                                                <a class="page-link" th:href="@{/notice/list(currentPage=${i})}" th:text="${i}"></a>
+                                            </li>
+                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
+                                        </ul>
+                                    </div>
+                                    <div class="submit-button text-center">
+									<button class="btn btn-common" onClick="location.href='/notice/writeform';">글등록</button>
+									<div id="msgSubmit" class="h3 text-center hidden"></div> 
+									<div class="clearfix"></div> 
 								</div>
-							</td>
-						</tr>
-					</tbody>
-				</table>
-			</div>
-		</div>
+                                </div>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+    <div th:include="fragments/footer :: footer"></div>
 
-	</section>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.7.1/dist/jquery.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
+    <!-- ALL PLUGINS -->
+    <script src="site/js/jquery.superslides.min.js"></script>
+    <script src="site/js/images-loded.min.js"></script>
+    <script src="site/js/isotope.min.js"></script>
+    <script src="site/js/baguetteBox.min.js"></script>
+    <script src="site/js/form-validator.min.js"></script>
+    <script src="site/js/contact-form-script.js"></script>
+    <script src="site/js/custom.js"></script>
 </body>
 </html>
