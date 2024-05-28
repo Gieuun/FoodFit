@@ -7,8 +7,8 @@
 	</select>
 	
 	<select id="selectAll" resultType="Notice" parameterType="java.util.Map">
-		select * from notice limit #{startIndex}, #{rowCount}
-	</select>
+    select * from notice order by regdate desc limit #{startIndex}, #{rowCount}
+</select>
 	
 	<insert id="insert" parameterType="Notice">
 		insert into notice(title, writer, content)
@@ -31,4 +31,11 @@
 	<update id="updateHit" parameterType="int">
 		update notice set hit = hit + 1 where notice_idx = #{notice_idx}
 	</update>
+	
+	
+	<select id="searchNoticesByTitle" resultType="Notice" parameterType="java.util.Map">
+        select * from notice 
+        where title like CONCAT('%', #{query}, '%')
+        desc limit #{startIndex}, #{rowCount}
+    </select>
 </mapper>
