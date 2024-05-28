@@ -8,8 +8,7 @@ public class MemberDetail {
 	private String gender;
 	private int age;
 	private long height;
-	private long weight;
-	
+	private long weight;	
 	private Member member; // 회원정보 객체 가짐
 
 }
