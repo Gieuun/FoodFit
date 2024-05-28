@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx" xmlns:th="http://thymeleaf.org"> //타임리프 라이브러리 주소
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">   
@@ -12,9 +12,14 @@
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
+    
+     <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+    
 
 	<!-- header_link begin -->
-	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+		<div th:replace="~{fragments/header_link :: header_link}"/>
     <!-- header_link end -->
 
     <!--[if lt IE 9]>
@@ -26,7 +31,7 @@
 
 <body>
 	<!-- Start header -->
-	<th:block th:replace="~{fragments/header :: header}"/>
+		<div th:replace="~{fragments/header :: header}"/>
 	<!-- End header -->
 	
 	<!-- Start All Pages -->
@@ -216,13 +221,13 @@
 	<!-- End Contact info -->
 	
 	<!-- Start Footer -->
-		<th:block th:replace="~{fragments/footer :: footer}"/>
+		<div th:replace="~{fragments/footer :: footer}"/>
 	<!-- End Footer -->
 	
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 	
 	<!-- footer_link begin -->
-	<th:block th:replace="~(fragments/footer_link :: footer_link)"/>
+		<div th:replace="~{fragments/footer_link :: footer_link}"/>
 	<!-- footer_link end -->
 
 </body>

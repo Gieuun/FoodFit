@@ -9,7 +9,7 @@ public class FoodDB {	//식품영양성분DB 오픈API에서 가져오는 데이
 	
 	//중량 생략 100g 당으로 일괄 산출했음 (DAO 에서 계산필요)
 	
-	public int NUTR_CONT1;	// 열량(kcal)
+	public int NUTR_CONT1;	// 열량(kcal) 
 	public int NUTR_CONT2;	// 탄수화물(g)
 	public int NUTR_CONT3;	// 단백질(g)
 	public int NUTR_CONT4;	// 지방(g)
