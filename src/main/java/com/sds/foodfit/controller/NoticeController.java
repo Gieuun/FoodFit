@@ -72,6 +72,7 @@ public class NoticeController {
         return "notice/list";
     }
 	
+    //게시판 글쓰기폼 요청처리
 	@GetMapping("/notice/writeform")
 	public String getRegistForm() {
 		
