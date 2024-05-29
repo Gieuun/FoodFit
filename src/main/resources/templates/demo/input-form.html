@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>설문 조사</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            padding: 20px;
+        }
+        .survey-form {
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        .submit-btn {
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+    <div class="survey-form">
+        <h2 class="text-center">설문 조사</h2>
+        <form>
+            <div class="form-group">
+                <label for="gender">당신의 성별은?</label>
+                <div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="male" value="남">
+                        <label class="form-check-label" for="male">남</label>
+                    </div>
+                    <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="gender" id="female" value="여">
+                        <label class="form-check-label" for="female">여</label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="age">당신의 연령은?</label>
+                <select class="form-control" id="age" name="age">
+                    <option value="10대">10대</option>
+                    <option value="20대">20대</option>
+                    <option value="30대">30대</option>
+                    <option value="40대">40대</option>
+                    <option value="50대">50대</option>
+                    <option value="60대 이상">60대 이상</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="height">당신의 키와 몸무게를 적어주세요.</label>
+                <div class="form-inline">
+                    <label for="height" class="mr-2">키:</label>
+                    <input type="number" class="form-control mr-2" id="height" name="height" placeholder="cm">
+                    <label for="weight" class="mr-2">몸무게:</label>
+                    <input type="number" class="form-control" id="weight" name="weight" placeholder="kg">
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-primary submit-btn">추천음식 보러가기</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

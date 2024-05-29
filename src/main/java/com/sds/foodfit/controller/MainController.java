@@ -10,6 +10,7 @@ public class MainController {
 	@GetMapping("/")
 	public String getMain() {
 		return "main/index";
+		
 	}
 
 	@GetMapping("/demo")
@@ -28,5 +29,6 @@ public class MainController {
 		return "recofood/insert";
 
 	}
-  		
 }
+  		
+
