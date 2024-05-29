@@ -28,11 +28,5 @@ public class MainController {
 		return "recofood/insert";
 
 	}
-  	
-  	@GetMapping("/recotable")
-  	public String getRecoTable() {
-  		return "recotable/insert";
-  	}
-  	
-
+  		
 }
