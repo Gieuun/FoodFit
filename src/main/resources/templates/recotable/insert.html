@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en"><!-- Basic -->
+<html lang="zxx" xmlns:th="http://thymeleaf.org"> //타임리프 라이브러리 주소
 <head>
 	<meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">   
@@ -8,38 +8,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
  
      <!-- Site Metas -->
-    <title>Yamifood Restaurant - Responsive HTML5 Template</title>  
+    <title>밥상진단</title>  
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">    
-	<!-- Site CSS -->
-    <link rel="stylesheet" href="css/style.css">    
-	<!-- Pickadate CSS -->
-    <link rel="stylesheet" href="css/classic.css">    
-	<link rel="stylesheet" href="css/classic.date.css">    
-	<link rel="stylesheet" href="css/classic.time.css">    
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
+	<!-- header_link begin -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+    <!-- header_link end -->
 
     <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+      <script src="site/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="site/https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 
 </head>
 
 <body>
 	<!-- Start header -->
-		<th:block th:replace="~{fragments/header :: header}"/>
+	<th:block th:replace="~{fragments/header :: header}"/>
 	<!-- End header -->
 	
 	<!-- Start All Pages -->
@@ -154,7 +141,7 @@
 						<div class="carousel-inner mt-4">
 							<div class="carousel-item text-center active">
 								<div class="img-box p-1 border rounded-circle m-auto">
-									<img class="d-block w-100 rounded-circle" src="images/profile-1.jpg" alt="">
+									<img class="d-block w-100 rounded-circle" src="site/images/profile-1.jpg" alt="">
 								</div>
 								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Paul Mitchel</strong></h5>
 								<h6 class="text-dark m-0">Web Developer</h6>
@@ -162,7 +149,7 @@
 							</div>
 							<div class="carousel-item text-center">
 								<div class="img-box p-1 border rounded-circle m-auto">
-									<img class="d-block w-100 rounded-circle" src="images/profile-3.jpg" alt="">
+									<img class="d-block w-100 rounded-circle" src="site/images/profile-3.jpg" alt="">
 								</div>
 								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Steve Fonsi</strong></h5>
 								<h6 class="text-dark m-0">Web Designer</h6>
@@ -170,7 +157,7 @@
 							</div>
 							<div class="carousel-item text-center">
 								<div class="img-box p-1 border rounded-circle m-auto">
-									<img class="d-block w-100 rounded-circle" src="images/profile-7.jpg" alt="">
+									<img class="d-block w-100 rounded-circle" src="site/images/profile-7.jpg" alt="">
 								</div>
 								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Daniel vebar</strong></h5>
 								<h6 class="text-dark m-0">Seo Analyst</h6>
@@ -233,22 +220,29 @@
 	<!-- End Footer -->
 	
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+	
+	<!-- footer_link begin -->
+	<th:block th:replace="~(fragments/footer_link :: footer_link)"/>
+	<!-- footer_link end -->
 
+<<<<<<< HEAD
+=======
 	<!-- ALL JS FILES -->
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
+	<script src="site/js/jquery-3.2.1.min.js"></script>
+	<script src="site/js/popper.min.js"></script>
+	<script src="site/js/bootstrap.min.js"></script>
     <!-- ALL PLUGINS -->
-	<script src="js/jquery.superslides.min.js"></script>
-	<script src="js/images-loded.min.js"></script>
-	<script src="js/isotope.min.js"></script>
-	<script src="js/baguetteBox.min.js"></script>
-	<script src="js/picker.js"></script>
-	<script src="js/picker.date.js"></script>
-	<script src="js/picker.time.js"></script>
-	<script src="js/legacy.js"></script>
-	<script src="js/form-validator.min.js"></script>
-    <script src="js/contact-form-script.js"></script>
-    <script src="js/custom.js"></script>
+	<script src="site/js/jquery.superslides.min.js"></script>
+	<script src="site/js/images-loded.min.js"></script>
+	<script src="site/js/isotope.min.js"></script>
+	<script src="site/js/baguetteBox.min.js"></script>
+	<script src="site/js/picker.js"></script>
+	<script src="site/js/picker.date.js"></script>
+	<script src="site/js/picker.time.js"></script>
+	<script src="site/js/legacy.js"></script>
+	<script src="site/js/form-validator.min.js"></script>
+    <script src="site/js/contact-form-script.js"></script>
+    <script src="site/js/custom.js"></script>
+>>>>>>> 0cdd0d6876a77397d1c587079c0d96443f34bed1
 </body>
 </html>

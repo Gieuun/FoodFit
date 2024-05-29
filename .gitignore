@@ -1,11 +1,14 @@
+# 档框富 颇老
 HELP.md
+
+# Gradle 包访 亲格
 .gradle
 build/
 !gradle/wrapper/gradle-wrapper.jar
 !**/src/main/**/build/
 !**/src/test/**/build/
 
-### STS ###
+# STS 包访 亲格
 .apt_generated
 .classpath
 .factorypath
@@ -17,21 +20,21 @@ bin/
 !**/src/main/**/bin/
 !**/src/test/**/bin/
 
-### IntelliJ IDEA ###
-.idea
-*.iws
-*.iml
-*.ipr
-out/
-!**/src/main/**/out/
-!**/src/test/**/out/
+# IntelliJ IDEA 包访 亲格 昏力
+# .idea
+# *.iws
+# *.iml
+# *.ipr
+# out/
+# !**/src/main/**/out/
+# !**/src/test/**/out/
 
-### NetBeans ###
-/nbproject/private/
-/nbbuild/
-/dist/
-/nbdist/
-/.nb-gradle/
+# NetBeans 包访 亲格 昏力
+# /nbproject/private/
+# /nbbuild/
+# /dist/
+# /nbdist/
+# /.nb-gradle/
 
-### VS Code ###
-.vscode/
+# VS Code 包访 亲格 昏力
+# .vscode/

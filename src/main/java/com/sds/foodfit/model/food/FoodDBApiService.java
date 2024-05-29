@@ -3,7 +3,7 @@ package com.sds.foodfit.model.food;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -19,7 +19,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class FoodDBApiService {
 
-	@Autowired
+	@Value("${food.key}")
 	private String key;
 
 	private final String urlFrame = "https://openapi.foodsafetykorea.go.kr/api/" + key + "/I2790/json/";
@@ -48,13 +48,13 @@ public class FoodDBApiService {
 				if (dataNode != null && dataNode.isArray()) {
 					for (JsonNode item : dataNode) {
 						FoodDB food = new FoodDB();
-						food.setFOOD_CD(item.get("FOOD_CD").asInt());			// 코드
-						food.setDESC_KOR(item.get("DESC_KOR").asText());		// 음식명
-						food.setNUTR_CONT1(item.get("NUTR_CONT1").asInt());		// 열량
-						food.setNUTR_CONT2(item.get("NUTR_CONT2").asInt());		// 탄수화물
-						food.setNUTR_CONT3(item.get("NUTR_CONT3").asInt());		// 단백질
-						food.setNUTR_CONT4(item.get("NUTR_CONT4").asInt());		// 지방
-						food.setNUTR_CONT6(item.get("NUTR_CONT6").asInt());		// 나트륨
+						food.setFoodName(item.get("DESC_KOR").asText());		// 음식명
+						food.setKcal(item.get("NUTR_CONT1").asInt());		// 열량
+						food.setCarbohydrate(item.get("NUTR_CONT2").asInt());		// 탄수화물
+						food.setProtain(item.get("NUTR_CONT3").asInt());		// 단백질
+						food.setFat(item.get("NUTR_CONT4").asInt());		// 지방
+						food.setSugar(item.get("NUTR_CONT5").asInt());		// 지방
+						food.setSodium(item.get("NUTR_CONT6").asInt());		// 나트륨
 						foodList.add(food);
 						log.debug("5개만 불렀을때?"+foodList);
 					}
