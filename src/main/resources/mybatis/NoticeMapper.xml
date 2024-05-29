@@ -34,8 +34,10 @@
 	
 	
 	<select id="searchNoticesByTitle" resultType="Notice" parameterType="java.util.Map">
-        select * from notice 
-        where title like CONCAT('%', #{query}, '%')
-        desc limit #{startIndex}, #{rowCount}
-    </select>
+    SELECT * FROM notice 
+    WHERE title LIKE CONCAT('%', #{query}, '%')
+    ORDER BY regdate DESC
+    LIMIT #{startIndex}, #{rowCount}
+</select>
+
 </mapper>
