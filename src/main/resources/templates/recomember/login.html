@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+	<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    
+	 <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+     <!-- Site Metas -->
+    <title>Footfit Login</title>  
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    
+    <!-- 헤더 링크 -->
+	<!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">    
+	<!-- Site CSS -->
+    <link rel="stylesheet" href="css/style.css">    
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Pickadate CSS -->
+    <link rel="stylesheet" href="css/classic.css">    
+	<link rel="stylesheet" href="css/classic.date.css">    
+	<link rel="stylesheet" href="css/classic.time.css"> 
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+    
+    
+<style type="text/css">
+
+	* {
+		padding: 0;
+		margin: 0;
+		border: none;
+	}
+	body {
+		font-size: 14px;
+		font-family: 'Roboto', sans-serif;
+	}
+	.login-wrapper {
+		width: 500PX;
+		height: 350px;
+		padding: 40px;
+		box-sizing: border-box;
+		margin: 0 auto;
+	}
+	.login-wrapper>h2 {
+		font-size: 24px;
+		color: #28d485;
+		margin-bottom: 20px;
+	}
+	#login_form>input {
+		width: 100%;
+		height: 48px;
+		padding: 0 10px;
+		box-sizing: border-box;
+		margin-bottom: 16px;
+		border-radius: 6px;
+		background-color: #F8F8F8;
+	}
+	#login_form>input::placeholder {
+		color: #D2D2D2;
+	}
+	#login_form>input[type="button"] {
+		color: #fff;
+		font-size: 16px;
+		background: rgb(96, 167, 96);
+		margin-top: 35px;
+	}
+	#login_form .login>a>input[type="button"] {
+		color: #fff;
+		font-size: 16px;
+		background: rgb(96, 167, 96);
+		margin-top: 35px;
+		width: 100%;
+		height: 45px;
+		border-radius: 7px;
+	}
+	#login_form>input[type="checkbox"] {
+		display: none;
+		margin-right: 5px;
+	}
+	#login_form>label {
+		color: #999999;
+	}
+
+	#sns{
+		justify-content:space-around;
+		width:100%;
+		display: flex;
+	}
+	#sns input {
+		width: 55px;
+	}
+	#login_text{
+		position:relative;
+		margin-bottom:30px;
+		text-align: center;
+		font-size: 12px;
+		color:#09aa5c;
+	}
+	#login_text:before{
+		content: "";
+		position: absolute;
+		top: -15px;
+		left:0px;
+		width:100%;
+		height: 1px;
+		border-radius: 5px;
+		background: #dadada;
+	}
+	#loginArea{
+		margin:35px 0px;
+		list-style:none;
+		text-decoration:none;
+		text-align: center;
+		display: block;
+	}
+	#loginArea li{
+		text-decoration:none;
+		position: relative;
+		display: inline-block;
+	}
+	#loginArea li a{
+		text-decoration: none;
+		
+	}
+	#loginArea li+li{
+		padding-left: 17px;
+	}
+	#loginArea li+li:before{
+		content: "";
+		position: absolute;
+		top: 4px;
+		left: 6px;
+		width: 1px;
+		height: 12px;
+		border-radius: 5px;
+		background: #dadada;
+	}
+	#loginArea .find_text{
+		display: inline-block;
+		font-size: 14px;
+		line-height: 20px;
+		color: #929294;
+	}
+	#loginArea .accent {
+		font-weight: 500;
+		color:#09aa5c;
+	}
+	@media (max-width:486px) {
+        .login-wrapper{
+            width:100%
+        }
+    }
+</style>
+</head>
+<body>
+	
+	<!-- Start header -->
+	<div th:include="fragments/header :: header"></div>
+	<!-- End header -->
+
+	<!--Start Login info  -->
+	<div class="login-wrapper">
+		<h2>Login</h2>
+		<form id="login_form">
+
+			<input type="text" name="id" placeholder="ID">
+			
+			<input type="password" name="pwd" placeholder="Password">
+			
+			<ul id="loginArea">
+				<li>
+					<a href="#" class="find_text">아이디 찾기</a>
+				</li>
+				<li>
+					<a href="#" class="find_text">비밀번호 찾기</a>
+				</li>
+				<li>
+					<a href="/recomember/joinform"><span class="accent">회원가입</span></a>
+				</li>
+			</ul>
+			
+			<p id="login_text">소셜 로그인</p>
+			<div id="sns">
+				<a href="javascript:getAuthForm('google')" class="google">
+					<input type="image" src="/site/images/google_logo_icon.png">
+				</a>
+				<a  href="javascript:getAuthForm('naver')" class="naver">
+					<input type="image" src="/site/images/naver_logo_icon.png">
+				</a>
+				<a  href="javascript:getAuthForm('kakao')" class="kakao">
+					<input type="image" src="/site/images/kakao_logo_icon.png">
+				</a>
+			</div>
+
+			<div class="login">
+					<a href="#">
+						<input type="button" id="bt_login" value="로그인" onclick="formCheck(this)">
+					</a>
+			</div>
+
+		</form>
+	</div>
+	<!--End Login info  -->
+	
+	<!-- Start Footer -->
+		<div th:include="fragments/footer :: footer"></div>
+	<!-- End Footer -->
+	
+
+	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+	
+	<!-- js link -->
+	<div th:include="fragments/footer_link :: footer_link"></div>
+		
+	<!-- ALL JS FILES -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+	<script src="js/jquery.superslides.min.js"></script>
+	<script src="js/images-loded.min.js"></script>
+	<script src="js/isotope.min.js"></script>
+	<script src="js/baguetteBox.min.js"></script>
+	<script src="js/picker.js"></script>
+	<script src="js/picker.date.js"></script>
+	<script src="js/picker.time.js"></script>
+	<script src="js/legacy.js"></script>
+	<script src="js/form-validator.min.js"></script>
+    <script src="js/contact-form-script.js"></script>
+    <script src="js/custom.js"></script>
+	
+	
+</body>
+</html>
+<script type="text/javascript">
+	function getAuthForm(sns){
+		$.ajax({
+			url:"/rest/member/authform/"+sns,
+			type:"GET",
+			success:function(result, status, xhr){
+				location.href=result;
+			}
+		});
+	}
+
+
+	function loginCheck(){
+		$("#login_form").attr({
+			action:"/member/login",
+			method:"post"
+		});
+		$("#login_form").submit();
+	}
+	$(function(){
+		$("#bt_login").click(function(){
+			alert("로그인 성공!")
+			loginCheck();
+		});
+	})
+</script>
