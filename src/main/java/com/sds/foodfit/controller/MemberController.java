@@ -54,7 +54,7 @@ public class MemberController {
 		log.debug("member id "+member.getId());
 		log.debug("member id "+member.getEmail());
 		log.debug("member id "+member.getName());
-		log.debug("member id "+member.getSns().getSns_name());
+		log.debug("member id "+member.getSns().getSnsName());
 		
 		return null;
 	}
