@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
+    
+	 <!-- Mobile Metas -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    
+     <!-- Site Metas -->
+    <title>회원가입</title>  
+    <meta name="keywords" content="">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <!-- Site Icons -->
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">    
+	<!-- Site CSS -->
+    <link rel="stylesheet" href="css/style.css">    
+	<!-- Pickadate CSS -->
+    <link rel="stylesheet" href="css/classic.css">    
+	<link rel="stylesheet" href="css/classic.date.css">    
+	<link rel="stylesheet" href="css/classic.time.css">    
+    <!-- Responsive CSS -->
+    <link rel="stylesheet" href="css/responsive.css">
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    <style type="text/css">
+
+	* {
+		padding: 0;
+		margin: 0;
+		border: none;
+	}
+	body {
+		font-size: 14px;
+		font-family: 'Roboto', sans-serif;
+	}
+	.join_wrapper {
+		width: 500PX;
+		height: 350px;
+		padding: 40px;
+		box-sizing: border-box;
+		margin: 0 auto;
+	}
+	.join_wrapper>h2 {
+		font-size: 24px;
+		color: #28d485;
+		margin-bottom: 20px;
+	}
+	#join_form>input {
+		width: 100%;
+		height: 48px;
+		padding: 0 10px;
+		box-sizing: border-box;
+		margin-bottom: 12px;
+		border-radius: 6px;
+		background-color: #F8F8F8;
+	}
+	#jogin_form>input::placeholder {
+		color: #D2D2D2;
+	}
+	#join_form>input[type="button"] {
+		color: #fff;
+		font-size: 16px;
+		background: rgb(96, 167, 96);
+	}
+	#join_form .login_check {
+		width: 100%;
+		display: flex;
+		flex: 1;
+		margin-top: 10px;
+	}
+	#join_form .login_check a{
+		flex: 1;
+		margin-right: 5px;
+	}
+	#join_form .login_check a:last-of-type{
+		margin-right: 0px;
+	}
+	#join_form .login_check input[type="button"] {
+		color: #fff;
+		font-size: 16px;
+		background: rgb(96, 167, 96);
+		width: 100%;
+		margin-right: 5px;
+		border-radius: 6px;
+		height: 48px;
+	}
+	
+
+	#join_form>label {
+		color: #555555;
+		font-size: 15px;
+	}
+	#sns{
+		justify-content:space-around;
+		width:100%;
+		display: flex;
+	}
+	#sns input {
+		width: 55px;
+		margin: 20px 0px;
+	}
+	#login_text{
+		position:relative;
+		margin:20px 0px;
+		text-align: center;
+		font-size: 12px;
+		color:#09aa5c;
+	}
+	#login_text::after{
+		content: "";
+		position: absolute;
+		top: 40px;
+		left:0px;
+		width:100%;
+		height: 1px;
+		border-radius: 5px;
+		background: #dadada;
+	}
+
+    @media (max-width:768px) {
+        .join_wrapper{
+            width:100%
+        }
+    }
+</style>
+</head>
+<body>
+
+	<!-- Start header -->
+		<th:block th:replace="~{fragments/header :: header}"/>
+	<!-- End header -->
+	
+	<!--Start JoinForm  -->
+		<div class="join_wrapper">
+		<h2>회원정보 입력</h2>
+		<form id="join_form">
+
+			<label for="">이름</label>
+            <input type="text" name="id" placeholder="이름">
+
+			<label for="">아이디</label>
+			<input type="text" name="id" placeholder="아이디">
+			
+			<label for="">비밀번호</label>
+			<input type="password" name="pwd" placeholder="비밀번호">
+            <input type="password" name="pwd_check" placeholder="비밀번호확인">
+
+            <label for="">본인 확인 이메일</label>
+            <input type="email" name="email" placeholder="foodfit@naver.com">
+			<input type="button" id="email_check" value="이메일 확인">
+
+			<p id="login_text">소셜 로그인</p>
+			<div id="sns">
+				<a href="javascript:getAuthForm('google')" class="google">
+					<input type="image" src="/site/images/google_logo_icon.png">
+				</a>
+				<a  href="javascript:getAuthForm('naver')" class="naver">
+					<input type="image" src="/site/images/naver_logo_icon.png">
+				</a>
+				<a  href="javascript:getAuthForm('kakao')" class="kakao">
+					<input type="image" src="/site/images/kakao_logo_icon.png">
+				</a>
+			</div>
+
+			<div class="login_check">
+				<a href="/recomember/loginform">
+					<input type="button" id="bt_prev" value="이전">
+				</a>
+				<a href="/recomember/healthform">
+					<input type="button" id="bt_health" value="건강정보입력">
+				</a>
+			</div>
+
+		</form>
+	</div>
+	
+	
+	<!--End JoinForm  -->
+	
+	
+	<!-- Start Footer -->
+		<th:block th:replace="~{fragments/footer :: footer}"/>
+	<!-- End Footer -->
+	
+	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+	
+	<!-- ALL JS FILES -->
+	<script src="js/jquery-3.2.1.min.js"></script>
+	<script src="js/popper.min.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+    <!-- ALL PLUGINS -->
+	<script src="js/jquery.superslides.min.js"></script>
+	<script src="js/images-loded.min.js"></script>
+	<script src="js/isotope.min.js"></script>
+	<script src="js/baguetteBox.min.js"></script>
+	<script src="js/picker.js"></script>
+	<script src="js/picker.date.js"></script>
+	<script src="js/picker.time.js"></script>
+	<script src="js/legacy.js"></script>
+	<script src="js/form-validator.min.js"></script>
+    <script src="js/contact-form-script.js"></script>
+    <script src="js/custom.js"></script>
+</body>
+</html>
+
+<script type="text/javascript">
+function getAuthForm(sns){
+	$.ajax({
+		url:"/rest/member/authform/" +sns,
+		type:"GET",
+		success:function(result, status, xhr){
+			location.href=result;
+		}
+	});
+}
+
+
+function healthCheck(){
+	$("#join_form").attr({
+		action:"/recomember/join",
+		method:"post"
+	});
+	$("#join_from").submit();
+	location.href="/recomember/healthform"
+}
+$(function(){
+	$("#bt_health").click(function(){
+			healthCheck();	
+	});
+	$("#bt_prev").click(function(){
+		location.href="/recomember/loginform"
+	});
+})
+
+</script>
