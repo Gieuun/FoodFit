@@ -13,4 +13,5 @@ public class FoodDB { // 식품영양성분DB 오픈API에서 가져오는 데�
 	public int sugar; // 당류(g) : NUTR_CONT5
 	public int sodium; // 나트륨(mg) : NUTR_CONT6
 
+
 }

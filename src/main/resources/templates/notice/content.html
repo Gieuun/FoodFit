@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title th:text="${notice.title}">공지사항 상세보기</title>
+    <meta charset="UTF-8">
+<!-- Site Icons -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- header_link begin -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+    <!-- header_link end -->
+    <style>
+        .notice-header {
+            font-size: 24px;
+            font-weight: bold;
+            margin-bottom: 20px;
+        }
+        .notice-meta {
+            font-size: 14px;
+            color: #888;
+            margin-bottom: 20px;
+        }
+        .notice-content {
+            font-size: 16px;
+            line-height: 1.6;
+            margin-bottom: 40px;
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{fragments/header :: header}"/>
+<br><br><br><br><br><br>
+    <div class="container">
+        <div class="notice-header">공지사항</div>
+        <hr>
+        <div class="notice-title">
+            <h4 th:text="${notice.title}"></h4>
+        </div>
+        <div class="notice-meta">
+            <span>등록일: <span th:text="${notice.regdate}"></span></span>
+            <span class="ml-4">작성자: <span th:text="${notice.writer}"></span></span>
+            <span class="ml-4">조회수: <span th:text="${notice.hit}"></span></span>
+        </div>
+        <div class="notice-content" th:utext="${notice.content}">
+            
+        </div>
+        <div class="notice-footer">
+            <button class="btn btn-custom" onclick="location.href='/notice/list'">목록</button>
+        </div>
+    </div>
+    <br><br><br><br><br><br>
+    <th:block th:replace="~{fragments/footer :: footer}"/>
+
+    <th:block th:replace="~{fragments/footer_link :: footer_link}"/>
+
+</body>
+</html>

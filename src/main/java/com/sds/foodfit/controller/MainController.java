@@ -3,12 +3,15 @@ package com.sds.foodfit.controller;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class MainController {
 	@GetMapping("/")
 	public String getMain() {
 		return "main/index";
+		
 	}
 
 	@GetMapping("/demo")
@@ -27,7 +30,7 @@ public class MainController {
 		return "recofood/insert";
 
 	}
-	
+
 	@GetMapping("/login")
 	public String goLogin() {
 		return "/recomember/login";
@@ -41,3 +44,5 @@ public class MainController {
     }
 
 }
+  		
+
