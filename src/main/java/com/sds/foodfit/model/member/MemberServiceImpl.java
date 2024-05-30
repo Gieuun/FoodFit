@@ -40,7 +40,7 @@ public class MemberServiceImpl implements MemberService{
 
 	@Transactional
 	public void regist(Member member) throws MemberException {
-		Sns sns = snsDAO.selectByName(member.getSns().getSns_name());
+		Sns sns = snsDAO.selectByName(member.getSns().getSnsName());
 		member.setSns(sns); //sns_idx가 채워진 DTO를 다시 MemberDTO 에 대입
 		
 		Role role = roleDAO.selectByName(member.getRole().getRole_name());
@@ -52,7 +52,7 @@ public class MemberServiceImpl implements MemberService{
 			throw new MemberException("회원 등록 실패");
 		}
 		
-		if(sns.getSns_name().equals("homepage")) {
+		if(sns.getSnsName().equals("homepage")) {
 			MemberDetail memberDetail = member.getMemberDetail();
 			memberDetail.setMember(member);
 			

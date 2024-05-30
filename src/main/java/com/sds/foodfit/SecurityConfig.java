@@ -5,7 +5,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
 
 @Configuration
 public class SecurityConfig {
@@ -20,6 +22,7 @@ public class SecurityConfig {
 	 @Bean
 	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 	        http
+	        	.csrf().disable() //공지사항 CRUD가 안먹혀서 추가했습니다. csrf보호 비활성화
 	            .authorizeHttpRequests(authorize -> authorize
 	            		
 	            		.requestMatchers("/site/**","/").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!

@@ -68,6 +68,13 @@ public class MemberController {
 	//홈페이지 회원가입 요청 처리
 	@PostMapping("/recomember/health")
 	public String Join(Member member) {
+
+		log.debug("member id "+member.getId());
+		log.debug("member id "+member.getEmail());
+		log.debug("member id "+member.getName());
+		log.debug("member id "+member.getSns().getSnsName());
+		
+
 		return null;
 	}
 	
