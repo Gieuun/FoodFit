@@ -43,7 +43,7 @@ public class MemberServiceImpl implements MemberService{
 		Sns sns = snsDAO.selectByName(member.getSns().getSnsName());
 		member.setSns(sns); //sns_idx가 채워진 DTO를 다시 MemberDTO 에 대입
 		
-		Role role = roleDAO.selectByName(member.getRole().getRole_name());
+		Role role = roleDAO.selectByName(member.getRole().getRoleName());
 		member.setRole(role); //role_idx가 채워진 DTO를 다시 MemberDTO 에 대입
 		
 		int result = memberDAO.insert(member);
