@@ -1,10 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설문 조사</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<!-- Site Icons -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- header_link begin -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+    <!-- header_link end -->
+    <title>체험하기</title>
     <style>
         body {
             padding: 20px;
@@ -22,6 +27,8 @@
     </style>
 </head>
 <body>
+<div th:include="fragments/header :: header"></div>
+<br><br><br><br>
     <div class="survey-form">
         <h2 class="text-center">설문 조사</h2>
         <form>
@@ -61,12 +68,15 @@
                 </div>
             </div>
 
-            <button type="button" class="btn btn-primary submit-btn">추천음식 보러가기</button>
         </form>
+            					<div class="submit-button text-center">
+									<button class="btn btn-common" onClick="location.href='/demo/demoResult';">추천음식 보러가기</button>
+									<div id="msgSubmit" class="h3 text-center hidden"></div> 
+									<div class="clearfix"></div> 
     </div>
+<br><br><br><br>
+    <th:block th:replace="~{fragments/footer :: footer}"/>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <th:block th:replace="~{fragments/footer_link :: footer_link}"/>
 </body>
 </html>
