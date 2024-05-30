@@ -1,85 +1,64 @@
 -- sns 테이블 만들기
 create  table  sns(
-	sns_idx  int primary key auto_increment 
-	, sns_name  varchar(12)
+	snsIdx  int primary key auto_increment 
+	, snsName  varchar(12)
 );
 
-insert into sns(sns_name) values('google');
-insert into sns(sns_name) values('naver');
-insert into sns(sns_name) values('kakao');
-insert into sns(sns_name) values('homepage');
+insert into sns(snsName) values('google');
+insert into sns(snsName) values('naver');
+insert into sns(snsName) values('kakao');
+insert into sns(snsName) values('homepage');
 
 --role 테이블 만들기
 create  table  role(
-	role_idx  int primary key auto_increment 
-	, role_name  varchar(12)
+	roleIdx  int primary key auto_increment 
+	, roleName  varchar(12)
 );
 
-insert into role(role_name) values('USER');
-insert into role(role_name) values('GUEST');
+insert into role(roleName) values('ADMIN');
+insert into role(roleName) values('USER');
+insert into role(roleName) values('GUEST');
 
 
 -- 회원테이블 만들기
 create table member(
-   	  member_idx int primary key auto_increment  
+   	  memberIdx int primary key auto_increment  
 	, name varchar(20)
 	, id varchar(20)
 	, pwd varchar(20)
 	, email varchar(30)
-	, role_idx int
-	, sns_idx int 
-	, constraint fk_role_member  foreign key (role_idx) references role (role_idx)
-	, constraint fk_sns_member  foreign key (sns_idx) references sns (sns_idx)
+	, roleIdx int
+	, snsIdx int 
+	, constraint fk_role_member  foreign key (roleIdx) references role (roleIdx)
+	, constraint fk_sns_member  foreign key (snsIdx) references sns (snsIdx)
 ) default character set utf8;
 
 -- member에 관리자 계정 추가
-insert into member(name, id, pwd, email, role_idx, sns_idx) values('admin', 'admin', '1234', 'a', 1, 4);
+insert into member(name, id, pwd, email, roleIdx, snsIdx) values('admin', 'admin', '1234', 'a', 1, 4);
 
 
 --회원추가정보 테이블
 create table member_detail(
-   	  member_detail_idx int primary key auto_increment  
-	, gender varchar(10)
-	, age int(10) default 0
-	, height int(10) default 0
-	, weight int(10) default 0
-	, member_idx int
-	, constraint fk_member_member_detail  foreign key (member_idx) references member (member_idx)
+    memberDetailIdx int primary key auto_increment
+    , gender varchar(10)
+    , age int(10) default 0
+    , height int(10) default 0
+    , weight int(10) default 0
+    , memberIdx int
+    , constraint fk_member_member_detail foreign key (memberIdx) references member (memberIdx)
 ) default character set utf8;
-
-<<<<<<<< HEAD:SQL/SQL쿼리문
---알러지정보 테이블(일단 보류)
-create table allergy(
-   	  allergy_idx int primary key auto_increment  
-	, allergy_name varchar(100)
-	, member_detail_idx int
-	, member_idx int
-	, constraint fk_member_detail_allergy  foreign key (member_detail_idx) references member_detail (member_detail_idx)
-	, constraint fk_member_allergy  foreign key (member_idx) references member (member_idx)
-) default character set utf8;
-========
--- 권한 테이블 (업로드용 admin 만들기용)
-create  table  role(
-	role_idx  int primary key auto_increment 
-	, role_name  varchar(12)
-);
-
-insert into role(role_name) values('ADMIN');
-insert into role(role_name) values('USER');
-insert into role(role_name) values('GUEST');
->>>>>>>> 96b587894eee6bc4f3a41fe330eb34591023cb30:sqlquery.txt
 
 --비선호음식 테이블
 create table disliked_food(
-   	  disliked_food_idx int primary key auto_increment  
-	, disfood_name varchar(100)
-	, member_detail_idx int
-	, constraint fk_member_detail_disliked_food_idx foreign key (member_detail_idx) references member_detail (member_detail_idx)
+   	  dislikedFoodIdx int primary key auto_increment  
+	, disfoodName varchar(100)
+	, memberDetailIdx int
+	, constraint fk_member_detail_disliked_food_idx foreign key (memberDetailIdx) references member_detail (memberDetailIdx)
 ) default character set utf8;
 
 -- 음식 테이블 (API 데이터를 추출하여 보관)
 CREATE TABLE fooddb (
-    food_idx INT AUTO_INCREMENT PRIMARY KEY,
+    foodIdx INT AUTO_INCREMENT PRIMARY KEY,
     foodname VARCHAR(255) NOT NULL,     
     kcal FLOAT,               
     carbohydrate FLOAT,
@@ -88,6 +67,12 @@ CREATE TABLE fooddb (
     sugar FLOAT,           
     sodium FLOAT
 );
+
+
+
+
+
+
 
 --알러지정보 테이블 (보류)
 create table allergy(

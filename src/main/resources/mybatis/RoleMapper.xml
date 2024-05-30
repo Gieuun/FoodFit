@@ -1,15 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="com.sds.foodfit.model.member.RoleDAO">
-	
-	<!--회원가입 시 sns의 정보가 필요함, 롤의 이름을 통해 Sns DTO를 채우기 위함 -->
-	<select id="selectByName" parameterType="String" resultType="Role">
-		select * from role where role_name=#{role_name}
+
+	<resultMap type="Role" id="RoleMap">
+		<id column="role_id" property="roleId" />
+		<result column="roleName" property="roleName"/>
+	</resultMap>
+
+	<!-- 회원가입 시 sns의 정보가 필요함, 롤의 이름을 통해 Sns DTO를 채우기 위함 -->
+	<select id="selectByName" parameterType="String" resultMap="RoleMap">
+		select * from role where roleName=#{roleName}
+	</select>
+
+	<select id="selectRoleById" parameterType="int" resultMap="RoleMap">
+		SELECT * FROM roles WHERE role_id = #{roleId}
+	</select>
+
+	<select id="select" parameterType="int" resultMap="RoleMap">
+		select * from role where roleIdx=#{roleIdx}
 	</select>
 	
-	
-	<select id="select" parameterType="int" resultMap="Role">
-		select * from role where role_idx=#{role_idx}
-	</select>
-	
+
 </mapper>

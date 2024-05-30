@@ -1,9 +1,12 @@
 package com.sds.foodfit.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.sds.foodfit.domain.Member;
 import com.sds.foodfit.model.member.MemberService;
@@ -61,9 +64,7 @@ public class MemberController {
 	@GetMapping("/recomember/mypageform")
 	public String getMypageForm() {
 		return "recomember/mypage";
-	}
-	
-	
+	}	
 	
 	//홈페이지 회원가입 요청 처리
 	@PostMapping("/recomember/health")
@@ -76,6 +77,5 @@ public class MemberController {
 		
 
 		return null;
-	}
-	
+	}	
 }

@@ -1,112 +1,118 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-    
-	 <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-     <!-- Site Metas -->
-    <title>Login</title>  
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Login</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+<!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    
-    <!-- 헤더 링크 -->
-	<!-- header_link begin -->
-	<th:block th:replace="~{fragments/header_link :: header_link}"/>
-    <!-- header_link end -->
 
-    
+<!-- 헤더 링크 -->
+<!-- header_link begin -->
+<th:block th:replace="~{fragments/header_link :: header_link}" />
+<!-- header_link end -->
+
 <style type="text/css">
-	#sns{
-		justify-content:space-around;
-		width:100%;
-		display: flex;
-	}
-	#sns input {
-		width: 55px;
-	}
-	#login_text{
-		position:relative;
-		margin-bottom:30px;
-		text-align: center;
-		font-size: 12px;
-		color:#09aa5c;
-	}
-	#login_text:before{
-		content: "";
-		position: absolute;
-		top: -15px;
-		left:0px;
-		width:100%;
-		height: 1px;
-		border-radius: 5px;
-		background: #dadada;
-	}
-	#loginArea{
-		margin:35px 0px;
-		list-style:none;
-		text-decoration:none;
-		text-align: center;
-		display: block;
-	}
-	#loginArea li{
-		text-decoration:none;
-		position: relative;
-		display: inline-block;
-	}
-	#loginArea li a{
-		text-decoration: none;
-		
-	}
-	#loginArea li+li{
-		padding-left: 17px;
-	}
-	#loginArea li+li:before{
-		content: "";
-		position: absolute;
-		top: 4px;
-		left: 6px;
-		width: 1px;
-		height: 12px;
-		border-radius: 5px;
-		background: #dadada;
-	}
-	#loginArea .find_text{
-		display: inline-block;
-		font-size: 14px;
-		line-height: 20px;
-		color: #929294;
-	}
-	#loginArea .accent {
-		font-weight: 500;
-		color:#09aa5c;
-	}
-	.btnArea{
-		margin-top:30px;
-		width:30%;
-		margin: 0 auto;
-	}
-	.error{
-    	font-size: 12px;
-    	color:red;
-    	font-weight: 700;
-    }
+#sns {
+	justify-content: space-around;
+	width: 100%;
+	display: flex;
+}
+
+#sns input {
+	width: 55px;
+}
+
+#login_text {
+	position: relative;
+	margin-bottom: 30px;
+	text-align: center;
+	font-size: 12px;
+	color: #09aa5c;
+}
+
+#login_text:before {
+	content: "";
+	position: absolute;
+	top: -15px;
+	left: 0px;
+	width: 100%;
+	height: 1px;
+	border-radius: 5px;
+	background: #dadada;
+}
+
+#loginArea {
+	margin: 35px 0px;
+	list-style: none;
+	text-decoration: none;
+	text-align: center;
+	display: block;
+}
+
+#loginArea li {
+	text-decoration: none;
+	position: relative;
+	display: inline-block;
+}
+
+#loginArea li a {
+	text-decoration: none;
+}
+
+#loginArea li+li {
+	padding-left: 17px;
+}
+
+#loginArea li+li:before {
+	content: "";
+	position: absolute;
+	top: 4px;
+	left: 6px;
+	width: 1px;
+	height: 12px;
+	border-radius: 5px;
+	background: #dadada;
+}
+
+#loginArea .find_text {
+	display: inline-block;
+	font-size: 14px;
+	line-height: 20px;
+	color: #929294;
+}
+
+#loginArea .accent {
+	font-weight: 500;
+	color: #09aa5c;
+}
+
+.btnArea {
+	margin-top: 30px;
+	width: 30%;
+	margin: 0 auto;
+}
+
+.error {
+	font-size: 12px;
+	color: red;
+	font-weight: 700;
+}
 </style>
 </head>
 <body>
-	
+
 	<!-- Start header -->
-	<th:block th:replace="fragments/header :: header" />
+	<th:block th:replace="~{fragments/header :: header}" />
 	<!-- End header -->
-	
+
 	<!-- Start All Pages -->
 	<div class="all-page-title page-breadcrumb">
 		<div class="container text-center">
@@ -118,14 +124,14 @@
 		</div>
 	</div>
 	<!-- End All Pages -->
-	
+
 	<!-- Start Contact -->
 	<div class="contact-box">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="heading-title text-center">
-					<h2>로그인</h2>
+						<h2>로그인</h2>
 					</div>
 				</div>
 			</div>
@@ -133,121 +139,124 @@
 				<div class="col-lg-12">
 					<form id="loginForm">
 						<div class="row">
-						
+
 							<div class="col-md-12">
 								<div class="form-group">
-									<input  id="id" type="text" class="form-control" name="id"  placeholder="아이디를 입력해주세요.">
-								</div>                                 
+									<input id="id" type="text" class="form-control" name="username"
+										placeholder="아이디를 입력해주세요.">
+								</div>
 							</div>
-							
+
 							<div class="col-md-12">
 								<div class="form-group">
-									<input id="pw" type="password" name="pwd"  class="form-control" placeholder="비밀번호를 입력해주세요">
-								</div> 	
+									<input id="pw" type="password" name="pwd" class="form-control"
+										placeholder="비밀번호를 입력해주세요">
+								</div>
 							</div>
-							
+
 							<div class="col-md-12">
 								<div class="form-group">
 									<ul id="loginArea">
-										<li>
-											<a href="#" class="find_text">아이디 찾기</a>
-										</li>
-										<li>
-											<a href="#" class="find_text">비밀번호 찾기</a>
-										</li>
-										<li>
-											<a href="/recomember/joinform"><span class="accent">회원가입</span></a>
-										</li>
+										<li><a href="#" class="find_text">아이디 찾기</a></li>
+										<li><a href="#" class="find_text">비밀번호 찾기</a></li>
+										<li><a href="/recomember/joinform"><span
+												class="accent">회원가입</span></a></li>
 									</ul>
-								</div> 	
+								</div>
 							</div>
-							
+
 							<div class="col-md-12">
 								<div class="form-group">
 									<p id="login_text">소셜 로그인</p>
-										<div id="sns">
-											<a href="javascript:getAuthForm('google')" class="google">
-												<input type="image" src="/site/images/google_logo_icon.png">
-											</a>
-											<a href="javascript:getAuthForm('naver')" class="naver">
-												<input type="image" src="/site/images/naver_logo_icon.png">
-											</a>
-											<a href="javascript:getAuthForm('kakao')" class="kakao">
-												<input type="image" src="/site/images/kakao_logo_icon.png">
-											</a>
+									<div id="sns">
+										<a href="javascript:getAuthForm('google')" class="google">
+											<input type="image" src="/site/images/google_logo_icon.png">
+										</a> <a href="javascript:getAuthForm('naver')" class="naver">
+											<input type="image" src="/site/images/naver_logo_icon.png">
+										</a> <a href="javascript:getAuthForm('kakao')" class="kakao">
+											<input type="image" src="/site/images/kakao_logo_icon.png">
+										</a>
 									</div>
-								</div> 	
+								</div>
 							</div>
-							
+
 							<div class="col-md-12">
 								<div class="submit-button text-center btnArea">
 									<button class="btn btn-common" id="bt_login" type="button">로그인</button>
 								</div>
 							</div>
-							
-						</div>            
+
+						</div>
 					</form>
 				</div>
 			</div>
 		</div>
 	</div>
 	<!-- End Contact -->
-	
 
 	<!-- Start Footer -->
-		<div th:include="fragments/footer :: footer"></div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
 	<!-- End Footer -->
-	
 
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-	
+
 	<!-- js link -->
-	<div th:include="fragments/footer_link :: footer_link"></div>
-	
-	
+	<div th:replace="~{fragments/footer_link :: footer_link}"></div>
 </body>
-</html>
+
 <script type="text/javascript">
-	
-	function getAuthForm(sns){
-		$.ajax({
-			url:"/rest/remember/authform/"+sns,
-			type:"GET",
-			success:function(result, status, xhr){
-				location.href=result;
-			},
-			error: function(xhr, setatus, error){
-				//에러처리
-				console.error("AJAX에러:", error);
-				alert("권한이 없거나 요청에 실패했습니다");
+	$(function() {
+		//어드민 링크 가져오는 함수
+		function getAdminLink() {
+			$.ajax({
+				url : "/admin/update",
+				type : "GET",
+				success : function(result, status, xhr) {
+					location.href = result;
+				},
+				error : function(xhr, status, err) {
+					//에러처리
+					console.error("AJAX에러:", err);
+						alert("요청에 실패했습니다");								
+				}
+			});
+		}
+
+		//사용자 인증 양식 가져오는 함수
+		function getAuthForm(sns) {
+			$.ajax({
+				url : "/rest/remember/authform/" + sns,
+				type : "GET",
+				success : function(result, status, xhr) {
+					location.href = result;
+				},
+				error : function(xhr, status, error) {
+					//에러처리
+					console.error("AJAX에러:", error);
+					alert("권한이 없거나 요청에 실패했습니다");
+				}
+			});
+		}
+
+		//로그인 체크 함수
+		function loginCheck() {
+			$("#loginForm").attr({
+				action : "/recomember/login",
+				method : "post"
+			});
+			$("#loginForm").submit();
+		}
+
+		//로그인 버튼 클릭 시 호출되는 함수
+		$("#bt_login").click(function() {
+			let id = $("#loginForm input[name='username']").val();
+			if (id == "admin") {
+				getAdminLink();
+			} else {
+				loginCheck();
 			}
 		});
-	}
-	
-	function getAdminLink(){
-		$.ajax({
-			url:"/rest/recomember/adminlink",
-			type:"GET",
-			success: function(result, status, xhr){
-				location.href = result;
-			},
-			error: function(xhr, setatus, error){
-				//에러처리
-				console.error("AJAX에러:", error);
-				alert("권한이 없거나 요청에 실패했습니다");
-			}
-		});
-	}
-	function loginCheck(){
-		$("#login_form").attr({
-			action:"/recomember/login",
-			method:"post"
-		});
-		$("#login_form").submit();
-	}
-	$(function(){
-		$("#bt_login").click(function(){
-			loginCheck();
-		});
-	})
+	});
 </script>
+
+</html>
