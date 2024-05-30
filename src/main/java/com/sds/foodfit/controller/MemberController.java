@@ -6,7 +6,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.sds.foodfit.domain.Member;
-import com.sds.foodfit.domain.MemberDetail;
+import com.sds.foodfit.model.member.MemberService;
+import com.sds.foodfit.model.member.RoleService;
+import com.sds.foodfit.model.member.SnsService;
 import com.sds.foodfit.sns.KaKaoLogin;
 import com.sds.foodfit.sns.NaverLogin;
 
@@ -22,6 +24,15 @@ public class MemberController {
 	@Autowired
 	private KaKaoLogin kakaoLogin;
 	
+	@Autowired
+	private MemberService memberService;
+	
+	@Autowired
+	private RoleService roleService;
+	
+	@Autowired
+	private SnsService snsService;
+	
 	//로그인 폼 요청 처리
 	@GetMapping("/recomember/loginform")
 	public String getLoginForm() {
@@ -34,7 +45,7 @@ public class MemberController {
 	public String login(Member member) {
 		return "redirect:/"; //로그인 성공 시 메인 재요청
 	}
-	
+
 	//회원가입 폼 요청 처리
 	@GetMapping("/recomember/joinform")
 	public String getJoinForm() {
@@ -46,16 +57,24 @@ public class MemberController {
 	public String getHealthForm() {
 		return "recomember/health";
 	}
+	//마이페이지 폼 요청 처리
+	@GetMapping("/recomember/mypageform")
+	public String getMypageForm() {
+		return "recomember/mypage";
+	}
 	
-	//홈페이지 회원가입 요청처리
+	
+	
+	//홈페이지 회원가입 요청 처리
 	@PostMapping("/recomember/health")
 	public String Join(Member member) {
-		
+
 		log.debug("member id "+member.getId());
 		log.debug("member id "+member.getEmail());
 		log.debug("member id "+member.getName());
 		log.debug("member id "+member.getSns().getSnsName());
 		
+
 		return null;
 	}
 	

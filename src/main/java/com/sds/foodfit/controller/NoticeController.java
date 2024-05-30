@@ -113,6 +113,7 @@ public class NoticeController {
 	        redirectAttributes.addFlashAttribute("message", "게시글 수정 중 오류가 발생하였습니다.");
 	    }
 	    return "redirect:/notice/detail?noticeIdx=" + notice.getNoticeIdx();
+
 	}
 	
 	// 게시글 삭제 요청 처리

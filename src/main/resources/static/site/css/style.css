@@ -909,15 +909,16 @@ button:focus{
 	margin-top: 20px;
 }
 .btn.btn-common{
-	color: #d0a772;
+	color: #aaaaaa;
 	background-color: transparent;
 	background-image: none;
-	border-color: #cfa671;
+	border-color: #ced4da;
+	width:100%;
 }
 .btn.btn-common:hover{
 	color: #ffffff;
-	background-color: #cfa671;
-	border-color: #cfa671;
+	background-color: #09aa5c;
+	border-color: #09aa5c;
 }
 .blog-box{
 	padding: 70px 0px;
