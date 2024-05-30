@@ -18,7 +18,11 @@
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
     
-    <!-- 헤더 링크 -->
+    <!-- 헤더 링크 
+    <th:block th:replace="fragments/header_link :: header_link" />
+    -->
+    
+    
 	<!-- Site Icons -->
     <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
     <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
@@ -169,7 +173,7 @@
 <body>
 	
 	<!-- Start header -->
-	<div th:include="fragments/header :: header"></div>
+	<th:block th:replace="fragments/header :: header" />
 	<!-- End header -->
 
 	<!--Start Login info  -->
@@ -253,6 +257,26 @@
 			type:"GET",
 			success:function(result, status, xhr){
 				location.href=result;
+			},
+			error: function(xhr, setatus, error){
+				//에러처리
+				console.error("AJAX에러:", error);
+				alert("권한이 없거나 요청에 실패했습니다");
+			}
+		});
+	}
+	
+	function getAdminLink(){
+		$.ajax({
+			url:"/rest/recomember/adminlink",
+			type:"GET",
+			success: function(result, status, xhr){
+				location.href = result;
+			},
+			error: function(xhr, setatus, error){
+				//에러처리
+				console.error("AJAX에러:", error);
+				alert("권한이 없거나 요청에 실패했습니다");
 			}
 		});
 	}

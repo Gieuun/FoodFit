@@ -8,16 +8,15 @@ import org.springframework.stereotype.Service;
 import com.sds.foodfit.domain.FoodDB;
 
 @Service
-public class FoodDBServiceImpl implements FoodDBService{
-		
+public class FoodDBServiceImpl implements FoodDBService {
+
 	@Autowired
 	private FoodDBDAO foodDBDAO;
-	
+
 	@Override
 	public void insertFoodDB(FoodDB foodDB) {
-		foodDBDAO.insertFoodDB(foodDB);		
+		foodDBDAO.insertFoodDB(foodDB);
 	}
-	
 
 	@Override
 	public List selectHighProtein() {
@@ -30,8 +29,14 @@ public class FoodDBServiceImpl implements FoodDBService{
 	}
 
 	@Override
+	public List selectLowSodium() {
+		// TODO Auto-generated method stub
+		return foodDBDAO.selectLowSodium();
+	}
+
+	@Override
 	public List selectRandomHundred() {
 		return foodDBDAO.selectRandomHundred();
-	}	
+	}
 
 }

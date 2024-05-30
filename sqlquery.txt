@@ -21,6 +21,10 @@ create table member(
 	, constraint fk_sns_member  foreign key (sns_idx) references sns (sns_idx)
 ) default character set utf8;
 
+-- member에 관리자 계정 추가
+insert into member(name, id, pwd, email, role_idx, sns_idx) values('admin', 'admin', '1234', 'a', 1, 4);
+
+
 --회원추가정보 테이블
 create table member_detail(
    	  member_detail_idx int primary key auto_increment  
@@ -32,15 +36,15 @@ create table member_detail(
 	, constraint fk_member_member_detail  foreign key (member_idx) references member (member_idx)
 ) default character set utf8;
 
---알러지정보 테이블
-create table allergy(
-   	  allergy_idx int primary key auto_increment  
-	, allergy_name varchar(100)
-	, member_detail_idx int
-	, member_idx int
-	, constraint fk_member_detail_allergy  foreign key (member_detail_idx) references member_detail (member_detail_idx)
-	, constraint fk_member_allergy  foreign key (member_idx) references member (member_idx)
-) default character set utf8;
+-- 권한 테이블 (업로드용 admin 만들기용)
+create  table  role(
+	role_idx  int primary key auto_increment 
+	, role_name  varchar(12)
+);
+
+insert into role(role_name) values('ADMIN');
+insert into role(role_name) values('USER');
+insert into role(role_name) values('GUEST');
 
 --비선호음식 테이블
 create table disliked_food(
@@ -61,3 +65,13 @@ CREATE TABLE fooddb (
     sugar FLOAT,           
     sodium FLOAT
 );
+
+--알러지정보 테이블 (보류)
+create table allergy(
+   	  allergy_idx int primary key auto_increment  
+	, allergy_name varchar(100)
+	, member_detail_idx int
+	, member_idx int
+	, constraint fk_member_detail_allergy  foreign key (member_detail_idx) references member_detail (member_detail_idx)
+	, constraint fk_member_allergy  foreign key (member_idx) references member (member_idx)
+) default character set utf8;
