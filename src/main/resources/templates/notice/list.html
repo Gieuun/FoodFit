@@ -191,7 +191,7 @@ section.notice {
                     <tbody>
                         <tr th:each=" notice, i : ${noticeList}">
                             <td th:text="${pager.num-i.index}"></td>
-                            <td><a th:href="@{/notice/detail(notice_idx=${notice.NoticeIdx})}" th:text="${notice.title}"></a></td>
+                            <td><a th:href="@{/notice/detail(noticeIdx=${notice.noticeIdx})}" th:text="${notice.title}"></a></td>
                             <td th:text="${notice.writer}"></td>
                             <td th:text="${notice.regdate}"></td>
                             <td th:text="${notice.hit}"></td>

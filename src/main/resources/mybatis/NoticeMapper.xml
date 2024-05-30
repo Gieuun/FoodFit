@@ -16,20 +16,20 @@
 	</insert>
 	
 	<select id="select" parameterType="int" resultType="Notice">
-		select * from notice where notice_idx=#{notice_idx}
+		select * from notice where NoticeIdx=#{NoticeIdx}
 	</select>
 	
 	<update id="update" parameterType="Notice">
 		update notice set title=#{title}, writer=#{writer}, content=#{content}
-		where notice_idx=#{notice_idx}
+		where notice_idx=#{NoticeIdx}
 	</update>
 	
 	<delete id="delete" parameterType="int">
-		delete from notice where notice_idx=#{notice_idx}
+		delete from notice where NoticeIdx=#{NoticeIdx}
 	</delete>
 	
 	<update id="updateHit" parameterType="int">
-		update notice set hit = hit + 1 where notice_idx = #{notice_idx}
+		update notice set hit = hit + 1 where notice_idx = #{noticeIdx}
 	</update>
 	
 	

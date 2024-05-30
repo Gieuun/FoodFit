@@ -93,8 +93,8 @@ public class NoticeController {
 	
 	// 상세보기 요청 처리
 	@GetMapping("/notice/detail")
-	public String getDetail(Model model, @RequestParam(value="notice_idx", defaultValue="0") int notice_idx) {
-	    Notice notice = noticeService.select(notice_idx);
+	public String getDetail(Model model, @RequestParam(value="noticeIdx", defaultValue="0") int noticeIdx) {
+	    Notice notice = noticeService.select(noticeIdx);
 	    if (notice != null) {
 	        model.addAttribute("notice", notice);
 	    } else {
@@ -112,7 +112,7 @@ public class NoticeController {
 	    } catch (Exception e) {
 	        redirectAttributes.addFlashAttribute("message", "게시글 수정 중 오류가 발생하였습니다.");
 	    }
-	    return "redirect:/notice/detail?notice_idx=" + notice.getNoticeIdx();
+	    return "redirect:/notice/detail?noticeIdx=" + notice.getNoticeIdx();
 	}
 	
 	// 게시글 삭제 요청 처리
