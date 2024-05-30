@@ -11,6 +11,8 @@ public interface FoodDBService {
 
 	public List selectLowSugar();
 
+	public List selectLowSodium();
+
 	public List selectRandomHundred();
 
 }

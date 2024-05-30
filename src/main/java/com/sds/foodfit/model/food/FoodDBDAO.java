@@ -9,8 +9,13 @@ import com.sds.foodfit.domain.FoodDB;
 @Mapper
 public interface FoodDBDAO {
 	public void insertFoodDB(FoodDB foodDB);
+
 	public List selectHighProtein();
+
 	public List selectLowSugar();
-	public List selectRandomHundred();	
+
+	public List selectLowSodium();
+
+	public List selectRandomHundred();
 
 }
