@@ -41,9 +41,15 @@ dependencies {
 	testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 	
-	//mysql 의존성 수가
+	//mysql 의존성 추가
 	// https://mvnrepository.com/artifact/com.mysql/mysql-connector-j
 	implementation 'com.mysql:mysql-connector-j:8.4.0'
+	
+	//spring jdbc(스프링 부트에서 데이터 베이스 연동을 위해 사용 필수 jar)
+	implementation 'org.springframework.boot:spring-boot-starter-jdbc:3.2.4'
+	
+	//mybatis spring 버전 좀 높은거... @Mapper가 지원 
+	implementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter:3.0.3'
 	
 	
 	//json 사용하기 위해 json simple 최근버전 의존성 추가

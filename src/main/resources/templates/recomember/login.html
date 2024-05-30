@@ -8,7 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     
      <!-- Site Metas -->
-    <title>Footfit Login</title>  
+    <title>Login</title>  
     <meta name="keywords" content="">
     <meta name="description" content="">
     <meta name="author" content="">
@@ -19,82 +19,11 @@
     <![endif]-->
     
     <!-- 헤더 링크 -->
-	<!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="css/bootstrap.min.css">    
-	<!-- Site CSS -->
-    <link rel="stylesheet" href="css/style.css">    
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="css/responsive.css">
-    <!-- Pickadate CSS -->
-    <link rel="stylesheet" href="css/classic.css">    
-	<link rel="stylesheet" href="css/classic.date.css">    
-	<link rel="stylesheet" href="css/classic.time.css"> 
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="css/custom.css">
-    
+	<!-- header_link begin -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+    <!-- header_link end -->
     
 <style type="text/css">
-
-	* {
-		padding: 0;
-		margin: 0;
-		border: none;
-	}
-	body {
-		font-size: 14px;
-		font-family: 'Roboto', sans-serif;
-	}
-	.login-wrapper {
-		width: 500PX;
-		height: 350px;
-		padding: 40px;
-		box-sizing: border-box;
-		margin: 0 auto;
-	}
-	.login-wrapper>h2 {
-		font-size: 24px;
-		color: #28d485;
-		margin-bottom: 20px;
-	}
-	#login_form>input {
-		width: 100%;
-		height: 48px;
-		padding: 0 10px;
-		box-sizing: border-box;
-		margin-bottom: 16px;
-		border-radius: 6px;
-		background-color: #F8F8F8;
-	}
-	#login_form>input::placeholder {
-		color: #D2D2D2;
-	}
-	#login_form>input[type="button"] {
-		color: #fff;
-		font-size: 16px;
-		background: rgb(96, 167, 96);
-		margin-top: 35px;
-	}
-	#login_form .login>a>input[type="button"] {
-		color: #fff;
-		font-size: 16px;
-		background: rgb(96, 167, 96);
-		margin-top: 35px;
-		width: 100%;
-		height: 45px;
-		border-radius: 7px;
-	}
-	#login_form>input[type="checkbox"] {
-		display: none;
-		margin-right: 5px;
-	}
-	#login_form>label {
-		color: #999999;
-	}
-
 	#sns{
 		justify-content:space-around;
 		width:100%;
@@ -159,10 +88,15 @@
 		font-weight: 500;
 		color:#09aa5c;
 	}
-	@media (max-width:486px) {
-        .login-wrapper{
-            width:100%
-        }
+	.btnArea{
+		margin-top:30px;
+		width:30%;
+		margin: 0 auto;
+	}
+	.error{
+    	font-size: 12px;
+    	color:red;
+    	font-weight: 700;
     }
 </style>
 </head>
@@ -171,51 +105,94 @@
 	<!-- Start header -->
 	<div th:include="fragments/header :: header"></div>
 	<!-- End header -->
-
-	<!--Start Login info  -->
-	<div class="login-wrapper">
-		<h2>Login</h2>
-		<form id="login_form">
-
-			<input type="text" name="id" placeholder="ID">
-			
-			<input type="password" name="pwd" placeholder="Password">
-			
-			<ul id="loginArea">
-				<li>
-					<a href="#" class="find_text">아이디 찾기</a>
-				</li>
-				<li>
-					<a href="#" class="find_text">비밀번호 찾기</a>
-				</li>
-				<li>
-					<a href="/recomember/joinform"><span class="accent">회원가입</span></a>
-				</li>
-			</ul>
-			
-			<p id="login_text">소셜 로그인</p>
-			<div id="sns">
-				<a href="javascript:getAuthForm('google')" class="google">
-					<input type="image" src="/site/images/google_logo_icon.png">
-				</a>
-				<a  href="javascript:getAuthForm('naver')" class="naver">
-					<input type="image" src="/site/images/naver_logo_icon.png">
-				</a>
-				<a  href="javascript:getAuthForm('kakao')" class="kakao">
-					<input type="image" src="/site/images/kakao_logo_icon.png">
-				</a>
-			</div>
-
-			<div class="login">
-					<a href="#">
-						<input type="button" id="bt_login" value="로그인" onclick="formCheck(this)">
-					</a>
-			</div>
-
-		</form>
-	</div>
-	<!--End Login info  -->
 	
+	<!-- Start All Pages -->
+	<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>FoodFit!</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End All Pages -->
+	
+	<!-- Start Contact -->
+	<div class="contact-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+					<h2>로그인</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<form id="loginForm">
+						<div class="row">
+						
+							<div class="col-md-12">
+								<div class="form-group">
+									<input  id="id" type="text" class="form-control" name="id"  placeholder="아이디를 입력해주세요.">
+								</div>                                 
+							</div>
+							
+							<div class="col-md-12">
+								<div class="form-group">
+									<input id="pw" type="password" name="pwd"  class="form-control" placeholder="비밀번호를 입력해주세요">
+								</div> 	
+							</div>
+							
+							<div class="col-md-12">
+								<div class="form-group">
+									<ul id="loginArea">
+										<li>
+											<a href="#" class="find_text">아이디 찾기</a>
+										</li>
+										<li>
+											<a href="#" class="find_text">비밀번호 찾기</a>
+										</li>
+										<li>
+											<a href="/recomember/joinform"><span class="accent">회원가입</span></a>
+										</li>
+									</ul>
+								</div> 	
+							</div>
+							
+							<div class="col-md-12">
+								<div class="form-group">
+									<p id="login_text">소셜 로그인</p>
+										<div id="sns">
+											<a href="javascript:getAuthForm('google')" class="google">
+												<input type="image" src="/site/images/google_logo_icon.png">
+											</a>
+											<a href="javascript:getAuthForm('naver')" class="naver">
+												<input type="image" src="/site/images/naver_logo_icon.png">
+											</a>
+											<a href="javascript:getAuthForm('kakao')" class="kakao">
+												<input type="image" src="/site/images/kakao_logo_icon.png">
+											</a>
+									</div>
+								</div> 	
+							</div>
+							
+							<div class="col-md-12">
+								<div class="submit-button text-center btnArea">
+									<button class="btn btn-common" id="bt_login" type="button">로그인</button>
+								</div>
+							</div>
+							
+						</div>            
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Contact -->
+	
+
 	<!-- Start Footer -->
 		<div th:include="fragments/footer :: footer"></div>
 	<!-- End Footer -->
@@ -225,49 +202,30 @@
 	
 	<!-- js link -->
 	<div th:include="fragments/footer_link :: footer_link"></div>
-		
-	<!-- ALL JS FILES -->
-	<script src="js/jquery-3.2.1.min.js"></script>
-	<script src="js/popper.min.js"></script>
-	<script src="js/bootstrap.min.js"></script>
-    <!-- ALL PLUGINS -->
-	<script src="js/jquery.superslides.min.js"></script>
-	<script src="js/images-loded.min.js"></script>
-	<script src="js/isotope.min.js"></script>
-	<script src="js/baguetteBox.min.js"></script>
-	<script src="js/picker.js"></script>
-	<script src="js/picker.date.js"></script>
-	<script src="js/picker.time.js"></script>
-	<script src="js/legacy.js"></script>
-	<script src="js/form-validator.min.js"></script>
-    <script src="js/contact-form-script.js"></script>
-    <script src="js/custom.js"></script>
 	
 	
 </body>
 </html>
 <script type="text/javascript">
+	
 	function getAuthForm(sns){
 		$.ajax({
-			url:"/rest/member/authform/"+sns,
+			url:"/rest/remember/authform/"+sns,
 			type:"GET",
 			success:function(result, status, xhr){
 				location.href=result;
 			}
 		});
 	}
-
-
 	function loginCheck(){
 		$("#login_form").attr({
-			action:"/member/login",
+			action:"/recomember/login",
 			method:"post"
 		});
 		$("#login_form").submit();
 	}
 	$(function(){
 		$("#bt_login").click(function(){
-			alert("로그인 성공!")
 			loginCheck();
 		});
 	})
