@@ -49,3 +49,15 @@ create table disliked_food(
 	, member_detail_idx int
 	, constraint fk_member_detail_disliked_food_idx foreign key (member_detail_idx) references member_detail (member_detail_idx)
 ) default character set utf8;
+
+-- 음식 테이블 (API 데이터를 추출하여 보관)
+CREATE TABLE fooddb (
+    food_idx INT AUTO_INCREMENT PRIMARY KEY,
+    foodname VARCHAR(255) NOT NULL,     
+    kcal FLOAT,               
+    carbohydrate FLOAT,
+    protein FLOAT,         
+    fat FLOAT,               
+    sugar FLOAT,           
+    sodium FLOAT
+);
