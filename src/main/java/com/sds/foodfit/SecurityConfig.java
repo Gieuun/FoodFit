@@ -11,6 +11,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
+import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+
+
 @Configuration
 public class SecurityConfig {
 
@@ -24,19 +27,26 @@ public class SecurityConfig {
 	 @Bean
 	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {		 
 	        http
-	        	.csrf().disable() //공지사항 CRUD가 안먹혀서 추가했습니다. csrf보호 비활성화
+	        	.csrf().disable() //공지사항 CRUD가 안먹혀서 추가했습니다. csrf보호 비활성화 대체재알아보기
 	            .authorizeHttpRequests(authorize -> authorize
 	            		
-	            		.requestMatchers("/site/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
-	            		.requestMatchers("/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
-	            		.requestMatchers("/").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
+
+	            		.requestMatchers("/site/**","/").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
+	            		.requestMatchers("/recomember/temp").permitAll()
+	            		.requestMatchers("/recomember/authform").permitAll()
+	            		.requestMatchers("/recomember/loginform", "/recomember/login", "/recomember/joinform").permitAll()
+	            		.requestMatchers("/recomember/join", "/recomember/healthform", "/recomember/health").permitAll()
+	            		.requestMatchers("/recomember/mypage", "/recomember/mypageform").permitAll()
 	            		.requestMatchers("/admin/**").hasRole("ADMIN")
 	            		
 	                .anyRequest().authenticated()             		// 그 외의 요청은 인증 필요
 	            )
 	            .formLogin(form -> form
-	                .loginPage("/login")
-	                .permitAll()                             		// 로그인 페이지는 인증 없이 접근 가능
+	                .loginPage("/recomember/loginform")
+	                .successHandler(loginEventHandler())
+	                .loginProcessingUrl("/recomember/login")
+	                .usernameParameter("id")
+	                .passwordParameter("pwd")
 	            )
 	            .httpBasic(httpBasic -> httpBasic
 	                .realmName("FoodFit")                      		// 기본 인증 사용 시 realm 이름 설정
@@ -56,4 +66,7 @@ public class SecurityConfig {
 	        return new InMemoryUserDetailsManager(admin);
 	    }
 
+	 public AuthenticationSuccessHandler loginEventHandler() {
+			return new LoginEventHandler();
+		}
 }
