@@ -11,7 +11,6 @@ import com.sds.foodfit.domain.Role;
 import com.sds.foodfit.domain.Sns;
 import com.sds.foodfit.exception.MemberException;
 
-import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -30,14 +29,12 @@ public class MemberServiceImpl implements MemberService{
 	@Autowired
 	private MemberDetailDAO memberDetailDAO;
 	
-
 	@Autowired
 	private	PasswordEncoder passwordEncoder;
 	
-	@Autowired
-	private HttpSession session;
 	
-
+	
+	
 	@Transactional
 	public void regist(Member member) throws MemberException {
 		Sns sns = snsDAO.selectByName(member.getSns().getSnsName());
@@ -58,6 +55,7 @@ public class MemberServiceImpl implements MemberService{
 			
 			log.debug("member result is"+result);
 			
+			
 			member.setPwd(passwordEncoder.encode(member.getPwd()));
 			
 			result = memberDetailDAO.insert(memberDetail);
@@ -69,5 +67,6 @@ public class MemberServiceImpl implements MemberService{
 	public Member selectByid(String id) {
 		return memberDAO.selectByid(id);
 	}
+	
 
 }

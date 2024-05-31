@@ -4,25 +4,25 @@
 
 	
 	<insert id="insert" parameterType="MemberDetail">
-		insert into member_detail(gender, age, height, weight, member_idx)
+		insert into member_detail(gender, age, height, weight, memberIdx)
 		values(#{gender}, #{age}, #{height}, #{weight},
-		 #{member.member_idx}, #{dislikedFood.dislikedFood_idx})
+		 #{member.member_idx})
 	</insert>
 		
 	<resultMap type="MemberDetail" id="MemberDetailMap">
-		<id 		column="member_detail_idx" 	property="member_detail_idx"/>
+		<id 		column="memberDetailIdx" 	property="memberDetailIdx"/>
 		<result 	column="gender"					property="gender"/>
 		<result 	column="age" 						property="age"/>
 		<result 	column="height" 					property="height"/>
 		<result 	column="weight" 					property="weight"/>
-		<association column="member_idx" property="member" javaType="Member" select="com.sds.foodfit.model.member.MemberDAO.selectByMemberIdx"/>
+		<association column="memberIdx" property="member" javaType="Member" select="com.sds.foodfit.model.member.MemberDAO.selectByMemberIdx"/>
 	
 	</resultMap>
 	
 	
 	<!-- member_idx 에 속한 상세정보 가져오기 -->
 	<select id="selectByMemberIdx" parameterType="int" parameterMap="MemberDetailMap">
-		select * from member_detail where member_idx=#{member_idx}
+		select * from memberDetail where memberIdx=#{memberIdx}
 	</select>
 		
 

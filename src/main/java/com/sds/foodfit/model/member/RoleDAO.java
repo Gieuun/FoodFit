@@ -7,6 +7,6 @@ import com.sds.foodfit.domain.Role;
 @Mapper
 public interface RoleDAO {
 	
-	public Role selectByName(String role_name);
+	public Role selectByName(String roleName);
 	
 }

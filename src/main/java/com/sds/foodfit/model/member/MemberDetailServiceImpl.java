@@ -28,8 +28,8 @@ public class MemberDetailServiceImpl implements MemberDetailService {
 	}
 
 	@Override
-	public Member selectByIdx(int member_idx) {
-		return memberDetailDAO.selectByIdx(member_idx);
+	public Member selectByIdx(int memberIdx) {
+		return memberDetailDAO.selectByIdx(memberIdx);
 	}
 
 }
