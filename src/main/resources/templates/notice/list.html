@@ -152,7 +152,7 @@ section.notice {
 </style>
 </head>
 <body>
-<div th:include="fragments/header :: header"></div>
+<th:block th:replace="~{fragments/header :: header}"/>
 <br><br><br><br>
     <section class="notice">
         <div class="page-title">

@@ -24,45 +24,28 @@ public class SecurityConfig {
 	}	
 	
 	//시큐리티 필터체인 객체 호출 (접근허가 관련 작업
-	 @Bean
-	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {		 
-	        http
-	        	//.csrf().disable() //공지사항 CRUD가 안먹혀서 추가했습니다. csrf보호 비활성화 대체재알아보기
-	            .authorizeHttpRequests(authorize -> authorize
-	            		
-
-	            	/*-------------------------------------------------------
-	            	 접근 허용
-	            	 -------------------------------------------------------*/	
-	            	.requestMatchers("/site/**","/").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
-	            	.requestMatchers("/recomember/temp").permitAll()
-	            	.requestMatchers("/recomember/login", "/recomember/loginform", "/recomember/join", "/recomember/joinform" ).permitAll()
-	            	.requestMatchers("/recomember/health", "/recomember/healthform","/remember/authform/**").permitAll()
-	            	.requestMatchers("/rest/recomember/**").permitAll()
-	            		
-	            		
-	            	/*-------------------------------------------------------
-	            	 접근 불허 
-	            	-------------------------------------------------------*/	
-	            	.requestMatchers("/admin/**").hasRole("ADMIN")
-	                .anyRequest().authenticated()             		// 그 외의 요청은 인증 필요
-	            )
-	            
-	            .formLogin(form -> form
-	                .loginPage("/recomember/loginform")
-	                .successHandler(loginEventHandler())
-	                .loginProcessingUrl("/recomember/login")
-	                .usernameParameter("id")
-	                .passwordParameter("pwd")
-	            )
-	            
-	            .httpBasic(httpBasic -> httpBasic
-	                .realmName("FoodFit")                      		// 기본 인증 사용 시 realm 이름 설정
-	            );
-	        http.csrf((auth)-> auth.disable());
-	        return http.build();
-	    }
-	 
+	@Bean
+    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {		 
+        http
+            .authorizeHttpRequests(authorize -> authorize
+            		.requestMatchers("/site/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
+            		.requestMatchers("/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
+            		.requestMatchers("/").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
+            		.requestMatchers("/rest/recomember/**").permitAll()
+            		.requestMatchers("/admin/**").hasRole("ADMIN")
+            		
+                .anyRequest().authenticated()             		// 그 외의 요청은 인증 필요
+            )
+            .formLogin(form -> form
+                .loginPage("/login")
+                .permitAll()                             		// 로그인 페이지는 인증 없이 접근 가능
+            )
+            .httpBasic(httpBasic -> httpBasic
+                .realmName("FoodFit")                      		// 기본 인증 사용 시 realm 이름 설정
+            );
+        http.csrf((auth)->auth.disable());
+        return http.build();
+    }
 	 // 업로드용 관리자계정 권한설정
 	    @Bean
 	    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {

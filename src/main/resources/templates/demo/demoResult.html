@@ -1,202 +1,118 @@
 <!DOCTYPE html>
-<html lang="en"><!-- Basic -->
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-	<meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">   
-   
-    <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
- 
-     <!-- Site Metas -->
-    <title>Yamifood Restaurant - Responsive HTML5 Template</title>  
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta charset="UTF-8">
+<!-- Site Icons -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<!-- header_link.html -->
+<th:block th:fragment="header_link">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link rel="apple-touch-icon" th:href="@{/images/apple-touch-icon.png}">
 
-    <!-- header_link begin -->
-	<th:block th:replace="~{fragments/header_link :: header_link}"/>
-    <!-- header_link end -->
+    <link rel="stylesheet" th:href="@{/site/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/site/css/style.css}">
+    <link rel="stylesheet" th:href="@{/site/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/site/css/classic.css}">
+    <link rel="stylesheet" th:href="@{/site/css/classic.date.css}">
+    <link rel="stylesheet" th:href="@{/site/css/classic.time.css}">
+    <link rel="stylesheet" th:href="@{/site/css/custom.css}">
+</th:block>
+<title>데모 결과페이지</title>
 
-    <!--[if lt IE 9]>
-      <script src="site/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="site/https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
+<style>
+.buttons button {
+    background-color: #4CAF50; /* 배경색 */
+    color: white; /* 글자색 */
+    padding: 10px 20px; /* 안쪽 여백 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    cursor: pointer; /* 커서 모양 변경 */
+    text-decoration: none; /* 텍스트에 밑줄 없앰 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+}
 
+.buttons button:hover {
+    background-color: #45a049; /* 마우스 호버 시 배경색 변경 */
+}
+		.food-item img {
+		    width: 300px; /* 원하는 가로 크기 */
+		    height: 200px; /* 원하는 세로 크기 */
+		}
+        .food-items {
+            display: flex; /* 가로로 배열하기 위해 flexbox 사용 */
+            justify-content: space-between; /* 요소들 사이에 균일한 간격 유지 */
+            flex-wrap: wrap; /* 요소들이 넘치면 다음 줄로 넘어갈 수 있도록 설정 */
+        }
+        .food-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 0 10px;
+            padding: 10px;
+            width: calc(33.333% - 20px); /* 3개의 요소를 가로로 배열하므로 폭을 33.333%로 설정 */
+            box-sizing: border-box; /* 요소의 패딩과 테두리를 포함한 크기를 지정 */
+        }
+        .food-item h3 {
+            margin: 10px 0;
+        }
+        .benefits,
+        .buttons {
+            text-align: center; /* 가운데 정렬 */
+            margin-top: 50px; /* 위쪽 여백 추가 */
+        }
+    </style>
 </head>
-
 <body>
-	<div th:include="fragments/header :: header"></div>
-	
-	<!-- Start All Pages -->
-	<div class="all-page-title page-breadcrumb">
-		<div class="container text-center">
-			<div class="row">
-				<div class="col-lg-12">
-					<h1>Stuff</h1>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End All Pages -->
-	
-	<!-- Start Stuff -->
-	<div class="stuff-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="heading-title text-center">
-						<h2>Stuff</h2>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-4 col-sm-6">
-					<div class="our-team">
-						<img src="site/images/stuff-img-01.jpg">
-						<div class="team-content">
-							<h3 class="title">Williamson</h3>
-							<span class="post">Web Developer</span>
-							<ul class="social">
-								<li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
+<th:block th:replace="~{fragments/header :: header}"/>
+<br><br><br><br>
+    <div class="container food-items">
+        <div class="food-item">
+            <img src="https://img.freepik.com/premium-photo/concept-tasty-food-dried-apple-chips-space-text_185193-114494.jpg ">
+            <h3>음식1</h3>
+            <p>20대 여성이 많이 찾는 저당 간식 "사과칩"</p>
+        </div>
+        <div class="food-item">
+            <img src="https://i.pinimg.com/originals/22/00/fe/2200fe11a9baab5734aee23ca38fe26e.jpg">
+            <h3>음식2</h3>
+            <p>탄수화물이 적고 단백질 함량이 높은 닭가슴살 샐러드</p>
+        </div>
+        <div class="food-item">
+            <img src="https://thingool123.godohosting.com/gd5replace/thingotr4652/data/editor/goods/210514/24c8dd2a95491b5ace09c05d2a5238aa_180616.jpg">
+            <h3>음식3</h3>
+            <p>목마를때 커피는 그만, 여성호르몬, 비타민 가득한 석류쥬스</p>
+        </div>
+    </div>
+    <div class="benefits">
+        <h3>지금 가입하시면 누리는 "푸드핏" 멤버십 서비스 혜택!</h3>
+        <ul>
+            <li>✅나에게 맞는 건강한 음식 추천! <strong>알레르기 정보도 제공</strong></li>
+            <li>✅내가 먹는 식사나 간식을 기록할 수 있어요</li>
+            <li>✅먹은 음식의 일일 섭취 권장량을 체크할 수 있어요</li>
+        </ul>
+    </div>
+    <div class="buttons">
+        <button class="join">가입하러 가기</button>
+        <button class="home">홈으로</button>
+    </div>
+    <br><br><br><br>
+    <th:block th:replace="~{fragments/footer :: footer}"/>
 
-				<div class="col-md-4 col-sm-6">
-					<div class="our-team">
-						<img src="site/images/stuff-img-02.jpg">
-						<div class="team-content">
-							<h3 class="title">Kristiana</h3>
-							<span class="post">Web Designer</span>
-							<ul class="social">
-								<li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-
-				<div class="col-md-4 col-sm-6">
-					<div class="our-team">
-						<img src="site/images/stuff-img-02.jpg">
-						<div class="team-content">
-							<h3 class="title">Steve Thomas</h3>
-							<span class="post">Web Developer</span>
-							<ul class="social">
-								<li><a href="#"><i class="fa fa-facebook-f"></i></a></li>
-								<li><a href="#"><i class="fa fa-twitter"></i></a></li>
-								<li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-							</ul>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Stuff -->
-	
-	<!-- Start Customer Reviews -->
-	<div class="customer-reviews-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="heading-title text-center">
-						<h2>Customer Reviews</h2>
-						<p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-md-8 mr-auto ml-auto text-center">
-					<div id="reviews" class="carousel slide" data-ride="carousel">
-						<div class="carousel-inner mt-4">
-							<div class="carousel-item text-center active">
-								<div class="img-box p-1 border rounded-circle m-auto">
-									<img class="d-block w-100 rounded-circle" src="site/images/profile-1.jpg" alt="">
-								</div>
-								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Paul Mitchel</strong></h5>
-								<h6 class="text-dark m-0">Web Developer</h6>
-								<p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
-							</div>
-							<div class="carousel-item text-center">
-								<div class="img-box p-1 border rounded-circle m-auto">
-									<img class="d-block w-100 rounded-circle" src="site/images/profile-3.jpg" alt="">
-								</div>
-								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Steve Fonsi</strong></h5>
-								<h6 class="text-dark m-0">Web Designer</h6>
-								<p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
-							</div>
-							<div class="carousel-item text-center">
-								<div class="img-box p-1 border rounded-circle m-auto">
-									<img class="d-block w-100 rounded-circle" src="site/images/profile-7.jpg" alt="">
-								</div>
-								<h5 class="mt-4 mb-0"><strong class="text-warning text-uppercase">Daniel vebar</strong></h5>
-								<h6 class="text-dark m-0">Seo Analyst</h6>
-								<p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui. Mauris magna metus, dapibus nec turpis vel, semper malesuada ante. Idac bibendum scelerisque non non purus. Suspendisse varius nibh non aliquet.</p>
-							</div>
-						</div>
-						<a class="carousel-control-prev" href="#reviews" role="button" data-slide="prev">
-							<i class="fa fa-angle-left" aria-hidden="true"></i>
-							<span class="sr-only">Previous</span>
-						</a>
-						<a class="carousel-control-next" href="#reviews" role="button" data-slide="next">
-							<i class="fa fa-angle-right" aria-hidden="true"></i>
-							<span class="sr-only">Next</span>
-						</a>
-                    </div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Customer Reviews -->
-	
-	<!-- Start Contact info -->
-	<div class="contact-imfo-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-4">
-					<i class="fa fa-volume-control-phone"></i>
-					<div class="overflow-hidden">
-						<h4>Phone</h4>
-						<p class="lead">
-							+01 123-456-4590
-						</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<i class="fa fa-envelope"></i>
-					<div class="overflow-hidden">
-						<h4>Email</h4>
-						<p class="lead">
-							yourmail@gmail.com
-						</p>
-					</div>
-				</div>
-				<div class="col-md-4">
-					<i class="fa fa-map-marker"></i>
-					<div class="overflow-hidden">
-						<h4>Location</h4>
-						<p class="lead">
-							800, Lorem Street, US
-						</p>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End Contact info -->
-	
-	<th:block th:replace="~{fragments/footer :: footer}"/>
-
-    <th:block th:replace="~{fragments/footer_link :: footer_link}"/>
+  <!-- footer_link.html -->
+<th:block th:fragment="footer_link">
+    <script th:src="@{/site/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/site/js/popper.min.js}"></script>
+    <script th:src="@{/site/js/bootstrap.min.js}"></script>
+    <script th:src="@{/site/js/jquery.superslides.min.js}"></script>
+    <script th:src="@{/site/js/images-loded.min.js}"></script>
+    <script th:src="@{/site/js/isotope.min.js}"></script>
+    <script th:src="@{/site/js/baguetteBox.min.js}"></script>
+    <script th:src="@{/site/js/picker.js}"></script>
+    <script th:src="@{/site/js/picker.date.js}"></script>
+    <script th:src="@{/site/js/picker.time.js}"></script>
+    <script th:src="@{/site/js/legacy.js}"></script>
+    <script th:src="@{/site/js/form-validator.min.js}"></script>
+    <script th:src="@{/site/js/contact-form-script.js}"></script>
+    <script th:src="@{/site/js/custom.js}"></script>
+</th:block>
 </body>
-</html>
