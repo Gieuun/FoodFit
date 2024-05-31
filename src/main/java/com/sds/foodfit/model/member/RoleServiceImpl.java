@@ -12,9 +12,9 @@ public class RoleServiceImpl implements RoleService{
 	private RoleDAO roleDAO;
 	
 	
-	public Role selectByName(String role_name) {
+	public Role selectByName(String roleName) {
 		
-		return roleDAO.selectByName(role_name);
+		return roleDAO.selectByName(roleName);
 	}
 
 }

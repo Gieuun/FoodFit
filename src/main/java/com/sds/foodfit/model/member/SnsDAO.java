@@ -7,5 +7,5 @@ import com.sds.foodfit.domain.Sns;
 @Mapper
 public interface SnsDAO {
 	
-	public Sns selectByName(String sns_name);
+	public Sns selectByName(String snsNname);
 }
