@@ -98,3 +98,13 @@ create table allergy(
 	, constraint fk_member_detail_allergy  foreign key (member_detail_idx) references member_detail (member_detail_idx)
 	, constraint fk_member_allergy  foreign key (member_idx) references member (member_idx)
 ) default character set utf8;
+
+--공지사항 테이블
+create  table  notice(
+   noticeIdx  int  primary key auto_increment 
+ , title  varchar(100)
+ , writer varchar(30)
+ , content  text 
+ , regdate   timestamp  default now() 
+ , hit int default 0 
+) default character set utf8;
