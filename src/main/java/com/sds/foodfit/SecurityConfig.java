@@ -38,8 +38,8 @@ public class SecurityConfig {
 	            .authorizeHttpRequests(authorize -> authorize	            		
 	            		.requestMatchers("/site/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 	            		.requestMatchers("/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
+	            		.requestMatchers("/rest/notice/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 	            		.requestMatchers("/").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
-	            		.requestMatchers("/admin/**").hasRole("ADMIN")
 	            		
 	                .anyRequest().authenticated()             		// 그 외의 요청은 인증 필요
 	            )
@@ -51,26 +51,6 @@ public class SecurityConfig {
 	                .realmName("FoodFit")                      		// 기본 인증 사용 시 realm 이름 설정
 	            );
 	        return http.build();
-	    }
-	 
-	 @Autowired
-	 public void configure(AuthenticationManagerBuilder auth) throws Exception{
-		 auth.jdbcAuthentication()
-		 	.dataSource(dataSource)
-		 	.usersByUsernameQuery("SELECT id, password, enabled FROM member WHERE id=?")
-            .authoritiesByUsernameQuery("SELECT id, 'ADMIN' as authority FROM member WHERE id=? AND roleIdx=1");
-	 }
-	 
-	 //업로드용 관리자계정 권한설정
-	    @Bean
-	    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {
-	        UserDetails admin = User.builder()
-	            .username("admin")
-	            .password(passwordEncoder.encode("1234"))
-	            .roles("ADMIN")
-	            .build();
-
-	        return new InMemoryUserDetailsManager(admin);
 	    }
 
 	 public AuthenticationSuccessHandler loginEventHandler() {

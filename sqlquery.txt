@@ -21,6 +21,7 @@ insert into role(roleName) values('GUEST');
 
 
 -- 회원테이블 만들기
+-- member에 관리자 계정 추가
 create table member(
    	  memberIdx int primary key auto_increment  
 	, name varchar(20)
@@ -33,7 +34,7 @@ create table member(
 	, constraint fk_sns_member  foreign key (snsIdx) references sns (snsIdx)
 ) default character set utf8;
 
--- member에 관리자 계정 추가
+
 insert into member(name, id, pwd, email, roleIdx, snsIdx) values('admin', 'admin', '1234', 'a', 1, 4);
 
 
