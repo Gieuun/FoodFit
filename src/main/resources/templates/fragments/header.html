@@ -1,39 +1,47 @@
-<th:block th:fragment="header"> 
+<th:block th:fragment="header">
 	<!-- Start header -->
 	<header class="top-navbar">
 		<nav class="navbar navbar-expand-lg navbar-light bg-light">
 			<div class="container">
-				<a class="navbar-brand" href="index.html">
-					<img src="images/logo.png" alt="" />
+
+				<a class="navbar-brand" href="/"> <img
+					src="/img/spoon_logo.png" alt="" />
 				</a>
-				<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbars-rs-food" aria-controls="navbars-rs-food" aria-expanded="false" aria-label="Toggle navigation">
-				  <span class="navbar-toggler-icon"></span>
+				<button class="navbar-toggler" type="button" data-toggle="collapse"
+					data-target="#navbars-rs-food" aria-controls="navbars-rs-food"
+					aria-expanded="false" aria-label="Toggle navigation">
+					<span class="navbar-toggler-icon"></span>
 				</button>
 				<div class="collapse navbar-collapse" id="navbars-rs-food">
-					<ul class="navbar-nav ml-auto">
-						<li class="nav-item"><a class="nav-link" href="index.html">Home</a></li>
-						<li class="nav-item"><a class="nav-link" href="menu.html">Menu</a></li>
-						<li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
-						<li class="nav-item active dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Pages</a>
-							<div class="dropdown-menu" aria-labelledby="dropdown-a">
-								<a class="dropdown-item" href="reservation.html">Reservation</a>
-								<a class="dropdown-item" href="stuff.html">Stuff</a>
-								<a class="dropdown-item" href="gallery.html">Gallery</a>
-							</div>
-						</li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" href="#" id="dropdown-a" data-toggle="dropdown">Blog</a>
-							<div class="dropdown-menu" aria-labelledby="dropdown-a">
-								<a class="dropdown-item" href="blog.html">blog</a>
-								<a class="dropdown-item" href="blog-details.html">blog Single</a>
-							</div>
-						</li>
-						<li class="nav-item"><a class="nav-link" href="contact.html">Contact</a></li>
+					<ul class="navbar-nav mr-auto">
+						<li class="nav-item active"><a class="nav-link"
+							href="/">Home</a></li>
+					</ul>
+					<ul class="navbar-nav">
+						<li class="nav-item"><a class="nav-link" href="/demo">체험하기</a></li>
+						<li class="nav-item"><a class="nav-link" href="/notice">공지사항</a></li>
+						<li class="nav-item"><a class="nav-link" href="/recofood">음식추천</a></li>
+						<li class="nav-item"><a class="nav-link" href="/recotable">밥상진단</a></li>
+						<li class="nav-item"><a class="nav-link" href="/login">로그인/회원가입</a></li>
+						
+						<!-- 익명사용자가 아니라면 사용자명을 로그인한 사용자명으로 대체 -->
+						<th:block th:if="${session.member !=null}">
+							<!-- 로그인 한 경우에 사용자 이름이 뜨게 -->
+							<span>
+								<a href="#" th:text="${session.member.name+'님'}"></a>
+								<a href="javascript:logout()" >logout</a>
+							</span>
+						<th:block>
+						
+						<th:block th:unless="${session.member !=null}">
+							<!-- 그렇지 않은 경우 아이콘 -->
+							<a href="/member/loginform"><span class="icon_profile"></span></a>
+						<th:block>
+						
 					</ul>
 				</div>
 			</div>
 		</nav>
 	</header>
 	<!-- End header -->
-</th:block>    
+</th:block>
