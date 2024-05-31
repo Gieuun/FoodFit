@@ -9,5 +9,5 @@ import com.sds.foodfit.domain.MemberDetail;
 public interface MemberDetailDAO {
 	
 	public int  insert(MemberDetail memberDetail);		 // 등록
-	public Member selectByIdx(int member_idx);				//member_idx 해당하는 회원정보 가져오기
+	public Member selectByIdx(int memberIdx);				//member_idx 해당하는 회원정보 가져오기
 }

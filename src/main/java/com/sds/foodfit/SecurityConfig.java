@@ -31,6 +31,7 @@ public class SecurityConfig {
             		.requestMatchers("/site/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
             		.requestMatchers("/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
             		.requestMatchers("/").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
+            		.requestMatchers("/rest/recomember/**").permitAll()
             		.requestMatchers("/admin/**").hasRole("ADMIN")
             		
                 .anyRequest().authenticated()             		// 그 외의 요청은 인증 필요
@@ -45,7 +46,6 @@ public class SecurityConfig {
         http.csrf((auth)->auth.disable());
         return http.build();
     }
-	 
 	 // 업로드용 관리자계정 권한설정
 	    @Bean
 	    public UserDetailsService userDetailsService(PasswordEncoder passwordEncoder) {

@@ -4,12 +4,12 @@
 	
 	<!--회원가입 시 sns의 정보가 필요함, 롤의 이름을 통해 Sns DTO를 채우기 위함 -->
 	<select id="selectByName" parameterType="String" resultType="Role">
-		select * from role where role_name=#{role_name}
+		select * from role where roleName=#{roleName}
 	</select>
 	
 	
 	<select id="select" parameterType="int" resultMap="Role">
-		select * from role where role_idx=#{role_idx}
+		select * from role where roleIdx=#{roleIdx}
 	</select>
 	
 </mapper>

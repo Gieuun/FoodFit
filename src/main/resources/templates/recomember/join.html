@@ -1,85 +1,89 @@
 <!DOCTYPE html>
-<html  lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge"> 
-    
-	 <!-- Mobile Metas -->
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    
-     <!-- Site Metas -->
-    <title>회원가입</title>  
-    <meta name="keywords" content="">
-    <meta name="description" content="">
-    <meta name="author" content="">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
 
-    <!-- Site Icons -->
-    <link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-    <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+<!-- Mobile Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <th:block th:fragment="header_link">
+<!-- Site Metas -->
+<title>회원가입</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
 
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="/site/css/bootstrap.min.css">    
+<!-- Site Icons -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<th:block th:fragment="header_link">
+
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet" href="/site/css/bootstrap.min.css">
 	<!-- Site CSS -->
-    <link rel="stylesheet" href="/site/css/style.css">    
-    <!-- Responsive CSS -->
-    <link rel="stylesheet" href="/site/css/responsive.css">
-    <!-- Custom CSS -->
-    <link rel="stylesheet" href="/site/css/custom.css">
-	</th:block>
+	<link rel="stylesheet" href="/site/css/style.css">
+	<!-- Responsive CSS -->
+	<link rel="stylesheet" href="/site/css/responsive.css">
+	<!-- Custom CSS -->
+	<link rel="stylesheet" href="/site/css/custom.css">
+</th:block>
 
-    <!--[if lt IE 9]>
+<!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-    <style type="text/css">
-	#sns{
-		justify-content:space-around;
-		width:100%;
-		display: flex;
-	}
-	#sns input {
-		width: 55px;
-		margin: 20px 0px;
-	}
-	#login_text{
-		position:relative;
-		margin:20px 0px;
-		text-align: center;
-		font-size: 12px;
-		color:#09aa5c;
-	}
-	#login_text::after{
-		content: "";
-		position: absolute;
-		top: 40px;
-		left:0px;
-		width:100%;
-		height: 1px;
-		border-radius: 5px;
-		background: #dadada;
-	}
-	.btArea{
-		display: flex;
-	}
+<style type="text/css">
+#sns {
+	justify-content: space-around;
+	width: 100%;
+	display: flex;
+}
 
-    .error{
-    	font-size: 12px;
-    	color:red;
-    	font-weight: 700;
-    }
+#sns input {
+	width: 55px;
+	margin: 20px 0px;
+}
+
+#login_text {
+	position: relative;
+	margin: 20px 0px;
+	text-align: center;
+	font-size: 12px;
+	color: #09aa5c;
+}
+
+#login_text::after {
+	content: "";
+	position: absolute;
+	top: 40px;
+	left: 0px;
+	width: 100%;
+	height: 1px;
+	border-radius: 5px;
+	background: #dadada;
+}
+
+.btArea {
+	display: flex;
+}
+
+.error {
+	font-size: 12px;
+	color: red;
+	font-weight: 700;
+}
 </style>
 </head>
 <body>
 
 	<!-- Start header -->
-		<th:block th:replace="~{fragments/header :: header}"/>
+	<th:block th:replace="~{fragments/header :: header}" />
 	<!-- End header -->
-	
-	
-	
-	
+
+
+
+
 	<!-- Start All Pages -->
 	<div class="all-page-title page-breadcrumb">
 		<div class="container text-center">
@@ -91,14 +95,14 @@
 		</div>
 	</div>
 	<!-- End All Pages -->
-	
+
 	<!-- Start Contact -->
 	<div class="contact-box">
 		<div class="container">
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="heading-title text-center">
-					<h2>회원가입</h2>
+						<h2>회원가입</h2>
 					</div>
 				</div>
 			</div>
@@ -107,66 +111,71 @@
 					<form id="join_form">
 						<div class="row">
 							<input type="hidden" name="sns.sns_name" value="homepage">
+							
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="text" id="name" class="form-control" name="name" placeholder="이름을 입력해주세요">
-								</div>                                 
+									<input type="text" id="name" class="form-control" name="name"
+										placeholder="이름을 입력해주세요">
+								</div>
 							</div>
-							
+
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="text" id="id" class="form-control" name="id" placeholder="아이디를 입력해주세요">
-
-								</div>                                 
-							</div>
-							
-							<div class="col-md-12">
-							
-								<div class="form-group">
-									<input type="password" id="password"  class="form-control" name="pwd" placeholder="비밀번호를 입력해 주세요">
-
-								</div> 	
-								
-								<div class="form-group">
-									<input type="password" id="passwordCheck" class="form-control" name="pwdCheck" placeholder="비밀번호를 다시 입력해 주세요" >
+									<input type="text" id="id" class="form-control" name="id"
+										placeholder="아이디를 입력해주세요">
 
 								</div>
-									
 							</div>
-							
+
+							<div class="col-md-12">
+
+								<div class="form-group">
+									<input type="password" id="password" class="form-control"
+										name="pwd" placeholder="비밀번호를 입력해 주세요">
+
+								</div>
+
+								<div class="form-group">
+									<input type="password" id="passwordCheck" class="form-control"
+										name="pwdCheck" placeholder="비밀번호를 다시 입력해 주세요">
+
+								</div>
+
+							</div>
+
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="email" id="email"   class="form-control" name="email" placeholder="이메일을 입력해 주세요">
+									<input type="email" id="email" class="form-control"
+										name="email" placeholder="이메일을 입력해 주세요">
 
-								</div> 	
+								</div>
 							</div>
-						
-							
+
+
 							<div class="col-md-12">
 								<div class="form-group">
 									<p id="login_text">소셜 로그인</p>
-										<div id="sns">
-											<a href="javascript:getAuthForm('google')" class="google">
-												<input type="image" src="/site/images/google_logo_icon.png">
-											</a>
-											<a href="javascript:getAuthForm('naver')" class="naver">
-												<input type="image" src="/site/images/naver_logo_icon.png">
-											</a>
-											<a href="javascript:getAuthForm('kakao')" class="kakao">
-												<input type="image" src="/site/images/kakao_logo_icon.png">
-											</a>
+									<div id="sns">
+										<a href="javascript:getAuthForm('google')" class="google">
+											<input type="image" src="/site/images/google_logo_icon.png">
+										</a> <a href="javascript:getAuthForm('naver')" class="naver">
+											<input type="image" src="/site/images/naver_logo_icon.png">
+										</a> <a href="javascript:getAuthForm('kakao')" class="kakao">
+											<input type="image" src="/site/images/kakao_logo_icon.png">
+										</a>
 									</div>
-								</div> 	
-							</div>
-							
-							<div class="col-md-12">
-								<div class="submit-button text-center btArea">
-										<button class="btn btn-common" id="bt_prev" type="button" onClick="prev()">이전</button>
-										<button class="btn btn-common" id="bt_health" type="button">건강정보입력</button>
 								</div>
 							</div>
-							
-						</div>            
+
+							<div class="col-md-12">
+								<div class="submit-button text-center btArea">
+									<button class="btn btn-common" id="bt_prev" type="button"
+										onClick="prev()">이전</button>
+									<button class="btn btn-common" id="bt_health" type="button">건강정보입력</button>
+								</div>
+							</div>
+
+						</div>
 					</form>
 				</div>
 			</div>
@@ -175,65 +184,62 @@
 	<!-- End Contact -->
 
 	<!-- Start Footer -->
-		<div th:include="fragments/footer :: footer"></div>
+	<div th:include="fragments/footer :: footer"></div>
 	<!-- End Footer -->
-	
+
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-	
+
 	<!-- js link -->
 	<div th:include="fragments/footer_link :: footer_link"></div>
-	
+
 </body>
 </html>
 
 
 <script type="text/javascript">
-	
-	function prev(){
-		location.href="/recomember/loginform"
-	}
 
-	function getAuthForm(sns){
+	
+
+	function getAuthForm(sns) {
 		$.ajax({
-			url:"/recomember/authform/"+sns,
-			type:"GET",
-			success:function(result, status, xhr){
-				location.href=result;
+			url : "/rest/recomember/authform/" + sns,
+			type : "GET",
+			success : function(result, status, xhr) {
+				location.href = result;
 			}
 		});
 	}
-	
-	
-	function healthCheck(){
+
+	function healthCheck() {
 		console.log($("#join_form").serialize());
-		
+
 		//비동기로, 서버에회원정보 임시로 저장 후, 
 		$.ajax({
-			url:"/recomember/temp",
-			type:"post",
-			data:$("#join_form").serialize(),
-			success:function(result, status, xhr){
-				alert("임시저장 성공");
-				////location.href="/recomember/helathform"
+			url : "/rest/recomember/temp",
+			type : "post",
+			data : $("#join_form").serialize(),
+			success : function(response) {
+				console.log(response)
+				alert("임시저장 성공")
+				window.location.href = "/recomember/healthform"
 			},
-			error:function(xhr, status, err){
-				alert("임시저장 실패");
-				//location.href="/recomember/joinform"
+			error : function(xhr, status, err) {
+				console.log(err)
 			}
 		});
-		
-		
 	}
-	
-	
-	$(function(){
-		$("#bt_health").click(function(){
-				healthCheck();	
-				//location.href="/recomember/healthform"
-		});
-	
-	});
 
+	$(function() {
+		$("#bt_health").click(function() {
+				healthCheck();			
+		});
+		$(function() {
+			$("#bt_prev").click(function() {
+				location.href = "/recomember/loginform"
+			});
+		})
+
+	});
 </script>
 
 

@@ -4,5 +4,5 @@ import com.sds.foodfit.domain.Sns;
 
 public interface SnsService {
 
-	public Sns selectByName(String sns_name);
+	public Sns selectByName(String snsName);
 }
