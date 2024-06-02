@@ -1,22 +1,22 @@
 -- sns 테이블 만들기
 create  table  sns(
-	sns_idx  int primary key auto_increment 
-	, sns_name  varchar(12)
+	snsIdx  int primary key auto_increment 
+	, snsName  varchar(12)
 );
 
-insert into sns(sns_name) values('google');
-insert into sns(sns_name) values('naver');
-insert into sns(sns_name) values('kakao');
-insert into sns(sns_name) values('homepage');
+insert into sns(snsName) values('google');
+insert into sns(snsName) values('naver');
+insert into sns(snsName) values('kakao');
+insert into sns(snsName) values('homepage');
 
 --role 테이블 만들기
 create  table  role(
-	role_idx  int primary key auto_increment 
-	, role_name  varchar(12)
+	roleIdx  int primary key auto_increment 
+	, roleName  varchar(12)
 );
 
-insert into role(role_name) values('USER');
-insert into role(role_name) values('GUEST');
+insert into role(roleName) values('USER');
+insert into role(roleName) values('GUEST');
 
 
 -- 회원테이블 만들기
