@@ -4,5 +4,5 @@ import com.sds.foodfit.domain.Role;
 
 public interface RoleService {
 
-	public Role selectByName(String role_name);
+	public Role selectByName(String roleName);
 }
