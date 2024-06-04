@@ -24,7 +24,7 @@ public class NoticeController {
 	@Autowired
     private NoticeService noticeService;
 
-    @GetMapping("/notice/list")
+    @GetMapping("/notice")
     public String getList(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
         // 총 레코드 수를 가져오기
         int totalRecord = noticeService.getTotalCount();
@@ -88,13 +88,13 @@ public class NoticeController {
 	    } catch (Exception e) {
 	        redirectAttributes.addFlashAttribute("message", "게시글 등록 중 오류가 발생하였습니다.");
 	    }
-	    return "redirect:/notice/list";
+	    return "redirect:/notice";
 	}
 	
 	// 상세보기 요청 처리
 	@GetMapping("/notice/detail")
-	public String getDetail(Model model, @RequestParam(value="notice_idx", defaultValue="0") int notice_idx) {
-	    Notice notice = noticeService.select(notice_idx);
+	public String getDetail(Model model, @RequestParam(value="noticeIdx", defaultValue="0") int noticeIdx) {
+	    Notice notice = noticeService.select(noticeIdx);
 	    if (notice != null) {
 	        model.addAttribute("notice", notice);
 	    } else {
@@ -112,7 +112,8 @@ public class NoticeController {
 	    } catch (Exception e) {
 	        redirectAttributes.addFlashAttribute("message", "게시글 수정 중 오류가 발생하였습니다.");
 	    }
-	    return "redirect:/notice/detail?notice_idx=" + notice.getNotice_idx();
+	    return "redirect:/notice/detail?noticeIdx=" + notice.getNoticeIdx();
+
 	}
 	
 	// 게시글 삭제 요청 처리

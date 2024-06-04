@@ -26,9 +26,9 @@ public class NoticeServiceImpl implements NoticeService{
 	}
 
 	@Override
-	public Notice select(int notice_idx) {
-		noticeDAO.updateHit(notice_idx);
-		Notice notice = noticeDAO.select(notice_idx);
+	public Notice select(int noticeIdx) {
+		noticeDAO.updateHit(noticeIdx);
+		Notice notice = noticeDAO.select(noticeIdx);
 		return notice;
 	}
 

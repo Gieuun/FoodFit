@@ -30,12 +30,21 @@
 </head>
 <body>
 <th:block th:replace="~{fragments/header :: header}"/>
-<br><br><br><br><br><br>
+<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>공지내용</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End All Pages -->
+<br><br><br>
     <div class="container">
-        <div class="notice-header">공지사항</div>
         <hr>
         <div class="notice-title">
-            <h4 th:text="${notice.title}"></h4>
+            <h3 th:text="${notice.title}"></h3>
         </div>
         <div class="notice-meta">
             <span>등록일: <span th:text="${notice.regdate}"></span></span>
@@ -46,7 +55,7 @@
             
         </div>
         <div class="notice-footer">
-            <button class="btn btn-custom" onclick="location.href='/notice/list'">목록</button>
+            <button class="btn btn-custom" onclick="location.href='/notice'">목록</button>
         </div>
     </div>
     <br><br><br><br><br><br>

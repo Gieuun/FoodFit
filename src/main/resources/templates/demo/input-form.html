@@ -1,30 +1,55 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>설문 조사</title>
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<meta charset="UTF-8">
+<!-- Site Icons -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- header_link begin -->
+	<th:block th:replace="~{fragments/header_link :: header_link}"/>
+    <!-- header_link end -->
+    <title>체험하기</title>
     <style>
-        body {
-            padding: 20px;
+        /* age select box width 줄이기 */
+        #age {
+            width: 150px; /* 원하는 가로 길이 설정 */
         }
         .survey-form {
-            max-width: 400px;
+            max-width: 600px;
             margin: 0 auto;
+            padding: 20px;
         }
-        .form-group {
-            margin-bottom: 1.5rem;
+
+        .text-center {
+            text-align: center;
         }
-        .submit-btn {
-            width: 100%;
+        .btn-common {
+            padding: 5px 10px; /* 버튼 안쪽 여백 조정 */
+            font-size: 14px; /* 버튼 텍스트 크기 조정 */
+            width: 40px; /* 버튼 너비 설정 */
         }
     </style>
 </head>
+
 <body>
+<th:block th:replace="~{fragments/header :: header}"/>
+	<!-- Start All Pages -->
+	<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>체험하기</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End All Pages -->
+<br><br><br><br>
     <div class="survey-form">
-        <h2 class="text-center">설문 조사</h2>
-        <form>
+        <h2 class="text-center">밑에 세부사항을 기입해주세요.</h2>
+        <br><br>
+        <form id="survey-form">
             <div class="form-group">
                 <label for="gender">당신의 성별은?</label>
                 <div>
@@ -60,13 +85,27 @@
                     <input type="number" class="form-control" id="weight" name="weight" placeholder="kg">
                 </div>
             </div>
-
-            <button type="button" class="btn btn-primary submit-btn">추천음식 보러가기</button>
+            <br>
+					<button type="button" class="btn btn-common" id="bt_result">추천음식 보러가기</button>
         </form>
     </div>
+<br><br><br><br>
+    <th:block th:replace="~{fragments/footer :: footer}"/>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <th:block th:replace="~{fragments/footer_link :: footer_link}"/>
 </body>
 </html>
+<script type="text/javascript">
+    function goResult() {
+        $("#survey-form").attr({
+            action: "/demo/demoResult",
+            method: "get"
+        }).submit();
+    }
+
+    $(function() {
+        $("#bt_result").click(function() {
+            goResult();
+        });
+    });
+</script>
