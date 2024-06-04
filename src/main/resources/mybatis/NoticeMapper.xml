@@ -7,7 +7,7 @@
 	</select>
 	
 	<select id="selectAll" resultType="Notice" parameterType="java.util.Map">
-    select * from notice order by regdate desc limit #{startIndex}, #{rowCount}
+    	select * from notice order by regdate desc limit #{startIndex}, #{rowCount}
 </select>
 	
 	<insert id="insert" parameterType="Notice">
