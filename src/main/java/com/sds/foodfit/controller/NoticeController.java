@@ -88,7 +88,7 @@ public class NoticeController {
 	    } catch (Exception e) {
 	        redirectAttributes.addFlashAttribute("message", "게시글 등록 중 오류가 발생하였습니다.");
 	    }
-	    return "redirect:/notice/list";
+	    return "redirect:/notice";
 	}
 	
 	// 상세보기 요청 처리

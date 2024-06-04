@@ -21,9 +21,8 @@
 	
 	
 	<!-- member_idx 에 속한 상세정보 가져오기 -->
-	<select id="selectByMemberIdx" parameterType="int" parameterMap="MemberDetailMap">
+	<select id="selectByMemberIdx" parameterType="int" resultMap="MemberDetailMap">
 		select * from memberDetail where memberIdx=#{memberIdx}
->>>>>>> 7fe5c1f4faac4d894ab6ff695392d1814695e686
 	</select>
 		
 
