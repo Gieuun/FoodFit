@@ -18,11 +18,6 @@ public class MainController {
 	public String goDemo() {
 		return "demo/input-form";
 	}
-	
-	@GetMapping("/demo/demoresult")
-	public String goDemoResult() {
-		return "demo/demoResult";
-	}
 
 	@GetMapping("/recotable")
 	public String goRecoTable() {

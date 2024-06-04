@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="com.sds.foodfit.model.member.SnsDAO">
-	
+
 	<!-- 결과 맵 정의 -->
 	<resultMap id="SnsMap" type="Sns">
 		<id property="snsIdx" column="snsIdx"/>

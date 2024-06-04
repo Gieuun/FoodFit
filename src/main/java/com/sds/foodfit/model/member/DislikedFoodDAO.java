@@ -12,7 +12,7 @@ public interface DislikedFoodDAO {
 	
 	public int insert(DislikedFood dislikedFood); //등록
 	public List selectAll();
-	public DislikedFood select(int dislikedFood_idx);
+	public DislikedFood select(int dislikedFoodIdx);
 	public Member selcteByid(String id);
 	
 	public void update(DislikedFood dislikedFood);

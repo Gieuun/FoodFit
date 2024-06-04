@@ -24,7 +24,7 @@ public class NoticeController {
 	@Autowired
     private NoticeService noticeService;
 
-    @GetMapping("/notice/list")
+    @GetMapping("/notice")
     public String getList(Model model, @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
         // 총 레코드 수를 가져오기
         int totalRecord = noticeService.getTotalCount();
@@ -88,7 +88,7 @@ public class NoticeController {
 	    } catch (Exception e) {
 	        redirectAttributes.addFlashAttribute("message", "게시글 등록 중 오류가 발생하였습니다.");
 	    }
-	    return "redirect:/notice/list";
+	    return "redirect:/notice";
 	}
 	
 	// 상세보기 요청 처리

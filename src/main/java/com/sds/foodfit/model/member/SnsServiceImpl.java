@@ -11,9 +11,9 @@ public class SnsServiceImpl implements SnsService{
 	@Autowired
 	private SnsDAO snsDAO;
 	
-	public Sns selectByName(String sns_name) {
+	public Sns selectByName(String snsName) {
 		
-		return snsDAO.selectByName(sns_name);
+		return snsDAO.selectByName(snsName);
 	}
 	 
 	

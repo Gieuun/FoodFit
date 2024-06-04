@@ -7,7 +7,7 @@
 		values(#{name}, #{id}, #{pwd}, #{email}, #{role.roleIdx} ,#{sns.snsIdx})
 		
 		<!-- member_detail에 추가적인 insert 를 위해 부모 테이블인 member의 idx값을 곧바로 추출 -->
-		<selectKey keyColumn="member_idx" keyProperty="memberIdx" resultType="int" order="AFTER">
+		<selectKey keyColumn="memberIdx" keyProperty="memberIdx" resultType="int" order="AFTER">
 			select last_insert_id() as memberIdx
 		</selectKey> 
 	</insert>

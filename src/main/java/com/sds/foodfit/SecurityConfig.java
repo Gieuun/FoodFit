@@ -5,18 +5,11 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.User;
-import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
-
 
 @Configuration
 @EnableWebSecurity
@@ -39,6 +32,7 @@ public class SecurityConfig {
 	            		.requestMatchers("/site/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 	            		.requestMatchers("/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 	            		.requestMatchers("/rest/notice/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
+	            		.requestMatchers("/rest/recomember/**").permitAll()
 	            		.requestMatchers("/").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 	            		
 	                .anyRequest().authenticated()             		// 그 외의 요청은 인증 필요
@@ -50,8 +44,11 @@ public class SecurityConfig {
 	            .httpBasic(httpBasic -> httpBasic
 	                .realmName("FoodFit")                      		// 기본 인증 사용 시 realm 이름 설정
 	            );
-	        return http.build();
-	    }
+
+        http.csrf((auth)->auth.disable());
+        return http.build();
+    }
+
 
 	 public AuthenticationSuccessHandler loginEventHandler() {
 			return new LoginEventHandler();

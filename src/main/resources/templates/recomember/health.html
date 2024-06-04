@@ -181,15 +181,12 @@ body {
 								<div class="form-group">
 									<div id="age">
 										<p>연령을 선택해주세요.</p>
-										<input id="teen" name="age" type="radio" value=""><label
-											for="teen">10대</label> <input id="twenties" name="age"
-											type="radio" value=""><label for="twenties">20대</label>
-										<input id="thirties" name="age" type="radio" value=""><label
-											for="thirties">30대</label> <input id="forties" name="age"
-											type="radio" value=""><label for="forties">40대</label>
-										<input id="fifties" name="age" type="radio" value=""><label
-											for="fifties">50대</label> <input id="sixties" name="age"
-											type="radio" value=""><label for="sixties">60대이상</label>
+										<input id="teen" 		name="age" 		type="radio" value=""><label for="teen">10대</label> 
+										<input id="twenties" 	name="age" 		type="radio" value=""><label for="twenties">20대</label>
+										<input id="thirties" 	name="age" 		type="radio" value=""><label for="thirties">30대</label>
+										<input id="forties" 		name="age"		type="radio" value=""><label for="forties">40대</label>
+										<input id="fifties"	 	name="age" 		type="radio" value=""><label for="fifties">50대</label> 
+										<input id="sixties" 		name="age" 		type="radio" value=""><label for="sixties">60대이상</label>
 									</div>
 								</div>
 							</div>
@@ -218,12 +215,8 @@ body {
 							<div class="col-md-12">
 								<div class="submit-button text-center btnArea">
 									<div class="login_check">
-										<a href="/recomember/joinform">
 											<button class="btn btn-common" id="bt_prev" type="button">이전</button>
-										</a> <a href="/">
-											<button class="btn btn-common" id="bt_regist" type="button"
-												onClick="healthCheck()">가입하기</button>
-										</a>
+											<button class="btn btn-common" id="bt_regist" type="button">가입하기</button>
 									</div>
 								</div>
 							</div>
@@ -248,13 +241,24 @@ body {
 </body>
 </html>
 <script type="text/javascript">
-	function regist() {
-		$("#health_form").attr({
-			action : "/recomember/health",
-			method : "post"
-		});
-		$("#health_form").submit();
 
+	
+	function regist(){
+		console.log($("#health_form").serialize());
+		$.ajax({
+			url:"/rest/recomember/healthform",
+			type:"POST",
+			data:$("#health_form").serialize(),
+			success:function(response){
+				console.log(response)
+				window.location.href="/recomember/loginform"
+			},
+			error:function(xhr, status, err){
+				alert("회원가입 실패!!");
+				//window.location.href="/recomember/joinform"
+			}
+		});
+	
 	}
 	$(function() {
 		$("#bt_regist").click(function() {
@@ -263,7 +267,7 @@ body {
 	})
 	$(function() {
 		$("#bt_prev").click(function() {
-			locaition.href = "/recomember/join"
+			location.href = "/recomember/joinform"
 		});
 	})
 </script>
