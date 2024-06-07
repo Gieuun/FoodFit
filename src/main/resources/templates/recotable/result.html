@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>식단 기록</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f7f7f7;
+        }
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+        }
+        .header {
+            font-size: 24px;
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .calorie {
+            font-size: 20px;
+            text-align: center;
+            margin-bottom: 10px;
+        }
+        .nutrient-bar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+        .nutrient-bar span {
+            font-size: 16px;
+        }
+        .progress-bar {
+            width: 100%;
+            background-color: #e0e0e0;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            margin-top: 5px;
+            margin-bottom: 10px;
+        }
+        .progress {
+            height: 10px;
+            border-radius: 5px;
+        }
+        .carbs { background-color: #87CEEB; }
+        .protein { background-color: #90EE90; }
+        .fat { background-color: #FFB6C1; }
+        .recommendation {
+            font-size: 18px;
+            font-weight: bold;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+        .recommendation-box {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .carbs-box { background-color: #e0f7fa; }
+        .protein-box { background-color: #f1f8e9; }
+        .fat-box { background-color: #fce4ec; }
+        .record-button {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            text-align: center;
+            background-color: black;
+            color: white;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+        }
+        .record-button:hover {
+            background-color: #333;
+        }
+        .icon {
+            width: 20px;
+            height: 20px;
+            margin-right: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">식단 기록</div>
+        <div class="calorie">0 kcal / 0 kcal</div>
+        <div class="nutrient-bar">
+            <span>
+                <img src="carbs_icon.png" alt="탄수화물 아이콘" class="icon">
+                탄수화물
+            </span>
+            <span>0 %</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress carbs" style="width: 0%;"></div>
+        </div>
+        <div class="nutrient-bar">
+            <span>
+                <img src="protein_icon.png" alt="단백질 아이콘" class="icon">
+                단백질
+            </span>
+            <span>0 %</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress protein" style="width: 0%;"></div>
+        </div>
+        <div class="nutrient-bar">
+            <span>
+                <img src="fat_icon.png" alt="지방 아이콘" class="icon">
+                지방
+            </span>
+            <span>0 %</span>
+        </div>
+        <div class="progress-bar">
+            <div class="progress fat" style="width: 0%;"></div>
+        </div>
+        <div class="recommendation">남은 끼니는 어떻게 먹어야 할까요?</div>
+        <div class="recommendation-box carbs-box">
+            <span>
+                <img src="carbs_icon.png" alt="탄수화물 아이콘" class="icon">
+                탄수화물
+            </span>
+            <span>0g 더 먹어도 괜찮아요</span>
+        </div>
+        <div class="recommendation-box protein-box">
+            <span>
+                <img src="protein_icon.png" alt="단백질 아이콘" class="icon">
+                단백질
+            </span>
+            <span>0g 더 먹어도 괜찮아요</span>
+        </div>
+        <div class="recommendation-box fat-box">
+            <span>
+                <img src="fat_icon.png" alt="지방 아이콘" class="icon">
+                지방
+            </span>
+            <span>0g 더 먹어도 괜찮아요</span>
+        </div>
+        <a href="#" class="record-button">기록하기</a>
+    </div>
+</body>
+</html>
