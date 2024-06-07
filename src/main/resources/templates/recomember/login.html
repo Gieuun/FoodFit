@@ -13,16 +13,10 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 <!-- 헤더 링크 -->
 <!-- header_link begin -->
 <th:block th:replace="~{fragments/header_link :: header_link}" />
 <!-- header_link end -->
-
 
 <style type="text/css">
 #sns {
@@ -144,51 +138,68 @@
 				<div class="col-lg-12">
 					<form id="login_form">
 						<div class="row">
-							<input type="hidden" name="sns.snsName" value="homepage">
+							<<<<<<< HEAD <input type="hidden" name="sns.snsName"
+								value="homepage">
 							<div class="col-md-12">
 								<div class="form-group">
-									<input id="id" type="text" class="form-control" name="id" placeholder="아이디를 입력해주세요.">
-								</div>
-							</div>
+									<input id="id" type="text" class="form-control" name="id"
+										placeholder="아이디를 입력해주세요."> =======
 
-							<div class="col-md-12">
-								<div class="form-group">
-									<input id="pw" type="password" name="pwd" class="form-control" placeholder="비밀번호를 입력해주세요">
-								</div>
-							</div>
-
-							<div class="col-md-12">
-								<div class="form-group">
-									<ul id="loginArea">
-										<li><a href="#" class="find_text">아이디 찾기</a></li>
-										<li><a href="#" class="find_text">비밀번호 찾기</a></li>
-										<li><a href="/recomember/joinform"><span class="accent">회원가입</span></a></li>
-									</ul>
-								</div>
-							</div>
-
-							<div class="col-md-12">
-								<div class="form-group">
-									<p id="login_text">소셜 로그인</p>
-									<div id="sns">
-										<a href="javascript:getAuthForm('google')" class="google">
-											<input type="image" src="/site/images/google_logo_icon.png">
-										</a> <a href="javascript:getAuthForm('naver')" class="naver">
-											<input type="image" src="/site/images/naver_logo_icon.png">
-										</a> <a href="javascript:getAuthForm('kakao')" class="kakao">
-											<input type="image" src="/site/images/kakao_logo_icon.png">
-										</a>
+									<div class="col-md-12">
+										<div class="form-group">
+											<input id="id" type="text" class="form-control"
+												name="username" placeholder="아이디를 입력해주세요."> >>>>>>>
+											420a6bbff0f3c9a7f6cda31000e0bcddf16293cf
+										</div>
 									</div>
-								</div>
-							</div>
 
-							<div class="col-md-12">
-								<div class="submit-button text-center btnArea">
-									<button class="btn btn-common" id="bt_login" type="button">로그인</button>
-								</div>
-							</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<<<<<<< HEAD <input id="pw" type="password" name="pwd"
+												class="form-control" placeholder="비밀번호를 입력해주세요">
+											======= <input id="pw" type="password" name="pwd"
+												class="form-control" placeholder="비밀번호를 입력해주세요">
+											>>>>>>> 420a6bbff0f3c9a7f6cda31000e0bcddf16293cf
+										</div>
+									</div>
 
-						</div>
+									<div class="col-md-12">
+										<div class="form-group">
+											<ul id="loginArea">
+												<li><a href="#" class="find_text">아이디 찾기</a></li>
+												<li><a href="#" class="find_text">비밀번호 찾기</a></li> <<<<<<<
+												HEAD
+												<li><a href="/recomember/joinform"><span
+														class="accent">회원가입</span></a></li> =======
+												<li><a href="/recomember/joinform"><span
+														class="accent">회원가입</span></a></li> >>>>>>>
+												420a6bbff0f3c9a7f6cda31000e0bcddf16293cf
+											</ul>
+										</div>
+									</div>
+
+									<div class="col-md-12">
+										<div class="form-group">
+											<p id="login_text">소셜 로그인</p>
+											<div id="sns">
+												<a href="javascript:getAuthForm('google')" class="google">
+													<input type="image" src="/site/images/google_logo_icon.png">
+												</a> <a href="javascript:getAuthForm('naver')" class="naver">
+													<input type="image" src="/site/images/naver_logo_icon.png">
+												</a> <a href="javascript:getAuthForm('kakao')" class="kakao">
+													<input type="image" src="/site/images/kakao_logo_icon.png">
+												</a>
+											</div>
+										</div>
+									</div>
+
+									<div class="col-md-12">
+										<div class="submit-button text-center btnArea">
+											<button class="btn btn-common" id="bt_login" type="button">로그인</button>
+										</div>
+									</div>
+
+								</div>
 					</form>
 				</div>
 			</div>
@@ -196,21 +207,19 @@
 	</div>
 	<!-- End Contact -->
 
-
 	<!-- Start Footer -->
-	<div th:insert="~{fragments/footer :: footer}"></div>
+	<div th:replace="~{fragments/footer :: footer}"></div>
 	<!-- End Footer -->
 
 
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
 	<!-- js link -->
-	<div th:insert="~{fragments/footer_link :: footer_link}"></div>
 
-	
+	<div th:replace="~{fragments/footer_link :: footer_link}"></div>
 
 </body>
-</html>
+
 <script type="text/javascript">
 	function getAuthForm(sns) {
 		$.ajax({
@@ -241,37 +250,22 @@
 			}
 		});
 	}
-	
+
 	function loginCheck() {
-		
+
 		$("#login_form").attr({
-			action:"/recomember/login",
-			method:"post"
+			action : "/recomember/login",
+			method : "post"
 		});
 		$("#login_form").submit();
-		
-			
-		/*
-			$.ajax({
-				url : "/recomember/login",
-				type : "POST",
-				data:$("#login_form").serialize(),
-				success : function(result, status, xhr) {
-					console.log("로그인 성공", result);
-					
-				},
-				error : function(xhr, setatus, error) {
-					//에러처리
-					console.error("AJAX에러:", error);
-					alert("권한이 없거나 요청에 실패했습니다");
-				}
-			});
-	 	*/
 	}
-	
+
 	$(function() {
 		$("#bt_login").click(function() {
 			loginCheck();
 		});
 	})
 </script>
+
+</html>
+

@@ -2,28 +2,31 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="com.sds.foodfit.model.member.MemberDetailDAO">
 
-	
 	<insert id="insert" parameterType="MemberDetail">
-		insert into memberDetail(gender, age, height, weight, memberIdx)
-		values(#{gender}, #{age}, #{height}, #{weight},
-		 #{member.memberIdx})
+		insert into
+		memberDetail(gender, age, height, weight, memberIdx)
+		values(#{gender},
+		#{age}, #{height}, #{weight},
+		#{member.memberIdx}, #{dislikedFood.dislikedFoodIdx})
+
 	</insert>
-		
+
 	<resultMap type="MemberDetail" id="MemberDetailMap">
-		<id 		column="memberDetailIdx" 	property="memberDetailIdx"/>
-		<result 	column="gender"					property="gender"/>
-		<result 	column="age" 						property="age"/>
-		<result 	column="height" 					property="height"/>
-		<result 	column="weight" 					property="weight"/>
-		<association column="memberIdx" property="member" javaType="Member" select="com.sds.foodfit.model.member.MemberDAO.selectByMemberIdx"/>
-	
+		<id column="memberDetailIdx" property="memberDetailIdx" />
+		<result column="gender" property="gender" />
+		<result column="age" property="age" />
+		<result column="height" property="height" />
+		<result column="weight" property="weight" />
+		<association column="memberIdx" property="member"
+			javaType="Member"
+			select="com.sds.foodfit.model.member.MemberDAO.selectByMemberIdx" />
 	</resultMap>
-	
-	
-	<!-- member_idx 에 속한 상세정보 가져오기 -->
-	<select id="selectByMemberIdx" parameterType="int" resultMap="MemberDetailMap">
+
+	<!-- memberIdx 에 속한 상세정보 가져오기 -->
+	<select id="selectByMemberIdx" parameterType="int"
+		resultMap="MemberDetailMap">
 		select * from memberDetail where memberIdx=#{memberIdx}
 	</select>
-		
+
 
 </mapper>
