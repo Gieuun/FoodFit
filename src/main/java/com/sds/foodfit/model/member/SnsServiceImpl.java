@@ -12,9 +12,10 @@ public class SnsServiceImpl implements SnsService{
 	private SnsDAO snsDAO;
 	
 	public Sns selectByName(String snsName) {
-		
 		return snsDAO.selectByName(snsName);
 	}
-	 
-	
+
+	public Sns select(int snsIdx) {
+		return snsDAO.select(snsIdx);
+	}
 }

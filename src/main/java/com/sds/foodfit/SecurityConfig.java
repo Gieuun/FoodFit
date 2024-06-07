@@ -14,7 +14,7 @@ import org.springframework.security.web.authentication.AuthenticationSuccessHand
 @Configuration
 @EnableWebSecurity
 public class SecurityConfig {
-	
+
 	@Autowired
 	private DataSource dataSource;
 
@@ -22,10 +22,10 @@ public class SecurityConfig {
 	@Bean
 	public BCryptPasswordEncoder bCryptPasswordEncoder() {
 		return new BCryptPasswordEncoder();
-	}	
-	
-	//시큐리티 필터체인 객체 호출 (접근허가 관련 작업)
-	 @Bean
+	}
+
+	// 시큐리티 필터체인 객체 호출 (접근허가 관련 작업)
+	@Bean
 	    public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {		 
 	        http
 	            .authorizeHttpRequests(authorize -> authorize	            		
@@ -39,19 +39,28 @@ public class SecurityConfig {
 	                .anyRequest().authenticated()             		// 그 외의 요청은 인증 필요
 	            )
 	            .formLogin(form -> form
-	                .loginPage("/login")
-	                .permitAll()                             		// 로그인 페이지는 인증 없이 접근 가능
+	            		.loginPage("/recomember/loginform")
+	                    .successHandler(loginEventHandler())
+	                    .loginProcessingUrl("/recomember/login")
+	                    .usernameParameter("id")
+	                    .passwordParameter("pwd")
+	                    .permitAll()                             		// 로그인 페이지는 인증 없이 접근 가능
 	            )
 	            .httpBasic(httpBasic -> httpBasic
 	                .realmName("FoodFit")                      		// 기본 인증 사용 시 realm 이름 설정
 	            );
-
-        http.csrf((auth)->auth.disable());
+        //LoginFilter loginFilter = new LoginFilter(authenticationManager());
+        //loginFilter.setFilterProcessesUrl("/recomember/login"); 
+        //http.addFilterBefore(loginFilter, UsernamePasswordAuthenticationFilter.class);
+        
+        
+        
+        //http.csrf((auth)->auth.disable());
         return http.build();
     }
 
+	public AuthenticationSuccessHandler loginEventHandler() {
+		return new LoginEventHandler();
+	}
 
-	 public AuthenticationSuccessHandler loginEventHandler() {
-			return new LoginEventHandler();
-		}
 }

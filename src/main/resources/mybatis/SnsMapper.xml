@@ -4,17 +4,18 @@
 
 	<!-- 결과 맵 정의 -->
 	<resultMap id="SnsMap" type="Sns">
-		<id property="snsIdx" column="snsIdx"/>
-		<result property="snsName" column="snsName"/>
+		<id property="snsIdx" column="snsIdx" />
+		<result property="snsName" column="snsName" />
 	</resultMap>
-	
+
 	<!-- 회원가입 시 role의 정보가 필요함, 롤의 이름을 통해 Role DTO를 채우기 위함 -->
-	<select id="selectByName" parameterType="String" resultMap="SnsMap">
+	<select id="selectByName" parameterType="String"
+		resultMap="SnsMap">
 		select * from sns where snsName=#{snsName}
 	</select>
-	
+
 	<select id="select" parameterType="int" resultMap="SnsMap">
 		select * from sns where snsIdx=#{snsIdx}
 	</select>
-	
+
 </mapper>

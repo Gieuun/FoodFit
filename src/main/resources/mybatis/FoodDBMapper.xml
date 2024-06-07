@@ -1,6 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
-<mapper namespace="com.sds.foodfit.model.food.FoodDBDAO">	
+
+<mapper namespace="com.sds.foodfit.model.food.FoodDBDAO">
+
+	<!-- API의 값을 DB에 넣는다 -->
+	<insert id="insertFoodDB"
+		parameterType="com.sds.foodfit.domain.FoodDB">
+		insert into foodDB (foodName, kcal, carbohydrate,
+		protein, fat, sugar, sodium)
+		VALUES (#{foodName}, #{kcal},
+		#{carbohydrate}, #{protein}, #{fat}, #{sugar},
+		#{sodium})
+	</insert>
+
 
 	<select id="selectHighProtein">
 		select * from foodDB order by protein desc limit 10
@@ -8,7 +20,7 @@
 	<select id="selectLowSugar">
 		select * from foodDB order by sugar asc limit 10
 	</select>
-	
+
 	<select id="selectLowSodium">
 		select * from foodDB order by sodium asc limit 10
 	</select>

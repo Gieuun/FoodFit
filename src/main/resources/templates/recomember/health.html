@@ -14,6 +14,7 @@
 <meta name="author" content="">
 
 
+<!-- 헤더 링크 -->
 <!-- header_link begin -->
 <th:block th:replace="~{fragments/header_link :: header_link}" />
 <!-- header_link end -->
@@ -135,7 +136,7 @@ body {
 <body>
 
 	<!-- Start header -->
-	<div th:include="fragments/header :: header"></div>
+	<th:block th:replace="~{fragments/header :: header}" />
 	<!-- End header -->
 
 	<!-- Start All Pages -->
@@ -163,6 +164,7 @@ body {
 			<div class="row">
 				<div class="col-lg-12">
 					<form id="health_form">
+						
 						<div class="row">
 
 							<div class="col-md-12">
@@ -181,12 +183,12 @@ body {
 								<div class="form-group">
 									<div id="age">
 										<p>연령을 선택해주세요.</p>
-										<input id="teen" 		name="age" 		type="radio" value=""><label for="teen">10대</label> 
-										<input id="twenties" 	name="age" 		type="radio" value=""><label for="twenties">20대</label>
-										<input id="thirties" 	name="age" 		type="radio" value=""><label for="thirties">30대</label>
-										<input id="forties" 		name="age"		type="radio" value=""><label for="forties">40대</label>
-										<input id="fifties"	 	name="age" 		type="radio" value=""><label for="fifties">50대</label> 
-										<input id="sixties" 		name="age" 		type="radio" value=""><label for="sixties">60대이상</label>
+										<input id="teen" 		name="age" 		type="radio" value="10"><label for="teen">10대</label> 
+										<input id="twenties" 	name="age" 		type="radio" value="20"><label for="twenties">20대</label>
+										<input id="thirties" 	name="age" 		type="radio" value="30"><label for="thirties">30대</label>
+										<input id="forties" 		name="age"		type="radio" value="40"><label for="forties">40대</label>
+										<input id="fifties"	 	name="age" 		type="radio" value="50"><label for="fifties">50대</label> 
+										<input id="sixties" 		name="age" 		type="radio" value="60"><label for="sixties">60대이상</label>
 									</div>
 								</div>
 							</div>
@@ -196,7 +198,7 @@ body {
 								<div class="form-group">
 									<div id="height">
 										<p>현재 키를 입력해주세요.</p>
-										<input type="text" name="height" placeholder="172.5cm">
+										<input type="number" name="height" placeholder="입력 예) 173.5">cm
 										<div id="heightError" class="error"></div>
 									</div>
 								</div>
@@ -206,7 +208,7 @@ body {
 								<div class="form-group">
 									<div id="weight">
 										<p>현재 몸무게를 입력해주세요.</p>
-										<input type="text" name="weight" placeholder="76.3kg">
+										<input type="number" name="weight" placeholder="입력 예) 76.3">kg
 										<div id="weightError" class="error"></div>
 									</div>
 								</div>
@@ -230,41 +232,51 @@ body {
 
 
 	<!-- Start Footer -->
-	<div th:include="fragments/footer :: footer"></div>
+	<div th:insert="~{fragments/footer :: footer}"></div>
 	<!-- End Footer -->
-
 
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
 	<!-- js link -->
-	<div th:include="fragments/footer_link :: footer_link"></div>
+	<div th:insert="~{fragments/footer_link :: footer_link}"></div>
+	
 </body>
 </html>
 <script type="text/javascript">
 
 	
 	function regist(){
+		
 		console.log($("#health_form").serialize());
+		$("#health_form").attr({
+			action:"/recomember/regist",
+			method:"post"
+		});
+		$("#health_form").submit();
+		
+		/*
 		$.ajax({
-			url:"/rest/recomember/healthform",
-			type:"POST",
-			data:$("#health_form").serialize(),
+			url: "/recomember/regist",
+			type: "post",
+			data: $("#health_form").serialize(),
 			success:function(response){
-				console.log(response)
+				alert(response);
 				window.location.href="/recomember/loginform"
 			},
 			error:function(xhr, status, err){
-				alert("회원가입 실패!!");
-				//window.location.href="/recomember/joinform"
+				alert("회원가입실패??");
+				window.location.href="/recomember/joinform"
 			}
 		});
+		*/
 	
 	}
 	$(function() {
 		$("#bt_regist").click(function() {
 			regist();
 		});
-	})
+	});
+	
 	$(function() {
 		$("#bt_prev").click(function() {
 			location.href = "/recomember/joinform"

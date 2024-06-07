@@ -14,7 +14,7 @@
 	
 	<!--홈페이지 회원 경우 비밀번호가 존재하고, 비밀번호는 member 테이블에 존재하므로, join 을 해야한다 
 	하지만 mybatis 객체 간 관계를 이용하면 association -->
-	<resultMap type="Member" id="MemberMap">
+	<resultMap  id="MemberMap" type="Member">
 		<id 		column="memberIdx" 		property="memberIdx"/>
 		<result 	column="name" 					property="name"/>
 		<result 	column="id" 						property="id"/>

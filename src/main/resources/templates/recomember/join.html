@@ -13,65 +13,18 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<!-- Site Icons -->
-<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
-<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
-
-<th:block th:fragment="header_link">
-
-	<!-- Bootstrap CSS -->
-	<link rel="stylesheet" href="/site/css/bootstrap.min.css">
-	<!-- Site CSS -->
-	<link rel="stylesheet" href="/site/css/style.css">
-	<!-- Responsive CSS -->
-	<link rel="stylesheet" href="/site/css/responsive.css">
-	<!-- Custom CSS -->
-	<link rel="stylesheet" href="/site/css/custom.css">
-</th:block>
+<!-- 헤더 링크 -->
+<!-- header_link begin -->
+<th:block th:replace="~{fragments/header_link :: header_link}" />
+<!-- header_link end -->
 
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
 <style type="text/css">
-#sns {
-	justify-content: space-around;
-	width: 100%;
-	display: flex;
-}
-
-#sns input {
-	width: 55px;
-	margin: 20px 0px;
-}
-
-#login_text {
-	position: relative;
-	margin: 20px 0px;
-	text-align: center;
-	font-size: 12px;
-	color: #09aa5c;
-}
-
-#login_text::after {
-	content: "";
-	position: absolute;
-	top: 40px;
-	left: 0px;
-	width: 100%;
-	height: 1px;
-	border-radius: 5px;
-	background: #dadada;
-}
-
 .btArea {
 	display: flex;
-}
-
-.error {
-	font-size: 12px;
-	color: red;
-	font-weight: 700;
 }
 </style>
 </head>
@@ -80,8 +33,6 @@
 	<!-- Start header -->
 	<th:block th:replace="~{fragments/header :: header}" />
 	<!-- End header -->
-
-
 
 
 	<!-- Start All Pages -->
@@ -110,7 +61,7 @@
 				<div class="col-lg-12">
 					<form id="join_form">
 						<div class="row">
-							<input type="hidden" name="sns.sns_name" value="homepage">
+							<input type="hidden" name="sns.snsName" value="homepage">
 							
 							<div class="col-md-12">
 								<div class="form-group">
@@ -151,22 +102,6 @@
 								</div>
 							</div>
 
-
-							<div class="col-md-12">
-								<div class="form-group">
-									<p id="login_text">소셜 로그인</p>
-									<div id="sns">
-										<a href="javascript:getAuthForm('google')" class="google">
-											<input type="image" src="/site/images/google_logo_icon.png">
-										</a> <a href="javascript:getAuthForm('naver')" class="naver">
-											<input type="image" src="/site/images/naver_logo_icon.png">
-										</a> <a href="javascript:getAuthForm('kakao')" class="kakao">
-											<input type="image" src="/site/images/kakao_logo_icon.png">
-										</a>
-									</div>
-								</div>
-							</div>
-
 							<div class="col-md-12">
 								<div class="submit-button text-center btArea">
 									<button class="btn btn-common" id="bt_prev" type="button"
@@ -184,13 +119,13 @@
 	<!-- End Contact -->
 
 	<!-- Start Footer -->
-	<div th:include="fragments/footer :: footer"></div>
+	<div th:insert="~{fragments/footer :: footer}"></div>
 	<!-- End Footer -->
 
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
 	<!-- js link -->
-	<div th:include="fragments/footer_link :: footer_link"></div>
+	<div th:insert="~{fragments/footer_link :: footer_link}"></div>
 
 </body>
 </html>
@@ -200,15 +135,20 @@
 
 	
 
-	function getAuthForm(sns) {
-		$.ajax({
-			url : "/rest/recomember/authform/" + sns,
-			type : "GET",
-			success : function(result, status, xhr) {
-				location.href = result;
-			}
-		});
-	}
+function getAuthForm(sns){
+	$.ajax({
+		url:"/rest/recomember/authform/"+sns,
+		type:"GET",
+		success:function(result, status, xhr){
+			location.href=result;
+		},
+		error: function(xhr, setatus, error){
+			//에러처리
+			console.error("AJAX에러:", error);
+			alert("권한이 없거나 요청에 실패했습니다");
+		}
+	});
+}
 
 	function healthCheck() {
 		console.log($("#join_form").serialize());
@@ -219,12 +159,11 @@
 			type : "post",
 			data : $("#join_form").serialize(),
 			success : function(response) {
-				console.log(response)
-				alert("임시저장 성공")
-				window.location.href = "/recomember/healthform"
+				alert(response)
+				window.location.href ="/recomember/healthform"
 			},
 			error : function(xhr, status, err) {
-				console.log(err)
+				alert("회원정보 저장 실패");
 			}
 		});
 	}
