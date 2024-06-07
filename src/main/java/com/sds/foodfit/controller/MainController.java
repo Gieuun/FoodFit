@@ -35,13 +35,7 @@ public class MainController {
 	public String goLogin() {
 		return "/recomember/login";
 
-	}
-	
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    @GetMapping("/admin")
-    public String goAdmin() {
-        return "redirect:/admin/updates";
-    }
+	}   
 
 }
   		

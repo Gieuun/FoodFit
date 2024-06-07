@@ -12,12 +12,12 @@ import com.sds.foodfit.domain.FoodDB;
 import com.sds.foodfit.model.food.FoodDBService;
 
 @Controller
-public class RecoFoodController {
+public class RecoTableController {
 
 	@Autowired
 	private FoodDBService foodDBService;
 
-	@GetMapping("food/result")
+	@GetMapping("/table/result")
 	public String getResult(@RequestParam("type") String type, Model model) {
 		List<FoodDB> foods;
 
@@ -38,7 +38,7 @@ public class RecoFoodController {
 		}
 		model.addAttribute("foods", foods);
 
-		return "/recofood/result";
+		return "/recotable/result";
 	}
 
 }
