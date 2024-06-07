@@ -29,6 +29,9 @@ public class NoticeServiceImpl implements NoticeService{
 	public Notice select(int noticeIdx) {
 		noticeDAO.updateHit(noticeIdx);
 		Notice notice = noticeDAO.select(noticeIdx);
+		if(notice ==null) {
+			throw new NoticeException("글 불러오기 실패");
+		}
 		return notice;
 	}
 

@@ -42,7 +42,6 @@
 	<!-- End All Pages -->
 <br><br><br>
     <div class="container">
-        <hr>
         <div class="notice-title">
             <h3 th:text="${notice.title}"></h3>
         </div>
@@ -56,6 +55,10 @@
         </div>
         <div class="notice-footer">
             <button class="btn btn-custom" onclick="location.href='/notice'">목록</button>
+            <button class="btn btn-custom">
+            	<a th:href="@{/notice/editform(noticeIdx=${notice.noticeIdx})}">수정</a>
+            </button>
+
         </div>
     </div>
     <br><br><br><br><br><br>
