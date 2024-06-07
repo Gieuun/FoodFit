@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.sds.foodfit.domain.Member;
 import com.sds.foodfit.domain.MemberDetail;
+import com.sds.foodfit.domain.Role;
 import com.sds.foodfit.exception.MemberException;
 import com.sds.foodfit.model.member.MemberDetailService;
 import com.sds.foodfit.model.member.MemberService;
@@ -32,80 +33,43 @@ public class RestMemberController {
 	@Autowired
 	private NaverLogin naverLogin;
 	
-	@Autowired
-	private MemberService memberService;
-	
-	@Autowired
-	private MemberDetailService memberDetailService;
-	
-	
-
 	// 회원정보임시저장
-	@PostMapping("rest/recomember/temp")
+	@PostMapping("/rest/recomember/temp")
 	public ResponseEntity temp(Member member, HttpSession session) {
 
-		log.debug("temp() called with member: {}", member);
+		log.debug("저장된 member is {}",member);
+		
 		// 세션에 임시 회원 정보 담기
 		session.setAttribute("member", member);
-		log.debug("Session attibute 'member' set: {} ", session.getAttribute("member"));
 		
-		System.out.println("name is " + member.getName());
-		System.out.println("id is " + member.getId());
-		System.out.println("password is " + member.getPwd());
-		System.out.println("email is " + member.getEmail());
+		Member dto =(Member)session.getAttribute("member");
+		log.debug("세션에서 꺼낸 member is ",dto);
 
-		ResponseEntity entity = ResponseEntity.status(HttpStatus.OK).build();
-		return entity;
+		return ResponseEntity.ok("임시회원 정보가 저장되었습니다.");
 	}
-	
-	//임시 저장한 첫번째 세션에 저장된 임시 회원 정보를 가져와서 추가정보와 합쳐서 회원가입처리하는 컨트롤러
-	@PostMapping("rest/recomember/healthform")
-	public ResponseEntity<String> healthJoin(MemberDetail memberDtail, HttpSession session) {
-		
-		log.debug("healthJoin() called with memberDetail: {}", memberDtail);
-		//세션에 저장된 임시 회원 정보 가져오기
-		Member member = (Member)session.getAttribute("member");
-		
-		//세션에 임시 회원 정보가 없는 경우 처리
-		if(member == null) {
-			log.debug("member session이 저장이 안됬다");
-			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("임시 회원 정보가 없습니다.");
-		}
-		
-		//임시회원 정보와 추가 정보 합치기
-		member.setMemberDetail(memberDtail);
-		
-		//회원 가입 후 세션에서 임시 회원 정보 제거
-		session.removeAttribute("member");
-		log.debug("member after setting memberDetail: {}", member);
-		
-		System.out.println("gender is " + memberDtail.getGender());
-		System.out.println("age is " + memberDtail.getAge());
-		System.out.println("height is " + memberDtail.getHeight());
-		System.out.println("weight is " + memberDtail.getWeight());
-		
-		//여기서실제 회원가입 로직 호출
-		//memberService.regist(member);
-		
-		
-				
-		return ResponseEntity.ok("회원가입을 성공했습니다");
-	}
-	
-	
-	@GetMapping("rest/recomember/authform/{sns}")
+
+
+	// 로그인 요청에 필요한 링크 주소 및 파라미터 생성 요청 처리
+	@GetMapping("/rest/recomember/authform/{sns}")
 	public ResponseEntity getLink(@PathVariable("sns") String sns) {
+
 		ResponseEntity entity = null;
 
-		if (sns.equals("naver")) {
-			entity = ResponseEntity.ok(naverLogin.getGrantUrl());
+		if (sns.equals("google")) {
+			// entity=ResponseEntity.ok(naverLogin.getGrantUrl()); //내용을 보내야 하므로, body도 구성하자
+		} else if (sns.equals("naver")) {
+			entity = ResponseEntity.ok(naverLogin.getGrantUrl()); // 내용을 보내야 하므로, body도 구성하자
 		} else if (sns.equals("kakao")) {
-			entity = ResponseEntity.ok(kakaoLogin.getGrantUrl());
-		} else if (sns.equals("google")) {
-			// entity=ResponseEntity.ok(googleLogin.getGrantUrl());
+			entity = ResponseEntity.ok(kakaoLogin.getGrantUrl()); // 내용을 보내야 하므로, body도 구성하자
 		}
 
 		return entity;
+	}
+
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
+	@GetMapping("/rest/recomember/adminlink")
+	public ResponseEntity getAdminLink() {
+		return ResponseEntity.ok("/admin/upload");
 	}
 
 	@ExceptionHandler(MemberException.class)
@@ -113,12 +77,6 @@ public class RestMemberController {
 		ResponseEntity entity = ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
 		return entity;
 
-	}
-
-	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	@GetMapping("rest/recomember/adminlink")
-	public ResponseEntity getAdminLink() {
-		return ResponseEntity.ok("/admin/upload");
 	}
 
 }

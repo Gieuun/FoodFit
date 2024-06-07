@@ -3,9 +3,44 @@
 <head>
 <meta charset="UTF-8">
 <title>에러 페이지</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f4;
+        color: #333;
+        text-align: center;
+        padding: 50px;
+    }
+    .error-title {
+        font-size: 2em;
+        color: #e74c3c;
+        margin-bottom: 20px;
+    }
+    .error-message {
+        font-size: 1.2em;
+        color: #555;
+        margin-bottom: 30px;
+    }
+    .home-link {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 1em;
+        color: #fff;
+        background-color: #3498db;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+    }
+    .home-link:hover {
+        background-color: #2980b9;
+    }
+</style>
 </head>
 <body>
-	에러가 발생했네요
-	<p th:text="${e}"></p>
+    <div class="error-container">
+        <div class="error-title">에러가 발생했네요</div>
+        <p class="error-message" th:text="${e}"></p>
+        <a class="home-link" href="/">홈으로 돌아가기</a>
+    </div>
 </body>
 </html>

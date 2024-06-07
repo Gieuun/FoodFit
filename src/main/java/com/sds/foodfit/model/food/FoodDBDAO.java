@@ -8,7 +8,6 @@ import com.sds.foodfit.domain.FoodDB;
 
 @Mapper
 public interface FoodDBDAO {
-	public void insertFoodDB(FoodDB foodDB);
 
 	public List selectHighProtein();
 

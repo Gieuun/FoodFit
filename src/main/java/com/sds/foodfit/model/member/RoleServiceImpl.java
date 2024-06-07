@@ -11,10 +11,12 @@ public class RoleServiceImpl implements RoleService{
 	@Autowired
 	private RoleDAO roleDAO;
 	
-	
 	public Role selectByName(String roleName) {
-		
 		return roleDAO.selectByName(roleName);
+	}
+
+	public Role select(int roleIdx) {
+		return roleDAO.select(roleIdx);
 	}
 
 }

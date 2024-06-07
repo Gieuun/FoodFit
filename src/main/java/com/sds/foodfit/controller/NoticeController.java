@@ -18,7 +18,10 @@ import com.sds.foodfit.domain.Notice;
 import com.sds.foodfit.exception.NoticeException;
 import com.sds.foodfit.model.notice.NoticeService;
 
+import lombok.extern.slf4j.Slf4j;
+
 @Controller
+@Slf4j
 public class NoticeController {
 
 	@Autowired
@@ -95,25 +98,23 @@ public class NoticeController {
 	@GetMapping("/notice/detail")
 	public String getDetail(Model model, @RequestParam(value="noticeIdx", defaultValue="0") int noticeIdx) {
 	    Notice notice = noticeService.select(noticeIdx);
-	    if (notice != null) {
-	        model.addAttribute("notice", notice);
-	    } else {
-	        model.addAttribute("message", "해당 게시글을 찾을 수 없습니다.");
-	    }
+	    
+	    model.addAttribute("notice", notice);
 	    return "notice/content";
+	}
+	
+	@GetMapping("/notice/editform")
+	public String getEditForm(Model model, @RequestParam(value="noticeIdx", defaultValue="0") int noticeIdx) {
+		Notice notice = noticeService.select(noticeIdx);
+		model.addAttribute("notice", notice);
+		return "notice/editForm";
 	}
 	
 	// 게시글 수정 요청 처리
 	@PostMapping("/notice/edit")
-	public String edit(Notice notice, RedirectAttributes redirectAttributes) {
-	    try {
-	        noticeService.update(notice);
-	        redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 수정되었습니다.");
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("message", "게시글 수정 중 오류가 발생하였습니다.");
-	    }
-	    return "redirect:/notice/detail?noticeIdx=" + notice.getNoticeIdx();
-
+	public String edit(Notice notice) {
+		noticeService.update(notice);
+		return "redirect:/notice/detail?notice_idx="+notice.getNoticeIdx();
 	}
 	
 	// 게시글 삭제 요청 처리

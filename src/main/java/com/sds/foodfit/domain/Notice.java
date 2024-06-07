@@ -6,9 +6,9 @@ import lombok.Data;
 public class Notice {
   
 	private int noticeIdx;
-	private String title;
-	private String writer;
-	private String content;
-	private String regdate; //LocalDateTime  
-	private int hit;
+	private String title; //제목
+	private String writer; //작성자
+	private String content; //내용
+	private String regdate; //날짜
+	private int hit; //조회수
 }
