@@ -20,8 +20,8 @@ import lombok.extern.slf4j.Slf4j;
 //모든 컨트롤러에서 사용자명을 저장할 수 있도록 aop 구현
 
 @Slf4j
-@Aspect
-@Component
+//@Aspect
+//@Component
 public class AuthAspect {
 	
 	//포함시킬 포인터컷

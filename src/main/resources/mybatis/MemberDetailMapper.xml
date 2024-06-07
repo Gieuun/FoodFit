@@ -4,9 +4,9 @@
 
 	
 	<insert id="insert" parameterType="MemberDetail">
-		insert into member_detail(gender, age, height, weight, memberIdx)
+		insert into memberDetail(gender, age, height, weight, memberIdx)
 		values(#{gender}, #{age}, #{height}, #{weight},
-		 #{member.member_idx})
+		 #{member.memberIdx})
 	</insert>
 		
 	<resultMap type="MemberDetail" id="MemberDetailMap">

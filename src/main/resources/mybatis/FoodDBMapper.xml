@@ -5,25 +5,25 @@
 	<!-- API의 값을 DB에 넣는다 -->
 	<insert id="insertFoodDB"
 		parameterType="com.sds.foodfit.domain.FoodDB">
-		insert into fooddb (foodname, kcal, carbohydrate, protein, fat, sugar, sodium)
+		insert into foodDB (foodName, kcal, carbohydrate, protein, fat, sugar, sodium)
 		VALUES (#{foodName}, #{kcal}, #{carbohydrate}, #{protein}, #{fat}, #{sugar},
 		#{sodium})
 	</insert>
 
 	<select id="selectHighProtein">
-		select * from fooddb order by protein desc limit 10
+		select * from foodDB order by protein desc limit 10
 	</select>
 	<select id="selectLowSugar">
-		select * from fooddb order by sugar asc limit 10
+		select * from foodDB order by sugar asc limit 10
 	</select>
 	
 	<select id="selectLowSodium">
-		select * from fooddb order by sodium asc limit 10
+		select * from foodDB order by sodium asc limit 10
 	</select>
 
 	<!-- 밥상진단용은 SQL에서 호출 후 DAO, Service객체에서 선별해서 출력해야함. 우선 100개를 랜덤하게 불러오게 한다 -->
 	<select id="selectRandomHundred">
-		select * from fooddb order by rand() limit 100
+		select * from foodDB order by rand() limit 100
 	</select>
 
 

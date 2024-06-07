@@ -2,7 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="com.sds.foodfit.model.member.SnsDAO">
 
-	<resultMap id="snsResultMap" type="com.sds.foodfit.model.member.SnsDAO">
+	<resultMap id="snsResultMap" type="Sns">
 		<id property="snsIdx" column="snsIdx"/>
 		<result property="snsName" column="snsName"/>
 	</resultMap>

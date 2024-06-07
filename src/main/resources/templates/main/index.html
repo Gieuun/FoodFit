@@ -18,7 +18,9 @@
 </head>
 
 <body>
-	<div th:include="fragments/header :: header"></div>
+	<!-- Start header -->
+	<th:block th:replace="~{fragments/header :: header}" />
+	<!-- End header -->
 
 	<!-- Start slides -->
 	<div id="slides" class="cover-slides">
@@ -421,7 +423,10 @@
 		</div>
 	</div>
 	<!-- End Contact info -->
-	<div th:include="fragments/footer :: footer"></div>
+	
+	<!-- Start Footer -->
+	<div th:insert="~{fragments/footer :: footer}"></div>
+	<!-- End Footer -->
 
 	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
 
