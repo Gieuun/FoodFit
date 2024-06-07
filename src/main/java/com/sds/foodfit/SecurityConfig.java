@@ -31,6 +31,7 @@ public class SecurityConfig {
 	            .authorizeHttpRequests(authorize -> authorize	            		
 	            		.requestMatchers("/site/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 	            		.requestMatchers("/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
+	            		.requestMatchers("/food/**").permitAll()	// 추천요청을 인증 없이 허용. 결과물 나오면 수정필요!
 	            		.requestMatchers("/rest/notice/**").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 	            		.requestMatchers("/rest/recomember/**").permitAll()
 	            		.requestMatchers("/").permitAll()	// 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!

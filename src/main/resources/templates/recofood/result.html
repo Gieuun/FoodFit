@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+
+<!-- Mobile Metas -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<!-- Site Metas -->
+<title>음식 추천 - 유저정보 확인</title>
+<meta name="keywords" content="">
+<meta name="description" content="">
+<meta name="author" content="">
+
+<!-- ALL JS FILES -->
+<script src="/site/js/jquery-3.2.1.min.js"></script>
+<script src="/site/js/popper.min.js"></script>
+<script src="/site/js/bootstrap.min.js"></script>
+<!-- ALL PLUGINS -->
+<script src="/site/js/jquery.superslides.min.js"></script>
+<script src="/site/js/images-loded.min.js"></script>
+<script src="/site/js/isotope.min.js"></script>
+<script src="/site/js/baguetteBox.min.js"></script>
+<script src="/site/js/picker.js"></script>
+<script src="/site/js/picker.date.js"></script>
+<script src="/site/js/picker.time.js"></script>
+<script src="/site/js/legacy.js"></script>
+<script src="/site/js/form-validator.min.js"></script>
+<script src="/site/js/contact-form-script.js"></script>
+<script src="/site/js/custom.js"></script>
+
+<!-- header_link begin -->
+<th:block th:replace="fragments/header_link :: header_link" />
+<!-- header_link end -->
+
+<!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+	<!-- Start header -->
+	<th:block th:replace="fragments/header :: header" />
+	<!-- End header -->
+
+	<!-- Start All Pages -->
+	<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>음식추천받기</h1>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End All Pages -->
+
+	<!-- Start Reservation -->
+	<div class="reservation-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<p>아래의 유저정보를 확인해주세요</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12 col-sm-12 col-xs-12">
+					<div class="contact-block">
+						<form id="contactForm">
+							<div class="row">
+								<div class="col-md-6">
+									<div class="col-md-12">
+
+										<div class="form-group">
+											<div class="row">
+												<h3>성별</h3>
+												<input id="male" name="gender" type="radio" value=""><label
+													for="male">남성</label> <input id="female" name="gender"
+													type="radio" value=""><label for="female">여성</label>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+
+										<div class="form-group">
+											<div class="row">
+												<h3>연령</h3>
+												<input id="teen" name="age" type="radio" value=""><label
+													for="teen">10대</label> <input id="twenties" name="age"
+													type="radio" value=""><label for="twenties">20대</label>
+												<input id="thirties" name="age" type="radio" value=""><label
+													for="thirties">30대</label> <input id="forties" name="age"
+													type="radio" value=""><label for="forties">40대</label>
+												<input id="fifties" name="age" type="radio" value=""><label
+													for="fifties">50대</label> <input id="sixties" name="age"
+													type="radio" value=""><label for="sixties">60대이상</label>
+											</div>
+										</div>
+									</div>
+									<div class="col-md-12">
+
+										<div class="form-group">
+											<div class="row">
+												<h3>키</h3>
+												<input id="height" name="height" type="number" value="">
+												<h3>몸무게</h3>
+												<input id="weight" name="weight" type="number" value="">
+											</div>
+										</div>
+									</div>
+								</div>
+								<div class="col-md-6">
+									<h3>식습관 목표</h3>
+									<div class="col-md-12">
+										<div class="form-group">
+											<input type="checkbox" id="highProtein" name="highProtein"> 근력향상 (단백질 섭취량 높이기)<br>
+											<input type="checkbox" id="lowSugar" name="lowSugar"> 체중감량(탄수화물 줄이기)<br>
+											<input type="checkbox" id="lowSodium" name="lowSodium"> 싱겁게 먹기 (저나트륨식)<br>
+										</div>
+									</div>
+								</div>
+						</form>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<!-- End Reservation -->
+
+	<!-- Start Footer -->
+	<th:block th:replace="fragments/footer :: footer" />
+	<!-- End Footer -->
+
+	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+
+	<!-- footer_link begin -->
+	<th:block th:replace="fragments/footer_link :: footer_link" />
+	<!-- footer_link end -->
+
+</body>
+</html>
+
+
+<!-- 리뷰는 추가작업으로 보류 
+	
+	<div class="customer-reviews-box">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="heading-title text-center">
+						<h2>Customer Reviews</h2>
+						<p>Lorem Ipsum is simply dummy text of the printing and
+							typesetting</p>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-md-8 mr-auto ml-auto text-center">
+					<div id="reviews" class="carousel slide" data-ride="carousel">
+						<div class="carousel-inner mt-4">
+							<div class="carousel-item text-center active">
+								<div class="img-box p-1 border rounded-circle m-auto">
+									<img class="d-block w-100 rounded-circle"
+										src="site/images/profile-1.jpg" alt="">
+								</div>
+								<h5 class="mt-4 mb-0">
+									<strong class="text-warning text-uppercase">Paul
+										Mitchel</strong>
+								</h5>
+								<h6 class="text-dark m-0">Web Developer</h6>
+								<p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur
+									adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui.
+									Mauris magna metus, dapibus nec turpis vel, semper malesuada
+									ante. Idac bibendum scelerisque non non purus. Suspendisse
+									varius nibh non aliquet.</p>
+							</div>
+							<div class="carousel-item text-center">
+								<div class="img-box p-1 border rounded-circle m-auto">
+									<img class="d-block w-100 rounded-circle"
+										src="site/images/profile-3.jpg" alt="">
+								</div>
+								<h5 class="mt-4 mb-0">
+									<strong class="text-warning text-uppercase">Steve
+										Fonsi</strong>
+								</h5>
+								<h6 class="text-dark m-0">Web Designer</h6>
+								<p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur
+									adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui.
+									Mauris magna metus, dapibus nec turpis vel, semper malesuada
+									ante. Idac bibendum scelerisque non non purus. Suspendisse
+									varius nibh non aliquet.</p>
+							</div>
+							<div class="carousel-item text-center">
+								<div class="img-box p-1 border rounded-circle m-auto">
+									<img class="d-block w-100 rounded-circle"
+										src="site/images/profile-7.jpg" alt="">
+								</div>
+								<h5 class="mt-4 mb-0">
+									<strong class="text-warning text-uppercase">Daniel
+										Vebar</strong>
+								</h5>
+								<h6 class="text-dark m-0">SEO Analyst</h6>
+								<p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur
+									adipiscing elit. Nam eu sem tempor, varius quam at, luctus dui.
+									Mauris magna metus, dapibus nec turpis vel, semper malesuada
+									ante. Idac bibendum scelerisque non non purus. Suspendisse
+									varius nibh non aliquet.</p>
+							</div>
+						</div>
+						<a class="carousel-control-prev" href="#reviews" role="button"
+							data-slide="prev"> <i class="fa fa-angle-left"
+							aria-hidden="true"></i> <span class="sr-only">Previous</span>
+						</a> <a class="carousel-control-next" href="#reviews" role="button"
+							data-slide="next"> <i class="fa fa-angle-right"
+							aria-hidden="true"></i> <span class="sr-only">Next</span>
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+-->
