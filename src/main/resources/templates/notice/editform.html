@@ -16,7 +16,9 @@
 
 <div class="container">
     <h2>글쓰기</h2>
-    <form>
+    <form id="editForm" action="/notice/edit" method="post">
+        <input type="hidden" name="noticeIdx" th:value="${notice.noticeIdx}">
+
         <div class="form-group">
             <label for="title">제목</label>
             <input type="text" class="form-control" name="title" th:value="${notice.title}">
@@ -32,12 +34,11 @@
             <textarea id="summernote" class="form-control" name="content" th:text="${notice.content}"></textarea>
         </div>
 
-        <button type="button" class="btn btn-primary">수정</button>
+        <button type="submit" class="btn btn-primary">수정</button>
     </form>
 </div>
 
 <br><br><br><br><br><br>
-
 
 </body>
 </html>
@@ -49,18 +50,17 @@ $(document).ready(function() {
     height: 300,
     focus: true
   });
-});
 
-function edit(){
-    $("form").attr({
-        action:"/notice/edit",
-        method:"post"
-    }); 
-    $("form").submit();
-}
-$(function(){
-    $("button").click(function(){
-        edit();
-    });
+  $('#editForm').submit(function(event) {
+    event.preventDefault(); // 기본 동작 중단
+
+    // 수정 확인 창 띄우기
+    var confirmEdit = confirm("수정하시겠습니까?");
+    if (confirmEdit) {
+      this.submit();
+    } else {
+    	
+    }
+  });
 });
 </script>

@@ -197,34 +197,36 @@ section.notice {
                         </tr>
                     </thead>
                     <tbody>
-                        <tr th:each=" notice, i : ${noticeList}">
-                            <td th:text="${pager.num-i.index}"></td>
-                            <td><a th:href="@{/notice/detail(noticeIdx=${notice.noticeIdx})}" th:text="${notice.title}"></a></td>
-                            <td th:text="${notice.writer}"></td>
-                            <td th:text="${notice.regdate}"></td>
-                            <td th:text="${notice.hit}"></td>
-                        </tr>
-                        <tr>
-                            <td colspan="5">
-                                <div class="d-flex justify-content-between align-items-center">
-                                    <div class="d-flex justify-content-center flex-grow-1">
-                                        <ul class="pagination mb-0">
-                                            <li class="page-item"><a class="page-link" href="#">Previous</a></li>
-                                            <li th:each="i:${#numbers.sequence(pager.firstPage, pager.lastPage)}" th:class="${pager.currentPage==i}? 'page-item active' : 'page-item'">
-                                                <a class="page-link" th:href="@{/notice/list(currentPage=${i})}" th:text="${i}"></a>
-                                            </li>
-                                            <li class="page-item"><a class="page-link" href="#">Next</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="submit-button text-center">
-									<button class="btn btn-common" onClick="location.href='/notice/writeform';">글등록</button>
-									<div id="msgSubmit" class="h3 text-center hidden"></div> 
-									<div class="clearfix"></div> 
-								</div>
-                                </div>
-                            </td>
-                        </tr>
-                    </tbody>
+    <tr th:each="notice, i : ${noticeList}">
+        <td th:text="${notice.noticeIdx}"></td>
+        <td><a th:href="@{/notice/detail(noticeIdx=${notice.noticeIdx})}" th:text="${notice.title}"></a></td>
+        <td th:text="${notice.writer}"></td>
+        <td th:text="${notice.regdate}"></td>
+        <td th:text="${notice.hit}"></td>
+    </tr>
+    <tr>
+        <td colspan="5">
+            <div class="d-flex justify-content-between align-items-center">
+                <div class="d-flex justify-content-center flex-grow-1">
+                    <ul class="pagination mb-0">
+                        <li class="page-item"><a class="page-link" th:href="@{/notice(currentPage=${pager.currentPage - 1})}">Previous</a></li>
+                        <li th:each="i:${#numbers.sequence(pager.firstPage, pager.lastPage)}" th:class="${pager.currentPage==i}? 'page-item active' : 'page-item'">
+                            <a class="page-link" th:href="@{/notice(currentPage=${i})}" th:text="${i}"></a>
+                        </li>
+                        <li class="page-item">
+    						<a class="page-link" th:href="@{/notice(currentPage=${pager.currentPage + 1})}">Next</a>
+						</li>
+                    </ul>
+                </div>
+                	<div class="submit-button text-center">
+                    	<button class="btn btn-common" onClick="location.href='/notice/writeform';">글등록</button>
+                    	<div id="msgSubmit" class="h3 text-center hidden"></div> 
+                    	<div class="clearfix"></div> 
+                </div>
+            </div>
+        </td>
+    </tr>
+</tbody>
                 </table>
             </div>
         </div>

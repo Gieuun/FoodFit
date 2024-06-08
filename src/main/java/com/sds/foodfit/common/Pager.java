@@ -29,4 +29,17 @@ public class Pager {
 		this.startIndex = (this.currentPage-1)*this.pageSize;
 		this.num = this.totalRecord - this.startIndex;
 	}
+	
+	public void initSearch(int totalRecord, int currentPage) {
+        this.totalRecord = totalRecord;
+        this.totalPage = (int)Math.ceil((float)this.totalRecord / this.pageSize);
+        this.currentPage = currentPage;
+        this.firstPage = this.currentPage - (this.currentPage - 1) % this.blockSize;
+        this.lastPage = this.firstPage + (this.blockSize - 1);
+        if (totalPage <= lastPage) {
+            lastPage = totalPage;
+        }
+        this.startIndex = (this.currentPage - 1) * this.pageSize;
+        this.num = this.pageSize * (this.currentPage - 1) + 1;
+    }
 }
