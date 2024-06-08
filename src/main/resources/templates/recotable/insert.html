@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="zxx" xmlns:th="http://thymeleaf.org">
+<html lang="ko" xmlns:th="http://thymeleaf.org">
 
 <head>
 <meta charset="utf-8">
@@ -133,29 +133,22 @@
 									<div class="input-section">
 										<h5>키</h5>
 										<div class="form-group">
-											<input id="height" name="height" type="number" value="">
+											<input id="height" name="height" type="number" value="" ><!-- 플레이스 홀더와 서버에서 때오고 처리 -->
 										</div>
 									</div>
 
 									<div class="input-section">
 										<h5>몸무게</h5>
 										<div class="form-group">
-											<input id="weight" name="weight" type="number" value="">
-										</div>
-									</div>
-
-									<div class="input-section">
-										<h5>식사 스타일</h5>
-										<div class="form-group">
-											<input type="checkbox" id="highProtein" name="highProtein"> 고단백 식사
-											<input type="checkbox" id="lowSugar" name="lowSugar"> 저당 식사
-											<input type="checkbox" id="lowSodium" name="lowSodium"> 저염 식사
+											<input id="weight" name="weight" type="number" value=""> <!-- 플레이스 홀더와 서버에서 때오고 처리 -->
 										</div>
 									</div>
 
 									<div class="input-section">
 										<div class="submit-button text-center">
-											 <button class="btn btn-common" onclick="location.href='/result'">진단받기</button>
+									<!--  <button type="button" class="btn btn-common" onClick="location.href='/recotable/result';">진단받기</button> -->
+									<button type="button" class="btn btn-common" onClick="location.href='/recotable/example';">진단받기</button> 
+									
 											<div id="msgSubmit" class="h3 text-center hidden"></div>
 											<div class="clearfix"></div>
 										</div>
@@ -287,8 +280,7 @@
 			style="display: none;">&uarr;</a>
 
 		<!-- footer_link begin -->
-		<th:block th:replace="~(fragments/footer_link :: footer_link)" />
+		<th:block th:replace="~{fragments/footer_link :: footer_link}" />
 		<!-- footer_link end -->
 </body>
 </html>
-
