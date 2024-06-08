@@ -17,7 +17,7 @@ public class RecoFoodController {
 	@Autowired
 	private FoodDBService foodDBService;
 
-	@GetMapping("food/result")
+	@GetMapping("food/result") //결과 페이지 요청처리
 	public String getResult(@RequestParam("type") String type, Model model) {
 		List<FoodDB> foods;
 

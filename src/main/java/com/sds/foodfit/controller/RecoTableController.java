@@ -17,28 +17,14 @@ public class RecoTableController {
 	@Autowired
 	private FoodDBService foodDBService;
 
-	@GetMapping("/table/result")
-	public String getResult(@RequestParam("type") String type, Model model) {
-		List<FoodDB> foods;
-
-		switch (type) {
-		case "highProtein" :
-			foods=foodDBService.selectHighProtein();
-			model.addAttribute("title", "High Protein Foods");
-		case "lowSugar" :
-			foods=foodDBService.selectLowSugar();
-			model.addAttribute("title", "low Sugar Foods");
-		case "random" :
-			foods=foodDBService.selectRandomHundred();
-			model.addAttribute("title", "RandomFoods");
-			break;
-		default :
-			throw new IllegalArgumentException("Invalid food type:"+type);
-
-		}
-		model.addAttribute("foods", foods);
-
-		return "/recotable/result";
+	@GetMapping("/recotable/result")
+	public String getTableResult() {
+		return "recotable/result";
+	}
+	
+	@GetMapping("/recotable/example")
+	public String getExample() {
+		return "recotable/example";
 	}
 
 }
