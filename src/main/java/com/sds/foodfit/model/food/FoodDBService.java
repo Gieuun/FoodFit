@@ -1,17 +1,12 @@
 package com.sds.foodfit.model.food;
 
-import java.util.List;
+import org.springframework.ui.Model;
 
-import com.sds.foodfit.domain.FoodDB;
+public interface FoodDBService { // 이 인터페이스는 음식과 밥상에서 공통으로 사용
+	// 맵핑 데이터 세팅할 메서드
 
-public interface FoodDBService {
+	public Model setFoodResult(String jsonData, Model model); // 밥상기능
 
-	public List selectHighProtein();
-
-	public List selectLowSugar();
-
-	public List selectLowSodium();
-
-	public List selectRandomHundred();
+	public Model setTableResult(String jsonData, Model model); // 밥상기능
 
 }
