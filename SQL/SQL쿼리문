@@ -1,16 +1,7 @@
 -- sns 테이블 만들기
-create  table  sns(
-<<<<<<< HEAD
-	sns_idx  int primary key auto_increment 
-	, sns_name  varchar(12)
-);
-
-insert into sns(sns_name) values('google');
-insert into sns(sns_name) values('naver');
-insert into sns(sns_name) values('kakao');
-=======
-	snsIdx  int primary key auto_increment 
-	, snsName  varchar(12)
+create table sns(
+    snsIdx int primary key auto_increment,
+    snsName varchar(12)
 );
 
 insert into sns(snsName) values('google');
@@ -18,136 +9,98 @@ insert into sns(snsName) values('naver');
 insert into sns(snsName) values('kakao');
 insert into sns(snsName) values('homepage');
 
---role 테이블 만들기
-create  table  role(
-	roleIdx  int primary key auto_increment 
-	, roleName  varchar(12)
+-- role 테이블 만들기
+create table role(
+    roleIdx int primary key auto_increment,
+    roleName varchar(12)
 );
-
 
 insert into role(roleName) values('ADMIN');
 insert into role(roleName) values('USER');
 insert into role(roleName) values('GUEST');
->>>>>>> 0259fd2ea647dca6cab3ceae28ef5426c3670f47
-
 
 -- 회원테이블 만들기
 create table member(
-<<<<<<< HEAD
-   	  member_idx int primary key auto_increment  
-=======
-   	  memberIdx int primary key auto_increment  
->>>>>>> 0259fd2ea647dca6cab3ceae28ef5426c3670f47
-	, name varchar(20)
-	, id varchar(20)
-	, pwd varchar(20)
-	, email varchar(30)
-<<<<<<< HEAD
-	, role_idx int(10) default 0
-	, sns_idx int 
-	, constraint fk_sns_member  foreign key (sns_idx) references sns (sns_idx)
-) default character set utf8;
-
---회원추가정보 테이블
-create table member_detail(
-   	  member_detail_idx int primary key auto_increment  
-	, gender varchar(10)
-	, age int(10) default 0
-	, height int(10) default 0
-	, weight int(10) default 0
-	, member_idx int
-	, constraint fk_member_member_detail  foreign key (member_idx) references member (member_idx)
-) default character set utf8;
-
---알러지정보 테이블
-=======
-	, roleIdx int
-	, snsIdx int 
-	, constraint fk_role_member  foreign key (roleIdx) references role (roleIdx)
-	, constraint fk_sns_member  foreign key (snsIdx) references sns (snsIdx)
+    memberIdx int primary key auto_increment,
+    name varchar(20),
+    id varchar(20),
+    pwd varchar(20),
+    email varchar(30),
+    roleIdx int,
+    snsIdx int,
+    constraint fk_role_member foreign key (roleIdx) references role (roleIdx),
+    constraint fk_sns_member foreign key (snsIdx) references sns (snsIdx)
 ) default character set utf8;
 
 -- member에 관리자 계정 추가
 insert into member(name, id, pwd, email, roleIdx, snsIdx) values('admin', 'admin', '1234', 'a', 1, 4);
 
-
---회원추가정보 테이블
+-- 회원추가정보 테이블
 create table memberDetail(
-   	  memberDetailIdx int primary key auto_increment  
-	, gender varchar(10)
-	, age int(10) 
-	, height FLOAT 
-	, weight FLOAT 
-	, memberIdx int
-	, constraint fk_member_memberDetail  foreign key (memberIdx) references member (memberIdx)
+    memberDetailIdx int primary key auto_increment,
+    gender varchar(10),
+    age int(10),
+    height FLOAT,
+    weight FLOAT,
+    memberIdx int,
+    constraint fk_member_memberDetail foreign key (memberIdx) references member (memberIdx)
 ) default character set utf8;
 
 -- 권한 테이블 (업로드용 admin 만들기용)
-create  table  role(
-	roleIdx  int primary key auto_increment 
-	, roleName  varchar(12)
+create table role(
+    roleIdx int primary key auto_increment,
+    roleName varchar(12)
 );
 
 insert into role(roleName) values('ADMIN');
 insert into role(roleName) values('USER');
 insert into role(roleName) values('GUEST');
 
---비선호음식 테이블
+-- 비선호음식 테이블
 create table dislikedFood(
-   	  dislikedFoodIdx int primary key auto_increment  
-	, disfoodName varchar(100)
-	, memberDetailIdx int
-	, constraint fk_memberDetail_dislikedFood foreign key (memberDetailIdx) references memberDetail (memberDetailIdx)
+    dislikedFoodIdx int primary key auto_increment,
+    disfoodName varchar(100),
+    memberDetailIdx int,
+    constraint fk_memberDetail_dislikedFood foreign key (memberDetailIdx) references memberDetail (memberDetailIdx)
 ) default character set utf8;
 
 -- 음식 테이블 (API 데이터를 추출하여 보관)
 CREATE TABLE fooddb (
     food_idx INT AUTO_INCREMENT PRIMARY KEY,
-    foodname VARCHAR(255) NOT NULL,     
-    kcal FLOAT,               
+    foodname VARCHAR(255) NOT NULL,
+    kcal FLOAT,
     carbohydrate FLOAT,
-    protein FLOAT,         
-    fat FLOAT,               
-    sugar FLOAT,           
+    protein FLOAT,
+    fat FLOAT,
+    sugar FLOAT,
     sodium FLOAT
 );
 
---마이 페이지 테이블 
+-- 마이 페이지 테이블 
 create table mypage (
-     mypageIdx int primary key auto_increment
-     , memberIdx int
-     , foodIdx int
-     , constraint fk_member_mypage foreign key (memberIdx) references member(memberIdx)
-     , constraint fk_foodDB_mypage foreign key (foodIdx) references fooDB (foodIdx)
-     ) default character set utf8;
-    
-
---알러지정보 테이블 (보류)
->>>>>>> 0259fd2ea647dca6cab3ceae28ef5426c3670f47
-create table allergy(
-   	  allergy_idx int primary key auto_increment  
-	, allergy_name varchar(100)
-	, member_detail_idx int
-	, member_idx int
-	, constraint fk_member_detail_allergy  foreign key (member_detail_idx) references member_detail (member_detail_idx)
-	, constraint fk_member_allergy  foreign key (member_idx) references member (member_idx)
+    mypageIdx int primary key auto_increment,
+    memberIdx int,
+    foodIdx int,
+    constraint fk_member_mypage foreign key (memberIdx) references member(memberIdx),
+    constraint fk_foodDB_mypage foreign key (foodIdx) references fooDB (foodIdx)
 ) default character set utf8;
 
-<<<<<<< HEAD
---비선호음식 테이블
-create table disliked_food(
-   	  disliked_food_idx int primary key auto_increment  
-	, disfood_name varchar(100)
-	, member_detail_idx int
-	, constraint fk_member_detail_disliked_food_idx foreign key (member_detail_idx) references member_detail (member_detail_idx)
-=======
---공지사항 테이블
-create  table  notice(
-   noticeIdx  int  primary key auto_increment 
- , title  varchar(100)
- , writer varchar(30)
- , content  text 
- , regdate   timestamp  default now() 
- , hit int default 0 
->>>>>>> 0259fd2ea647dca6cab3ceae28ef5426c3670f47
+-- 알러지정보 테이블 (보류)
+create table allergy(
+    allergyIdx int primary key auto_increment,
+    allergyName varchar(100),
+    memberDetailIdx int,
+    memberIdx int,
+    constraint fk_memberDetail_allergy foreign key (memberDetailIdx) references memberDetail (memberDetailIdx),
+    constraint fk_member_allergy foreign key (memberIdx) references member (memberIdx)
+) default character set utf8;
+
+-- 공지사항 테이블
+create table notice(
+    noticeIdx int primary key auto_increment,
+    title varchar(100),
+    writer varchar(30),
+    content text,
+    regdate timestamp default now(),
+    hit int default 0
 ) default character set utf8;
