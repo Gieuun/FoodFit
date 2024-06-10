@@ -3,18 +3,27 @@ package com.sds.foodfit.model.food;
 import java.util.List;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.sds.foodfit.domain.FoodDB;
 
 @Mapper
-public interface FoodDBDAO {
+public interface FoodDBDAO { // 여기에 FoodDB select 관련로직 다 넣으면 됨
 
-	public List selectHighProtein();
+	public List<FoodDB> selectHighProtein();
 
-	public List selectLowSugar();
+	public List<FoodDB> selectLowSugar();
 
-	public List selectLowSodium();
+	public List<FoodDB> selectLowSodium();
 
-	public List selectRandomHundred();
+	public List<FoodDB> selectRandomHundred();
+
+	public int sumKcalByFoodIdx(@Param("foodIdxList") List<Integer> foodIdxList);
+
+	public int sumCarbohydrateByFoodIdx(@Param("foodIdxList") List<Integer> foodIdxList);
+
+	public int sumProteinByFoodIdx(@Param("foodIdxList") List<Integer> foodIdxList);
+
+	public int sumFatByFoodIdx(@Param("foodIdxList") List<Integer> foodIdxList);
 
 }

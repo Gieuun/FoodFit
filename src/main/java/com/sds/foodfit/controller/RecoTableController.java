@@ -1,30 +1,28 @@
+
 package com.sds.foodfit.controller;
 
-import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
-import com.sds.foodfit.domain.FoodDB;
 import com.sds.foodfit.model.food.FoodDBService;
 
 @Controller
 public class RecoTableController {
 
-	@Autowired
-	private FoodDBService foodDBService;
+	// 여기서 view 작업 위주
 
-	@GetMapping("/recotable/result")
-	public String getTableResult() {
-		return "recotable/result";
-	}
-	
-	@GetMapping("/recotable/example")
-	public String getExample() {
-		return "recotable/example";
+	@Autowired
+	@Qualifier("calculateFoodService")
+	private FoodDBService calculateFoodService;
+
+	@PostMapping("/food/result")
+	public String setResult(@RequestBody Map<String, String> formData) {
+		return null;
 	}
 
 }
