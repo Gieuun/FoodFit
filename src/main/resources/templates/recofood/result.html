@@ -1,27 +1,40 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>푸드핏 - 음식추천 결과</title>
+
 <style>
+
+/*PC/모바일 해상도 설정기준 : 아이폰 11 (828*1792) 기준 */
+
 body {
-		font-family: Arial, sans-serif;
-		background-color: #f9f9f9;
-		margin: 0;
-		padding: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100vh;
+    font-family: Arial, sans-serif;
+    background-color: #f9f9f9;
+    margin: 10px;
+    padding: 10px;    
+}
+
+@media (min-width: 828px) {
+    body {
+        width: 40%; /* 가로 너비를 50%로 설정 */
+        margin: auto; /* 중앙 정렬을 위해 margin을 auto로 설정 */
+    }
+}
+
+@media (max-width: 828px) {
+    body {
+        width: 100%; /* 가로 너비를 디바이스 너비에 맞춤 */
+        padding: 10px; /* 작은 간격으로 설정 */
+    }
 }
 
 .container {
-		width: 300px;
-		background-color: #fff;
-		border-radius: 10px;
-		box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-		padding: 20px;
+    width: auto; /* 자동으로 너비를 조절하도록 설정합니다. */
+    max-width: 90%; /* 최대 너비를 설정합니다. */
+    overflow-y: auto; /* 필요한 경우에만 세로 스크롤을 표시합니다. */
+    margin: 0 auto;
 }
 
 .header {
@@ -75,6 +88,8 @@ body {
 .macro .label span {
 		font-size: 14px;
 		color: #666;
+		margin-left: 30px;
+		margin-right: 5px;
 }
 
 .macro .percentage {
@@ -105,7 +120,7 @@ body {
 }
 
 .remaining-macros .macro span {
-		font-size: 14px;
+		font-size: 14px;		
 }
 
 .footer {
@@ -123,7 +138,10 @@ body {
 }
 
 .food-item {
+		margin-right: 10px;
 		margin-bottom: 10px;
+		overflow-y: auto;
+    	max-height: 400px; /* 요소의 최대 높이를 지정합니다. */
 }
 
 .food-item h3 {

@@ -65,7 +65,7 @@ public class CalculateFoodService implements FoodDBService {
 	}
 
 	@Override
-	public Model setFoodResult(String jsonData, Model model) {
+	public Map<String, Object> setFoodResult(String jsonData) {
 		// TODO Auto-generated method stub
 		return null;
 	}
