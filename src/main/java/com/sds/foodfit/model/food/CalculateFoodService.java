@@ -1,8 +1,10 @@
 package com.sds.foodfit.model.food;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+@Service
 public class CalculateFoodService implements FoodDBService {
 
 	@Autowired
