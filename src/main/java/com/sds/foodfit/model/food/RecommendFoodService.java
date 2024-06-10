@@ -10,7 +10,10 @@ import org.springframework.ui.Model;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sds.foodfit.domain.FoodDB;
 
-@Service
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
+@Service("recommendFoodService")
 public class RecommendFoodService implements FoodDBService {
 
 	@Autowired
@@ -27,33 +30,34 @@ public class RecommendFoodService implements FoodDBService {
 			formData = objectMapper.readValue(jsonData, Map.class);
 		} catch (Exception e) {
 			model.addAttribute("title", "Error");
-			model.addAttribute("foods", null);
+			model.addAttribute("foodDBList", null);
 			return model; // Return model immediately in case of error
 		}
 
 		String type = formData.get("type");
-		List<FoodDB> foods;
+		List<FoodDB> foodDBList;
 
 		switch (type) {
 		case "highProtein":
-			foods = foodDBDAO.selectHighProtein();
+			foodDBList = foodDBDAO.selectHighProtein();
 			model.addAttribute("title", "I♥프로틴");
 			break;
 		case "lowSugar":
-			foods = foodDBDAO.selectLowSugar();
+			foodDBList = foodDBDAO.selectLowSugar();
 			model.addAttribute("title", "프로 다이어터");
 			break;
 		case "random":
-			foods = foodDBDAO.selectLowSodium();
+			foodDBList = foodDBDAO.selectLowSodium();
 			model.addAttribute("title", "네? 저..염?!");
 			break;
 		default:
-			foods = foodDBDAO.selectRandomHundred();
+			foodDBList = foodDBDAO.selectRandomHundred();
 			model.addAttribute("title", "다이나믹하게 아무거나 100개");
 			break;
 		}
 
-		model.addAttribute("foods", foods);
+		model.addAttribute("foodDBList", foodDBList);
+		log.debug("=====setFoodResult 메서드 돌아감 =====" + model.toString());
 
 		return model;
 	}

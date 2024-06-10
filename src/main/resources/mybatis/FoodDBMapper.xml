@@ -10,47 +10,40 @@
     <result property="fat" column="fat" />
     <result property="sugar" column="sugar" />
     <result property="sodium" column="sodium" />
-  </resultMap>
-  <select id="selectHighProtein"> <!-- 불러온 데이터 중 고단백 식품 상위 10개 추천 -->
+</resultMap>
+  <select id="selectHighProtein" resultMap="foodResultMap"> <!-- 불러온 데이터 중 고단백 식품 상위 10개 추천 -->
     select * from foodDB order by protein desc limit 10
   </select>
-  <select id="selectLowSugar"> <!-- 불러온 데이터 중 고단백 식품 상위 10개 추천 -->
+  <select id="selectLowSugar" resultMap="foodResultMap"> <!-- 불러온 데이터 중 저당 식품 상위 10개 추천 -->
     select * from foodDB order by sugar asc limit 10
   </select>
-  <select id="selectLowSodium"> <!-- 불러온 데이터 중 고단백 식품 상위 10개 추천 -->
+  <select id="selectLowSodium" resultMap="foodResultMap"> <!-- 불러온 데이터 중 저염 식품 상위 10개 추천 -->
     select * from foodDB order by sodium asc limit 10
   </select>
   <!-- 밥상진단용은 SQL에서 호출 후 DAO, Service객체에서 선별해서 출력해야함. 우선 100개를 랜덤하게 불러오게 한다 -->
-  <select id="selectRandomHundred"> select * from foodDB order by rand() limit 100
+  <select id="selectRandomHundred" resultMap="foodResultMap"> select * from foodDB order by rand() limit 100
   </select>
-  <select id="selectByFoodIdx"> select * from foodDB where foodIdx=#{foodDB.foodIdx}
+  <select id="selectByFoodIdx" resultMap="foodResultMap"> select * from foodDB where foodIdx=#{foodDB.foodIdx}
   </select>
-  
-  <!-- 밥상딘단 관련 게산 맵핑 -->  
-  
+  <!-- 밥상딘단 관련 게산 맵핑 -->
   <select id="sumKcalByFoodIdx" parameterType="list" resultType="int">
     select sum(kcal) as kcal from foodDB where foodIdx in
     <foreach collection="foodIdxList" item="foodDB" open="(" separator="," close=")"> #{foodDB}
     </foreach>
   </select>
-  
   <select id="sumCarbohydrateByFoodIdx" parameterType="list" resultType="int">
     select sum(carbohydrate) as carbohydrate from foodDB where foodIdx in
     <foreach collection="foodIdxList" item="foodDB" open="(" separator="," close=")"> #{foodDB}
     </foreach>
   </select>
-  
   <select id="sumProteinByFoodIdx" parameterType="list" resultType="int">
     select sum(protein) as protein from foodDB where foodIdx in
     <foreach collection="foodIdxList" item="foodDB" open="(" separator="," close=")"> #{foodDB}
     </foreach>
   </select>
-  
   <select id="sumFatByFoodIdx" parameterType="list" resultType="int">
     select sum(fat) as fat from foodDB where foodIdx in
     <foreach collection="foodIdxList" item="foodDB" open="(" separator="," close=")"> #{foodDB}
     </foreach>
   </select>
-  
-  
 </mapper>

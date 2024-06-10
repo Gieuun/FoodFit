@@ -1,46 +1,67 @@
 package com.sds.foodfit.model.food;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+@Service("calculateFoodService")
 public class CalculateFoodService implements FoodDBService {
 
 	@Autowired
 	private FoodDBDAO foodDBDAO;
 
+	@Autowired
+	private ObjectMapper objectMapper;
+
 	@Override
 	public Model setTableResult(String jsonData, Model model) {
 		// 이거 유저 먹은거 넘버링 들어오는거
+		Map<String, Object> formData;
 
-		double BMR;
-		double TDEE;
-
-		// 계산로직 짜고 나중에 model 분리
-		// 생각을 해봤다. 개개인마다 BMR이 있을 것. 그러면 BMR도 테이블인가?(객체)
-		// 그렇다면? memberDetail.height, memberDe.weight~
-
-		// 날라온 키, 몸무게 <- 데이터에서 날라온다 (input단계에서 memberDetail 활용하고 여기서는 날아온 값만 이용하자)
+		try {
+			formData = objectMapper.readValue(jsonData, Map.class);
+		} catch (Exception e) {
+			model.addAttribute("title", "Error");
+			model.addAttribute("errorMessage", "Invalid JSON data");
+			return model;
+		}
 
 		// ======json넣은 변수 넣어주면 됨.
 
-		String gender = "female";
-		int age = 20;
-		double height = 160;
-		double weight = 52;
+		String gender = (String) formData.get("gender");
+		int age = (int) formData.get("age");
+		double height = (double) formData.get("height");
+		double weight = (double) formData.get("weight");
+
+		// 날라온 키, 몸무게 <- 데이터에서 날라온다 (input단계에서 memberDetail 활용하고 여기서는 날아온 값만 이용하자)
+
+		// BMR (기초대사량 기준 칼로리) 공식대입
+
+		double BMR;
 
 		// =======================
 
-		if (gender != "male") {
-			BMR = 10 * weight + 6.25 * height - 5 * age - 161;
-		} else {
+		if (gender.equals("male")) { // 남자라면
 			BMR = 10 * weight + 6.25 * height - 5 * age + 5;
+		} else { // 여자라면
+			BMR = 10 * weight + 6.25 * height - 5 * age - 161;
 		}
 
-		TDEE = BMR * 1.55;
+		// TDEE (활동대입 기준 칼로리) ; 여기에서는 1.55을 공통계수로 기준을 잡음.
+		double TDEE = BMR * 1.55;
 
-		int sumKcal = foodDBDAO.sumKcalByFoodIdx(null);
+		int sumKcal = foodDBDAO.sumKcalByFoodIdx(null); // null 대신 index집합 넣어야 함.
 
-		return null;
+		// Adding attributes to model
+		model.addAttribute("BMR", BMR);
+		model.addAttribute("TDEE", TDEE);
+		model.addAttribute("sumKcal", sumKcal);
+
+		return model;
 	}
 
 	@Override

@@ -19,9 +19,9 @@ public class RecoTableController {
 	@Qualifier("calculateFoodService")
 	private FoodDBService calculateFoodService;
 
-	@PostMapping("/food/result")
+	@PostMapping("/table/result")
 	public String setResult(@RequestBody Map<String, String> formData) {
-		return null;
+		return "recotable/result";
 	}
 
 }

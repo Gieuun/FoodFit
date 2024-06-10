@@ -121,66 +121,76 @@ body {
 		border-radius: 5px;
 		cursor: pointer;
 }
+
+.food-item {
+		margin-bottom: 10px;
+}
+
+.food-item h3 {
+		font-size: 16px;
+}
+
+.food-item p {
+		font-size: 11px;
+}
 </style>
 </head>
 <body>
 		<div class="container" id="resultContainer">
-				<!-- foodList가 비어있는 경우 -->
-				<div th:if="${foodList == null or foodList.isEmpty()}">
-						<p>서버 오류로 음식을 불러오지 못했습니다. 이용에 불편을 드려 죄송합니다.</p>
-				</div>
 				<div class="header">
-						<h1 th:text="${title}"></h1>
+						<h1>음식 추천 결과</h1>
+						<h2 th:text="${title}"></h2>
 				</div>
-				<div th:each="food : ${foodList}" class="food-item">
+				<!-- 여기서 foodList를 반복해서 각 음식 정보를 표시합니다 -->
+				<div th:each="foodDB : ${foodDBList}" class="food-item">
 						<div class="macro">
-								<h3 th:text="${food.foodName}">Food Name</h3>
+								<h3 th:text="${foodDB.foodName}">음식 이름</h3>
 						</div>
 						<div class="macro">
 								<div class="calories">
 										<p>
-												열량: <span th:text="${food.kcal}">0</span> kcal
+												열량: <span th:text="${foodDB.kcal}">0</span> kcal
 										</p>
 								</div>
 						</div>
 						<div class="macro">
 								<div class="label">
-										<img src="carbs-icon.png" alt="Carbohydrates"><span>탄수화물</span>
+										<img src="carbs-icon.png" alt="탄수화물"><span>탄수화물</span>
 								</div>
 								<p>
-										<span th:text="${food.carbohydrate}">0</span>
+										<span th:text="${foodDB.carbohydrate}">0</span>
 								</p>
 						</div>
 						<div class="macro">
 								<div class="label">
-										<img src="protein-icon.png" alt="Protein"> <span>단백질</span>
+										<img src="protein-icon.png" alt="단백질"> <span>단백질</span>
 								</div>
 								<p>
-										<span th:text="${food.protein}">0</span> g
+										<span th:text="${foodDB.protein}">0</span> g
 								</p>
 						</div>
 						<div class="macro">
 								<div class="label">
-										<img src="fat-icon.png" alt="Fat"> <span>지방</span>
+										<img src="fat-icon.png" alt="지방"> <span>지방</span>
 								</div>
 								<p>
-										<span th:text="${food.fat}">0</span> g
+										<span th:text="${foodDB.fat}">0</span> g
 								</p>
 						</div>
 						<div class="macro">
 								<div class="label">
-										<img src="fat-icon.png" alt="Fat"> <span>당류</span>
+										<img src="sugar-icon.png" alt="당류"> <span>당류</span>
 								</div>
 								<p>
-										<span th:text="${food.sugar}">0</span> g
+										<span th:text="${foodDB.sugar}">0</span> g
 								</p>
 						</div>
 						<div class="macro">
 								<div class="label">
-										<img src="fat-icon.png" alt="Fat"> <span>당류</span>
+										<img src="sodium-icon.png" alt="나트륨"> <span>나트륨</span>
 								</div>
 								<p>
-										나트륨: <span th:text="${food.sodium}">0</span> mg
+										<span th:text="${foodDB.sodium}">0</span> mg
 								</p>
 						</div>
 				</div>
