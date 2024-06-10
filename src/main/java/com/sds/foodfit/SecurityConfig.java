@@ -30,8 +30,9 @@ public class SecurityConfig {
 		http.authorizeHttpRequests(authorize -> authorize.requestMatchers("/site/**").permitAll() // 모든 요청을 인증 없이 허용.
 																									// 결과물 나오면 수정필요!
 				.requestMatchers("/**").permitAll() // 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
-				.requestMatchers("/recofood/**").permitAll() // 음식추천경로를 인증 없이 허용. 결과물 나오면 수정필요!
+				.requestMatchers("/recofood/**").permitAll() // 자원경로 허용 (음식)
 				.requestMatchers("/food/**").permitAll() // 음식추천요청을 인증 없이 허용. 결과물 나오면 수정필요!
+				.requestMatchers("/recotable/**").permitAll() // 자원경로 허용 (밥상)
 				.requestMatchers("/rest/notice/**").permitAll() // 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 				.requestMatchers("/rest/recomember/**").permitAll().requestMatchers("/").permitAll() // 모든 요청을 인증 없이 허용.
 																										// 결과물 나오면 수정필요!

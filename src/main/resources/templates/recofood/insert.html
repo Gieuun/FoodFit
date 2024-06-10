@@ -138,8 +138,16 @@ p {
 <script type="text/javascript">
 	$(document).ready(function() {
 		$("#bt_result").click(function() {
+			//form의 데이터를 주워담을 array객체 만듦			
+			let formDataArray = $("#InfoInputForm").serializeArray();
+			
 			// form 데이터 가져옴
 			let formData = {};
+			$.each(formDataArray, function(_, field){
+				formData[field.name]=field.value;
+			});
+			
+			/* 이전 로직 (백업용 주석)
 			$("#InfoInputForm :input").each(function() {
 				let input = $(this);
 				if (input.is(":radio") && input.is(":checked")) {
@@ -148,15 +156,14 @@ p {
 					formData[input.attr("name")] = input.val();
 				}
 			});
+			*/
 
 			// ajax로 전달 요청
 
 			$.ajax({
 				url : "/food/result",
-				type : "POST",
-
-				// 안 날라갔던 이유를 추측 => json으로 날리고 있는데 이걸 처리해줄 중간객체가 없다
-				//월요일부터 vue를 배웁니다. 적용해서 처리해보겠습니다
+				type : "POST",				
+				
 				contentType : "application/json",
 				data : JSON.stringify(formData),
 				success : function(result, status, xhr) {
