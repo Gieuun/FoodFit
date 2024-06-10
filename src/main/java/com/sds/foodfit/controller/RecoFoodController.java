@@ -21,8 +21,6 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class RecoFoodController {
 
-	// 여기서 view 작업 위주
-
 	@Autowired
 	@Qualifier("recommendFoodService")
 	private FoodDBService recommendFoodService;
