@@ -39,9 +39,8 @@ public class NoticeController {
         Map<String, Integer> map = new HashMap<>();
         map.put("startIndex", pager.getStartIndex());
         map.put("rowCount", pager.getPageSize());
-
         // 레코드 가져오기
-        List<Notice> noticeList = noticeService.selectAll(map);
+        List<Notice> noticeList = noticeService.selectAll(map); //selectAll은 db용어여서 다른걸로
 
         // 모델에 데이터 추가
         model.addAttribute("noticeList", noticeList);
@@ -53,28 +52,27 @@ public class NoticeController {
     
     //검색기능 요청 처리
     @GetMapping("/notice/search")
-    public String searchNotices(@RequestParam("query") String query, Model model, 
-                                @RequestParam(value="currentPage", defaultValue="1") int currentPage) {
+    public String searchNotices(@RequestParam("query") String query, Model model,
+                                @RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
         Map<String, Object> paramMap = new HashMap<>();
         paramMap.put("query", query);
-        
-        // 페이징 처리를 위해 페이지 정보 추가
-        int totalRecord = noticeService.getTotalCount();
+
+        int totalRecord = noticeService.getTotalCountByQuery(query); //쿼리말고 키워드나 이런용어로.
         Pager pager = new Pager();
-        pager.init(totalRecord, currentPage);
+        pager.initSearch(totalRecord, currentPage);
 
         paramMap.put("startIndex", pager.getStartIndex());
         paramMap.put("rowCount", pager.getPageSize());
 
         List<Notice> noticeList = noticeService.searchNoticesByTitle(paramMap);
-        
+
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("pager", pager);
         model.addAttribute("query", query);
 
-        return "notice/list";
+        return "notice/searchList";
     }
-	
+    
     //게시판 글쓰기폼 요청처리
 	@GetMapping("/notice/writeform")
 	public String getRegistForm() {
@@ -86,7 +84,7 @@ public class NoticeController {
 	@PostMapping("/notice/regist")
 	public String regist(Notice notice, RedirectAttributes redirectAttributes) {
 	    try {
-	        noticeService.insert(notice); 
+	    	noticeService.insert(notice); 
 	        redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 등록되었습니다.");
 	    } catch (Exception e) {
 	        redirectAttributes.addFlashAttribute("message", "게시글 등록 중 오류가 발생하였습니다.");
@@ -114,7 +112,7 @@ public class NoticeController {
 	@PostMapping("/notice/edit")
 	public String edit(Notice notice) {
 		noticeService.update(notice);
-		return "redirect:/notice/detail?notice_idx="+notice.getNoticeIdx();
+		return "redirect:/notice/detail?noticeIdx="+notice.getNoticeIdx();
 	}
 	
 	// 게시글 삭제 요청 처리
@@ -126,7 +124,7 @@ public class NoticeController {
 	    } catch (Exception e) {
 	        redirectAttributes.addFlashAttribute("message", "게시글 삭제 중 오류가 발생하였습니다.");
 	    }
-	    return "redirect:/notice/list";
+	    return "redirect:/notice";
 	}
 	
 	@ExceptionHandler(NoticeException.class)

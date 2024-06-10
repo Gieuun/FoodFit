@@ -10,6 +10,7 @@ import com.sds.foodfit.domain.Notice;
 @Mapper
 public interface NoticeDAO {
 	public int getTotalCount(); //총 레코드 수
+	int getTotalCountByQuery(String query);
 	public List<Notice> selectAll(Map<String, Integer> map); //모두 가져오기 
 	public Notice select(int noticeIdx); //한건 가져오기 
 	public int insert(Notice notice);//한건 넣기
