@@ -16,5 +16,11 @@ public interface FoodDBDAO {
 	public List selectLowSodium();
 
 	public List selectRandomHundred();
+	
+	public List selectBreakfast();
+	
+	public List selectLunch();
+	
+	public List selectDinner();
 
 }

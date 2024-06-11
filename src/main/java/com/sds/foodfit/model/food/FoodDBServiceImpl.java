@@ -35,4 +35,19 @@ public class FoodDBServiceImpl implements FoodDBService {
 		return foodDBDAO.selectRandomHundred();
 	}
 
+	@Override
+	public List selectBreakfast() {
+		return foodDBDAO.selectBreakfast();
+	}
+
+	@Override
+	public List selectLunch() {
+		return foodDBDAO.selectLunch();
+	}
+
+	@Override
+	public List selectDinner() {
+		return foodDBDAO.selectDinner();
+	}
+
 }

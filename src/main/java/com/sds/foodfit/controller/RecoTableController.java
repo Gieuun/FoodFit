@@ -22,9 +22,27 @@ public class RecoTableController {
 		return "recotable/result";
 	}
 	
-	@GetMapping("/recotable/example")
-	public String getExample() {
-		return "recotable/example";
-	}
+	@GetMapping("table/result") //결과 페이지 요청처리
+	public String getResult(@RequestParam("type") String type, Model model) {
+		List<FoodDB> foods;
 
+		switch (type) {
+		case "breakfast" :
+			foods=foodDBService.selectBreakfast();
+			model.addAttribute("title", "아침");
+		case "lunch" :
+			foods=foodDBService.selectLunch();
+			model.addAttribute("title", "점심");
+		case "dinner" :
+			foods=foodDBService.selectDinner();
+			model.addAttribute("title", "저녁");
+			break;
+		default :
+			throw new IllegalArgumentException("Invalid food type:"+type);
+
+		}
+		model.addAttribute("foods", foods);
+
+		return "/recotable/result";
+	}
 }
