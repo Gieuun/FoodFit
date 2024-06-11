@@ -166,53 +166,57 @@ body {
 					<form id="health_form">
 						
 						<div class="row">
-
+							<input type="hidden" name="sns.snsName" value="homepage">
 							<div class="col-md-12">
-								<div class="form-group gender">
-									<div id="gender">
-										<p>성별을 선택해주세요.</p>
-										<input type="radio" name="gender" value="male" checked>남성
-										<input type="radio" name="gender" value="female">여성
-										<div id="genderError" class="error"></div>
+									<div class="form-group">
+										<label for="gender">성별</label> 
+										<select class="form-control" id="gender" name="gender">
+											<option value="" selected>성별을 선택하세요</option>
+											<option value="male">male(남성)</option>
+											<option value="female">female(여성)</option>
+										</select>
 									</div>
 								</div>
-							</div>
-
 
 							<div class="col-md-12">
-								<div class="form-group">
-									<div id="age">
-										<p>연령을 선택해주세요.</p>
-										<input id="teen" 		name="age" 		type="radio" value="10"><label for="teen">10대</label> 
-										<input id="twenties" 	name="age" 		type="radio" value="20"><label for="twenties">20대</label>
-										<input id="thirties" 	name="age" 		type="radio" value="30"><label for="thirties">30대</label>
-										<input id="forties" 		name="age"		type="radio" value="40"><label for="forties">40대</label>
-										<input id="fifties"	 	name="age" 		type="radio" value="50"><label for="fifties">50대</label> 
-										<input id="sixties" 		name="age" 		type="radio" value="60"><label for="sixties">60대이상</label>
+									<div class="form-group">
+										<label for="age">연령대</label> 
+										<select class="form-control" id="age" name="age">
+											<option value="">연령대를 선택해주세요.</option>
+											<option value="10" id="teen">10</option>
+											<option value="20" id="twenties">20</option>
+											<option value="30" id="thirties">30</option>
+											<option value="40" id="forties">40</option>
+											<option value="50" id="fifties">50</option>
+											<option value="60" id="sixties">60</option>
+										</select>
 									</div>
 								</div>
-							</div>
-
-
-							<div class="col-md-12">
-								<div class="form-group">
-									<div id="height">
-										<p>현재 키를 입력해주세요.</p>
-										<input type="number" name="height" placeholder="입력 예) 173.5" value="">cm
-										<div id="heightError" class="error"></div>
-									</div>
-								</div>
-							</div>
 
 							<div class="col-md-12">
-								<div class="form-group">
-									<div id="weight">
-										<p>현재 몸무게를 입력해주세요.</p>
-										<input type="number" name="weight" placeholder="입력 예) 76.3" value="">kg
-										<div id="weightError" class="error"></div>
+									<div class="form-group">
+										<label for="height">신장</label>
+										<div class="input-group">
+											<input type="number" class="form-control" name="height" placeholder="입력 예) 173.5">
+											<div class="input-group-append">
+												<span class="input-group-text">cm</span>
+											</div>
+										</div>
 									</div>
 								</div>
-							</div>
+							
+								<div class="col-md-12">
+									<div class="form-group">
+										<label th:for="weight">체중</label>
+										<div class="input-group">
+											<input type="number" class="form-control" name="weight" placeholder=" 입력 예) 76.3">
+											<div class="input-group-append">
+												<span class="input-group-text">kg</span>
+											</div>
+										</div>
+									</div>
+								</div>
+							
 
 							<div class="col-md-12">
 								<div class="submit-button text-center btnArea">
@@ -222,6 +226,7 @@ body {
 									</div>
 								</div>
 							</div>
+							
 						</div>
 					</form>
 				</div>
@@ -254,22 +259,6 @@ body {
 		});
 		$("#health_form").submit();
 		
-		/*
-		$.ajax({
-			url: "/recomember/regist",
-			type: "post",
-			data: $("#health_form").serialize(),
-			success:function(response){
-				alert(response);
-				window.location.href="/recomember/loginform"
-			},
-			error:function(xhr, status, err){
-				alert("회원가입실패??");
-				window.location.href="/recomember/joinform"
-			}
-		});
-		*/
-	
 	}
 	$(function() {
 		$("#bt_regist").click(function() {

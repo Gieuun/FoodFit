@@ -24,10 +24,17 @@
 	width: 100%;
 	display: flex;
 }
-
-#sns input {
-	width: 55px;
+#sns ul {
+	display: flex;
+	justify-content: space-around;
+	width:100%;
 }
+#sns ul>li >a {
+	flex:1;
+}
+#sns ul>li img{
+	width: 60px;
+} 
 
 #login_text {
 	position: relative;
@@ -142,15 +149,13 @@
 								value="homepage">
 									<div class="col-md-12">
 										<div class="form-group">
-											<input id="id" type="text" class="form-control"
-												name="username" placeholder="아이디를 입력해주세요.">
+											<input id="id" type="text" class="form-control" name="id" placeholder="아이디를 입력해주세요.">
 										</div>
 									</div>
 
 									<div class="col-md-12">
 										<div class="form-group">
-											<input id="pw" type="password" name="pwd"
-												class="form-control" placeholder="비밀번호를 입력해주세요">
+											<input id="pw" type="password" name="pwd" class="form-control" placeholder="비밀번호를 입력해주세요">
 										</div>
 									</div>
 
@@ -169,13 +174,23 @@
 										<div class="form-group">
 											<p id="login_text">소셜 로그인</p>
 											<div id="sns">
-												<a href="javascript:getAuthForm('google')" class="google">
-													<input type="image" src="/site/images/google_logo_icon.png">
-												</a> <a href="javascript:getAuthForm('naver')" class="naver">
-													<input type="image" src="/site/images/naver_logo_icon.png">
-												</a> <a href="javascript:getAuthForm('kakao')" class="kakao">
-													<input type="image" src="/site/images/kakao_logo_icon.png">
-												</a>
+												<ul>
+													<li>
+														<a href="javascript:getAuthForm('google')" class="google">
+														<img alt="구글 소셜 로그인 " src="/site/images/google_logo_icon.png">
+														</a>
+													</li>
+													<li>
+														<a href="javascript:getAuthForm('naver')" class="naver">
+														<img alt="네이버 소셜 로그인 " src="/site/images/naver_logo_icon.png">
+														</a>
+													</li>
+													<li>
+														<a href="javascript:getAuthForm('kakao')" class="kakao">
+														<img alt="카카오 소셜 로그인 " src="/site/images/kakao_logo_icon.png">
+														</a>
+													</li>
+												</ul>
 											</div>
 										</div>
 									</div>
