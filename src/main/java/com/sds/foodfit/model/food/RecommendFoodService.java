@@ -37,7 +37,7 @@ public class RecommendFoodService implements FoodDBService {
 		}
 
 		String type = formData.get("type");
-		List<FoodDB> foodDBList;
+		List<FoodDB> foodDBList = null;
 
 		switch (type) {
 		case "highProtein":
@@ -48,13 +48,13 @@ public class RecommendFoodService implements FoodDBService {
 			foodDBList = foodDBDAO.selectLowSugar();
 			response.put("title", "프로 다이어터");
 			break;
-		case "random":
+		case "lowSodium":
 			foodDBList = foodDBDAO.selectLowSodium();
 			response.put("title", "네? 저..염?!");
 			break;
-		default:
+		case "random":
 			foodDBList = foodDBDAO.selectRandomHundred();
-			response.put("title", "다이나믹하게 아무거나 100개");
+			response.put("title", "아무거나 10개 뽑았다");
 			break;
 		}
 
