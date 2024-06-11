@@ -1,36 +1,46 @@
 package com.sds.foodfit.controller;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.validation.BindingResult;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.sds.foodfit.domain.Notice;
+import com.sds.foodfit.exception.NoticeException;
 import com.sds.foodfit.model.notice.NoticeService;
 
-@RestController
-public class RestNoticeController {
-	@Autowired
-	private NoticeService noticeService;
+import jakarta.validation.Valid;
+import lombok.extern.slf4j.Slf4j;
 
-	@GetMapping("/rest/notice/list")
-	public List getList() {
-		
-		String url="jdbc:mysql://223.130.153.162:3306/food?characterEncoding=utf-8";
-		
-		Connection con=null;
-		
-		try {
-			con = DriverManager.getConnection(url, "root", null);
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		System.out.println("접속 결과는 "+con);
-		
-		return null;
-	}
+@RestController
+@Slf4j
+public class RestNoticeController {
+
+    @Autowired
+    private NoticeService noticeService;
+
+    @PostMapping("/notice/regist")
+    public ResponseEntity<?> regist(@Valid @RequestBody Notice notice, BindingResult result) {
+        if (result.hasErrors()) {
+            Map<String, String> errors = new HashMap<>();
+            for (FieldError error : result.getFieldErrors()) {
+                errors.put(error.getField(), error.getDefaultMessage());
+            }
+            return ResponseEntity.badRequest().body(errors);
+        }
+
+        try {
+            noticeService.insert(notice);
+            return ResponseEntity.ok("게시글이 성공적으로 등록되었습니다.");
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("게시글 등록 중 오류가 발생하였습니다.");
+        }
+    }
 }

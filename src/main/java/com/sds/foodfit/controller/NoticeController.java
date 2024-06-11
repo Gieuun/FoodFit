@@ -75,22 +75,22 @@ public class NoticeController {
     
     //게시판 글쓰기폼 요청처리
 	@GetMapping("/notice/writeform")
-	public String getRegistForm() {
-		
+	public String getRegistForm(Model model) {
+		model.addAttribute("notice", new Notice());
 		return "notice/write";
 	}
 	
 	// 게시판 글쓰기 요청 처리 
-	@PostMapping("/notice/regist")
-	public String regist(Notice notice, RedirectAttributes redirectAttributes) {
-	    try {
-	    	noticeService.insert(notice); 
-	        redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 등록되었습니다.");
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("message", "게시글 등록 중 오류가 발생하였습니다.");
-	    }
-	    return "redirect:/notice";
-	}
+//	@PostMapping("/notice/regist")
+//	public String regist(Notice notice, RedirectAttributes redirectAttributes) {
+//	    try {
+//	    	noticeService.insert(notice); 
+//	        redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 등록되었습니다.");
+//	    } catch (Exception e) {
+//	        redirectAttributes.addFlashAttribute("message", "게시글 등록 중 오류가 발생하였습니다.");
+//	    }
+//	    return "redirect:/notice";
+//	}
 	
 	// 상세보기 요청 처리
 	@GetMapping("/notice/detail")
