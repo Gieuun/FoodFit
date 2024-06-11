@@ -4,7 +4,7 @@
 
 	<insert id="insert" parameterType="Member">
 		insert into member(name, id, pwd, email, roleIdx, snsIdx)
-		values(#{name}, #{id}, #{pwd}, #{email}, #{role.roleIdx} ,#{sns.snsIdx})
+		values(#{name}, #{id}, #{pwd}, #{email}, #{role.roleIdx} , #{sns.snsIdx})
 		
 		<!-- member_detail에 추가적인 insert 를 위해 부모 테이블인 member의 idx값을 곧바로 추출 -->
 		<selectKey keyColumn="memberIdx" keyProperty="memberIdx" resultType="int" order="AFTER">
@@ -28,7 +28,7 @@
 	</resultMap>
 	<!-- id를 이용한 회원조회 -->
 	<select id="selectById" parameterType="String" resultMap="MemberMap">
-		select memberIdx , id, pwd, name, email, snsIdx, roleIdx
+		select memberIdx , name, id, pwd, email, snsIdx, roleIdx
 		from member where id=#{id}
 	</select>
 	

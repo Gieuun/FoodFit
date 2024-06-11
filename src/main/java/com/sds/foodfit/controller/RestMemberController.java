@@ -38,10 +38,11 @@ public class RestMemberController {
 	public ResponseEntity temp(Member member, HttpSession session) {
 
 		log.debug("저장된 member is {}",member);
-		
+			
 		// 세션에 임시 회원 정보 담기
 		session.setAttribute("member", member);
-		
+			
+			
 		Member dto =(Member)session.getAttribute("member");
 		log.debug("세션에서 꺼낸 member is ",dto);
 

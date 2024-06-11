@@ -22,12 +22,22 @@ public class CustomUserDetailsService implements UserDetailsService{
 	
 	@Override
 	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException, MemberException {
-		Member member= memberDAO.selectByid(id);
+		log.debug("넘겨 받은 ID : {}", id);
+		
+		
+		if(id ==null || id.isEmpty()) {
+			log.error("Received null or empty ID");
+			throw new UsernameNotFoundException("ID is null or empty");
+		}		
+		
+		Member member= memberDAO.selectById(id);
 		
 		if(member ==null) {
+			log.error("member found with ID: {}", id);
 			throw new MemberException("일치하는 회원정보가 없습니다.");
 		}
 		
+		log.debug("member found : {}", member);
 		return new CustomUserDetails(member);
 	}
 

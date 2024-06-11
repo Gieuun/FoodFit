@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService{
 	
 	@Transactional
 	public void regist(MemberDetail memberDetail) throws MemberException {
-		
+			
 		// SNS 정보 확인
 	    Sns sns = memberDetail.getMember().getSns();
 	    if (sns == null || sns.getSnsName() == null) {
@@ -76,8 +76,8 @@ public class MemberServiceImpl implements MemberService{
 			}
 		}
 	}
-	public Member selectByid(String id) {
-		return memberDAO.selectByid(id);
+	public Member selectById(String id) {
+		return memberDAO.selectById(id);
 	}
 	
 

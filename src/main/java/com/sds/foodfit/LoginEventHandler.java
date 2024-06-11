@@ -35,8 +35,7 @@ public class LoginEventHandler extends SavedRequestAwareAuthenticationSuccessHan
 		HttpSession session = request.getSession();
 		session.setAttribute("member", member);
 		
-		log.debug("로그인 결과 name is " +member.getName());
-		System.out.println("로그인 결과 name is " +member.getName());
+		log.debug("로그인 결과 회원 정보는 " +member);
 		
 		
 		super.onAuthenticationSuccess(request, response, authentication);
