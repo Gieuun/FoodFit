@@ -13,12 +13,5 @@ public interface FoodDBService {
 	public List selectLowSodium();
 
 	public List selectRandomHundred();
-	
-	public List selectBreakfast();
-	
-	public List selectLunch();
-	
-	public List selectDinner();
-	
 
 }
