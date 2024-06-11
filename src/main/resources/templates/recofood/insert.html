@@ -88,19 +88,6 @@ p {
 														<br>
 														<div class="col-md-12">
 																<div class="row">
-																		<h3>키</h3>
-																		<p>
-																				<input id="height" name="height" type="number" value="">
-																		</p>
-																		<h3>몸무게</h3>
-																		<p>
-																				<input id="weight" name="weight" type="number" value="">
-																		</p>
-																</div>
-														</div>
-														<br>
-														<div class="col-md-12">
-																<div class="row">
 																		<h3>식습관 목표</h3>
 																		<p>
 																				<input type="radio" name="type" value="highProtein"> 근력향상 (단백질 섭취량 높이기)
@@ -110,6 +97,9 @@ p {
 																		</p>
 																		<p>
 																				<input type="radio" name="type" value="lowSodium"> 싱겁게 먹기 (저나트륨식)
+																		</p>
+																		<p>
+																				<input type="radio" name="type" value="lowSodium"> 아무거나 10개
 																		</p>
 																</div>
 														</div>
@@ -140,13 +130,13 @@ p {
 		$("#bt_result").click(function() {
 			//form의 데이터를 주워담을 array객체 만듦			
 			let formDataArray = $("#InfoInputForm").serializeArray();
-			
+
 			// form 데이터 가져옴
 			let formData = {};
-			$.each(formDataArray, function(_, field){
-				formData[field.name]=field.value;
+			$.each(formDataArray, function(_, field) {
+				formData[field.name] = field.value;
 			});
-			
+
 			/* 이전 로직 (백업용 주석)
 			$("#InfoInputForm :input").each(function() {
 				let input = $(this);
@@ -156,14 +146,13 @@ p {
 					formData[input.attr("name")] = input.val();
 				}
 			});
-			*/
+			 */
 
 			// ajax로 전달 요청
-
 			$.ajax({
 				url : "/food/result",
-				type : "POST",				
-				
+				type : "POST",
+
 				contentType : "application/json",
 				data : JSON.stringify(formData),
 				success : function(result, status, xhr) {
