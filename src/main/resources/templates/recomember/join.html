@@ -26,6 +26,25 @@
 .btArea {
 	display: flex;
 }
+label{
+	font-weight: bold;
+}
+.num{
+	color: red;
+	font-size: 12px;
+}
+.type{
+	display: flex;
+}
+.type .btn{
+	width:20%;
+}
+.pwdText{
+	display: flex;
+}
+.pwdText p {
+	margin-left: 7px;
+}
 </style>
 </head>
 <body>
@@ -63,53 +82,57 @@
 						<div class="row">
 							<input type="hidden" name="sns.snsName" value="homepage">
 							
-							<div class="col-md-12">
-								<div class="form-group">
-									<input type="text" id="name" class="form-control" name="name"
-										placeholder="이름을 입력해주세요">
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="name">이름을 입력해주세요</label> 
+										<input type="text" class="form-control" name="name" placeholder="한글 또는 영문으로 입력해주세요.">
+									</div>
 								</div>
-							</div>
-
-							<div class="col-md-12">
-								<div class="form-group">
-									<input type="text" id="id" class="form-control" name="id"
-										placeholder="아이디를 입력해주세요">
-
-								</div>
-							</div>
-
-							<div class="col-md-12">
-
-								<div class="form-group">
-									<input type="password" id="password" class="form-control"
-										name="pwd" placeholder="비밀번호를 입력해 주세요">
-
-								</div>
-
-								<div class="form-group">
-									<input type="password" id="passwordCheck" class="form-control"
-										name="pwdCheck" placeholder="비밀번호를 다시 입력해 주세요">
-
-								</div>
-
-							</div>
 
 							<div class="col-md-12">
 								<div class="form-group">
-									<input type="email" id="email" class="form-control"
-										name="email" placeholder="이메일을 입력해 주세요">
-
+									<label for="id">아이디를 입력해주세요.</label>
+									<div class="type">
+										<input type="text" class="form-control" id="id" name="id">
+										<button class="btn btn-common" id="id_check" type="button" onClick="checkId()">중복확인</button>
+									</div>
+									<div id="id_check_result"></div>
 								</div>
 							</div>
+							
+								<div class="col-md-12">
+									<div class="form-group">
+										<div class="pwdText">
+											<label for="Pwd">비밀번호를 입력해주세요.</label>
+											<p>※비밀번호는 <span class="num">문자, 숫자, 특수문자(~!@#$%^&*)의 조합10 ~16자리</span>로 입력이 가능합니다.</p>
+										</div>
+										<input type="password" class="form-control" id="password" name="pwd">
+									</div>
+								</div>
+								
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="Pwd">비밀번호 확인</label> 
+										<input type="password" class="form-control" id="pwdCheck" name="pwd">
+									</div>
+								</div>
+							
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="email">이메일을 입력해주세요.</label>
+										<div class="type">
+											<input type="email" class="form-control" name="email">
+											<button class="btn btn-common" id="email_check" type="button">중복확인</button>
+										</div>
+									</div>
+								</div>
 
 							<div class="col-md-12">
 								<div class="submit-button text-center btArea">
-									<button class="btn btn-common" id="bt_prev" type="button"
-										onClick="prev()">이전</button>
+									<button class="btn btn-common" id="bt_prev" type="button" onClick="prev()">이전</button>
 									<button class="btn btn-common" id="bt_health" type="button">건강정보입력</button>
 								</div>
 							</div>
-
 						</div>
 					</form>
 				</div>
@@ -160,7 +183,7 @@ function getAuthForm(sns){
 			data : $("#join_form").serialize(),
 			success : function(response) {
 				alert(response)
-				window.location.href ="/recomember/healthform"
+				window.location.href="/recomember/healthform"
 			},
 			error : function(xhr, status, err) {
 				alert("회원정보 저장 실패");

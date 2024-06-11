@@ -5,9 +5,7 @@
 	<insert id="insert" parameterType="MemberDetail">
 		insert into
 		memberDetail(gender, age, height, weight, memberIdx)
-		values(#{gender},
-		#{age}, #{height}, #{weight},
-		#{member.memberIdx}, #{dislikedFood.dislikedFoodIdx})
+		values(#{gender}, #{age}, #{height}, #{weight}, #{member.memberIdx})
 
 	</insert>
 

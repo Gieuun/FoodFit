@@ -11,9 +11,9 @@ import com.sds.foodfit.domain.Member;
 public interface DislikedFoodDAO {
 	
 	public int insert(DislikedFood dislikedFood); //등록
-	public List selectAll();
+	public List selectAll();	
 	public DislikedFood select(int dislikedFoodIdx);
-	public Member selcteByid(String id);
+	public Member selcteById(String Id);
 	
 	public void update(DislikedFood dislikedFood);
 	

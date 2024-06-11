@@ -9,11 +9,14 @@ import lombok.Data;
 @Data
 public class NaverLogin {
 	
-	//사용자가 보게될 동의화면
+		//사용자가 보게될 동의화면
 		private String endpoint="https://nid.naver.com/oauth2.0/authorize";
-
-		private String client_id="S9atPqdqU2K3oMtiEMEg";
-		private String client_secret="amg2z4mEY6";
+		
+		//네이버 개발 콘솔의 아이디
+		private String client_id="Z8YRWB4RenkHlchA8_QJ";
+		
+		//네이버 개발 콘솔의 secret
+		private String client_secret="B8qhrRiBmA";
 		
 		//IDP 사업자로부터 응답받을 콜백주소
 		private String redirect_uri="http://localhost:9876/recomember/sns/naver/callback";
@@ -37,7 +40,7 @@ public class NaverLogin {
 			sb.append(endpoint+"?client_id="+client_id);
 			sb.append("&redirect_uri="+redirect_uri);
 			sb.append("&response_type="+response_type);
-			sb.append("&state"+state);
+			sb.append("&state="+state);
 			
 			return sb.toString();
 		}
