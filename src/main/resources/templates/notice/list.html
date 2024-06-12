@@ -176,7 +176,7 @@ section.notice {
                 <form action="/notice/search" method="get">
                     <div class="search-wrap">
                         <label for="search" class="blind">공지사항 제목 검색</label>
-                        <input id="search" type="search" name="query" placeholder="검색어를 입력해주세요." value="">
+                        <input id="search" type="search" name="titleKeyword" placeholder="검색어를 입력해주세요." value="">
                         <button type="submit" class="btn btn-dark">검색</button>
                     </div>
                 </form>
@@ -208,18 +208,23 @@ section.notice {
         <td colspan="5">
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex justify-content-center flex-grow-1">
-                    <ul class="pagination mb-0">
-                        <li class="page-item"><a class="page-link" th:href="@{/notice(currentPage=${pager.currentPage - 1})}">Previous</a></li>
-                        <li th:each="i:${#numbers.sequence(pager.firstPage, pager.lastPage)}" th:class="${pager.currentPage==i}? 'page-item active' : 'page-item'">
-                            <a class="page-link" th:href="@{/notice(currentPage=${i})}" th:text="${i}"></a>
-                        </li>
-                        <li class="page-item">
-    						<a class="page-link" th:href="@{/notice(currentPage=${pager.currentPage + 1})}">Next</a>
-						</li>
-                    </ul>
-                </div>
-                	<div class="submit-button text-center">
-                    	<button class="btn btn-common" onClick="location.href='/notice/writeform';">글등록</button>
+				    <ul class="pagination mb-0">
+				    <li>
+				            <a class="page-link" th:if="${pager.currentPage > 1}" th:href="@{/notice(currentPage=${pager.currentPage - 1})}">Previous</a>
+				            <a class="page-link" th:if="${pager.currentPage <= 1}">Previous</a>
+				        </li>
+				        <li th:each="i : ${#numbers.sequence(pager.firstPage, pager.lastPage)}"
+				            th:class="${pager.currentPage == i} ? 'page-item active' : 'page-item'">
+				            <a class="page-link" th:href="@{/notice(currentPage=${i})}" th:text="${i}"></a>
+				        </li>
+				        <li>
+				            <a class="page-link" th:if="${pager.currentPage < pager.totalPage}" th:href="@{/notice(currentPage=${pager.currentPage + 1})}">Next</a>
+				            <a class="page-link" th:if="${pager.currentPage >= pager.totalPage}">Next</a>
+				        </li>
+				    </ul>
+				</div>
+				<div class="submit-button text-center">
+                    	<button class="btn btn-common" onClick="location.href='/notice/writeform';">글쓰기</button>
                     	<div id="msgSubmit" class="h3 text-center hidden"></div> 
                     	<div class="clearfix"></div> 
                 </div>

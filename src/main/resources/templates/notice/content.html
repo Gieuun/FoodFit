@@ -59,11 +59,12 @@
     </div>
     <div class="notice-footer">
         <button class="btn btn-custom" onclick="location.href='/notice'">목록</button>
-        <form id="deleteForm" action="/notice/del" method="post" style="display: inline;" onsubmit="return confirmDelete();">
-    <input type="hidden" name="noticeIdx" th:value="${notice.noticeIdx}">
-    <button type="submit" class="btn btn-custom">삭제</button>
-</form>
-        <a class="btn btn-custom" th:href="@{/notice/editform(noticeIdx=${notice.noticeIdx})}">수정</a>
+            <form id="deleteForm" action="/notice/del" method="post" style="display: inline;" onsubmit="return confirmDelete();">
+                <input type="hidden" name="noticeIdx" th:value="${notice.noticeIdx}">
+                <button type="submit" class="btn btn-custom">삭제</button>
+            </form>
+            <a class="btn btn-custom" th:href="@{/notice/editform(noticeIdx=${notice.noticeIdx})}">수정</a>
+        
     </div>
 </div>
 <br><br><br><br><br><br>
