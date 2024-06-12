@@ -59,13 +59,12 @@
     </div>
     <div class="notice-footer">
         <button class="btn btn-custom" onclick="location.href='/notice'">목록</button>
-        <form id="deleteForm" action="/notice/del" method="post" style="display: inline;" onsubmit="return confirmDelete();">
-    <input type="hidden" name="noticeIdx" th:value="${notice.noticeIdx}">
-    <button type="submit" class="btn btn-custom">삭제</button>
-</form>
-        <button class="btn btn-custom">
-            <a th:href="@{/notice/editform(noticeIdx=${notice.noticeIdx})}">수정</a>
-        </button>
+            <form id="deleteForm" action="/notice/del" method="post" style="display: inline;" onsubmit="return confirmDelete();">
+                <input type="hidden" name="noticeIdx" th:value="${notice.noticeIdx}">
+                <button type="submit" class="btn btn-custom">삭제</button>
+            </form>
+            <a class="btn btn-custom" th:href="@{/notice/editform(noticeIdx=${notice.noticeIdx})}">수정</a>
+        
     </div>
 </div>
 <br><br><br><br><br><br>
@@ -77,9 +76,7 @@
 </html>
 <script>
     function confirmDelete() {
-        // 확인 창 표시
         var confirmDelete = confirm("정말로 삭제하시겠습니까?");
-        // 확인 창에서 확인을 선택한 경우에만 form을 제출
         return confirmDelete;
     }
 </script>

@@ -34,13 +34,13 @@ public class NoticeController {
 
         Pager pager = new Pager();
         pager.init(totalRecord, currentPage);
-
+        
         // 레코드를 가져오기 위한 매개변수 맵
         Map<String, Integer> map = new HashMap<>();
         map.put("startIndex", pager.getStartIndex());
         map.put("rowCount", pager.getPageSize());
         // 레코드 가져오기
-        List<Notice> noticeList = noticeService.selectAll(map); //selectAll은 db용어여서 다른걸로
+        List<Notice> noticeList = noticeService.getAllNotices(map);
 
         // 모델에 데이터 추가
         model.addAttribute("noticeList", noticeList);
@@ -52,12 +52,13 @@ public class NoticeController {
     
     //검색기능 요청 처리
     @GetMapping("/notice/search")
-    public String searchNotices(@RequestParam("query") String query, Model model,
+    public String searchNotices(@RequestParam("titleKeyword") String titleKeyword, Model model,
                                 @RequestParam(value = "currentPage", defaultValue = "1") int currentPage) {
+    	
         Map<String, Object> paramMap = new HashMap<>();
-        paramMap.put("query", query);
+        paramMap.put("titleKeyword", titleKeyword);
 
-        int totalRecord = noticeService.getTotalCountByQuery(query); //쿼리말고 키워드나 이런용어로.
+        int totalRecord = noticeService.getTotalCountByQuery(titleKeyword); 
         Pager pager = new Pager();
         pager.initSearch(totalRecord, currentPage);
 
@@ -68,29 +69,29 @@ public class NoticeController {
 
         model.addAttribute("noticeList", noticeList);
         model.addAttribute("pager", pager);
-        model.addAttribute("query", query);
+        model.addAttribute("titleKeyword", titleKeyword);
 
         return "notice/searchList";
     }
     
     //게시판 글쓰기폼 요청처리
 	@GetMapping("/notice/writeform")
-	public String getRegistForm() {
-		
+	public String getRegistForm(Model model) {
+		model.addAttribute("notice", new Notice());
 		return "notice/write";
 	}
 	
-	// 게시판 글쓰기 요청 처리 
-	@PostMapping("/notice/regist")
-	public String regist(Notice notice, RedirectAttributes redirectAttributes) {
-	    try {
-	    	noticeService.insert(notice); 
-	        redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 등록되었습니다.");
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("message", "게시글 등록 중 오류가 발생하였습니다.");
-	    }
-	    return "redirect:/notice";
-	}
+	// 게시판 글쓰기 요청 처리        여기부분은 restcontroller로 바꿨음
+//	@PostMapping("/notice/regist")
+//	public String regist(Notice notice, RedirectAttributes redirectAttributes) {
+//	    try {
+//	    	noticeService.insert(notice); 
+//	        redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 등록되었습니다.");
+//	    } catch (Exception e) {
+//	        redirectAttributes.addFlashAttribute("message", "게시글 등록 중 오류가 발생하였습니다.");
+//	    }
+//	    return "redirect:/notice";
+//	}
 	
 	// 상세보기 요청 처리
 	@GetMapping("/notice/detail")
@@ -117,13 +118,8 @@ public class NoticeController {
 	
 	// 게시글 삭제 요청 처리
 	@PostMapping("/notice/del")
-	public String del(Notice notice, RedirectAttributes redirectAttributes) {
-	    try {
+	public String del(Notice notice) {
 	        noticeService.delete(notice);
-	        redirectAttributes.addFlashAttribute("message", "게시글이 성공적으로 삭제되었습니다.");
-	    } catch (Exception e) {
-	        redirectAttributes.addFlashAttribute("message", "게시글 삭제 중 오류가 발생하였습니다.");
-	    }
 	    return "redirect:/notice";
 	}
 	

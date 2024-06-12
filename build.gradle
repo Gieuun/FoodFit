@@ -58,6 +58,9 @@ dependencies {
 	
 	//AOP 추가
 	implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.5'
+	
+	//유효성검사
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
 }
 
 tasks.named('test') {
