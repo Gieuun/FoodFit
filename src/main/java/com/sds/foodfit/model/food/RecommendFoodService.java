@@ -37,7 +37,7 @@ public class RecommendFoodService implements FoodDBService {
 		}
 
 		String type = formData.get("type");
-		List<FoodDB> foodDBList = null;
+		List<FoodDB> foodDBList = null; // 초기화 안해주면 오류남
 
 		switch (type) {
 		case "highProtein":
