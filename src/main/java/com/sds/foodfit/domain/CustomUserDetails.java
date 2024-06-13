@@ -10,15 +10,18 @@ import lombok.Data;
 
 //회원의 상세정보를 가진 객체 
 @Data
-public class CustomUserDetails  implements UserDetails{
-	
+public class CustomUserDetails implements UserDetails {
+
 	private Member member;
-	
-	public CustomUserDetails(Member member) {
+	private MemberDetail memberDetail;
+	private Object favoriteFood;
+
+	public CustomUserDetails(Member member, MemberDetail memberDetail, FavoriteFood favoriteFood) {
 		this.member = member;
+		this.memberDetail = memberDetail;
+		this.favoriteFood = favoriteFood;
 	}
-	
-	
+
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		Collection<GrantedAuthority> authList = new ArrayList();
