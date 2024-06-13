@@ -2,49 +2,42 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1.0"
+>
 <title>푸드핏 - 음식추천 결과</title>
-
+<th:block th:replace="fragments/header_link :: header_link" />
 <style>
-
-/*PC/모바일 해상도 설정기준 : 아이폰 11 (828*1792) 기준 */
-
-body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    margin: 10px;
-    padding: 10px;    
+@media ( min-width : 828px) {
+		.item-container {
+				width: 40%; /* 가로 너비를 50%로 설정 */
+				margin: auto; /* 중앙 정렬을 위해 margin을 auto로 설정 */
+		}
 }
 
-@media (min-width: 828px) {
-    body {
-        width: 40%; /* 가로 너비를 50%로 설정 */
-        margin: auto; /* 중앙 정렬을 위해 margin을 auto로 설정 */
-    }
+@media ( max-width : 828px) {
+		.item-container {
+				width: 100%; /* 가로 너비를 디바이스 너비에 맞춤 */
+				padding: 10px; /* 작은 간격으로 설정 */
+		}
 }
 
-@media (max-width: 828px) {
-    body {
-        width: 100%; /* 가로 너비를 디바이스 너비에 맞춤 */
-        padding: 10px; /* 작은 간격으로 설정 */
-    }
+.item-container {
+		padding-top: 100px; /* 헤더 블록의 높이만큼 여백 추가 */
 }
 
-.container {
-    width: auto; /* 자동으로 너비를 조절하도록 설정합니다. */
-    max-width: 90%; /* 최대 너비를 설정합니다. */
-    overflow-y: auto; /* 필요한 경우에만 세로 스크롤을 표시합니다. */
-    margin: 0 auto;
+.food-item {
+		margin-right: 10px;
+		margin-bottom: 10px;
 }
 
-.header {
-		text-align: center;
-		margin-bottom: 20px;
+.food-item h3 {
+		font-size: 16px;
 }
 
-.header h1 {
-		margin: 0;
-		font-size: 24px;
+.food-item p {
+		font-size: 11px;
 }
 
 .calories {
@@ -61,10 +54,6 @@ body {
 .calories p {
 		margin: 0;
 		color: #999;
-}
-
-.macros {
-		margin-bottom: 20px;
 }
 
 .macro {
@@ -96,125 +85,145 @@ body {
 		font-size: 14px;
 		color: #666;
 }
-
-.remaining-macros {
-		text-align: center;
-		margin-bottom: 20px;
-}
-
-.remaining-macros h3 {
-		margin: 0;
-		font-size: 16px;
-		color: #333;
-		margin-bottom: 10px;
-}
-
-.remaining-macros .macro {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		background-color: #f1f1f1;
-		padding: 5px 10px;
-		border-radius: 5px;
-		margin-bottom: 5px;
-}
-
-.remaining-macros .macro span {
-		font-size: 14px;		
-}
-
-.footer {
-		text-align: center;
-}
-
-.footer button {
-		padding: 10px 20px;
-		font-size: 16px;
-		color: #fff;
-		background-color: #333;
-		border: none;
-		border-radius: 5px;
-		cursor: pointer;
-}
-
-.food-item {
-		margin-right: 10px;
-		margin-bottom: 10px;
-		overflow-y: auto;
-    	max-height: 400px; /* 요소의 최대 높이를 지정합니다. */
-}
-
-.food-item h3 {
-		font-size: 16px;
-}
-
-.food-item p {
-		font-size: 11px;
-}
 </style>
+<link
+		rel="stylesheet"
+		href="/site/css/sidescrolling.css"
+>
 </head>
 <body>
-		<div class="container" id="resultContainer">
-				<div class="header">
+		<th:block
+				th:replace="fragments/header :: header"
+				class="header"
+		/>
+		<div class="item-container">
+				<div class="headline">
 						<h1>음식 추천 결과</h1>
 						<h2 th:text="${title}"></h2>
 				</div>
 				<!-- 여기서 foodList를 반복해서 각 음식 정보를 표시합니다 -->
-				<div th:each="foodDB : ${foodDBList}" class="food-item">
-						<div class="macro">
-								<h3 th:text="${foodDB.foodName}">음식 이름</h3>
-						</div>
-						<div class="macro">
-								<div class="calories">
+				<div class="scroll-x">
+						<div
+								th:each="foodDB : ${foodDBList}"
+								class="food-item"
+						>
+								<div class="macro">
 										<p>
-												열량: <span th:text="${foodDB.kcal}">0</span> kcal
+												<img
+														src="/img/favorite.png"
+														alt="즐겨찾기"
+														class="favorite-icon"
+														style="width: 30%; height: auto;"
+														onclick="addToFavorites(/*[[@{foodDB.id}]]*/)"
+												>
+										<h3 th:text="${foodDB.foodName}">음식 이름</h3>
+										</p>
+								</div>
+								<div class="macro">
+										<div class="calories">
+												<p>
+														열량: <span th:text="${foodDB.kcal}">0</span> kcal
+												</p>
+										</div>
+								</div>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/carbs-icon.png"
+														alt="탄수화물"
+												><span>탄수화물</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.carbohydrate}">0</span>
+										</p>
+								</div>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/protein-icon.png"
+														alt="단백질"
+												> <span>단백질</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.protein}">0</span> g
+										</p>
+								</div>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/fat-icon.png"
+														alt="지방"
+												> <span>지방</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.fat}">0</span> g
+										</p>
+								</div>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/sugar-icon.png"
+														alt="당류"
+												> <span>당류</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.sugar}">0</span> g
+										</p>
+								</div>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/sodium-icon.png"
+														alt="나트륨"
+												> <span>나트륨</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.sodium}">0</span> mg
 										</p>
 								</div>
 						</div>
-						<div class="macro">
-								<div class="label">
-										<img src="/img/carbs-icon.png" alt="탄수화물"><span>탄수화물</span>
-								</div>
-								<p>
-										<span th:text="${foodDB.carbohydrate}">0</span>
-								</p>
-						</div>
-						<div class="macro">
-								<div class="label">
-										<img src="/img/protein-icon.png" alt="단백질"> <span>단백질</span>
-								</div>
-								<p>
-										<span th:text="${foodDB.protein}">0</span> g
-								</p>
-						</div>
-						<div class="macro">
-								<div class="label">
-										<img src="/img/fat-icon.png" alt="지방"> <span>지방</span>
-								</div>
-								<p>
-										<span th:text="${foodDB.fat}">0</span> g
-								</p>
-						</div>
-						<div class="macro">
-								<div class="label">
-										<img src="/img/sugar-icon.png" alt="당류"> <span>당류</span>
-								</div>
-								<p>
-										<span th:text="${foodDB.sugar}">0</span> g
-								</p>
-						</div>
-						<div class="macro">
-								<div class="label">
-										<img src="/img/sodium-icon.png" alt="나트륨"> <span>나트륨</span>
-								</div>
-								<p>
-										<span th:text="${foodDB.sodium}">0</span> mg
-								</p>
-						</div>
 				</div>
-				<div class="footer">
-						<button>기록하기</button>
+				<div class="food-comment">
+						<h4>* 본 영양성분 표시는 식품의약품안전처 영양성분DB를 활용한 자료이며, 각 음식의 100g당 함유량 입니다. *</h4>
+						<p>식기별 음식담는 중량 (추정치) : 밥그릇 200g, 국그릇 200g, 사발그릇 200g, 중접시 300g, 대접시 500g</p>
 				</div>
 		</div>
+		<th:block th:replace="fragments/footer :: footer" />
+		<!-- End Footer -->
+		<a
+				href="#"
+				id="back-to-top"
+				title="Back to top"
+				style="display: none;"
+		>&uarr;</a>
+		<!-- footer_link begin -->
+		<th:block th:replace="fragments/footer_link :: footer_link" />
+		<!-- footer_link end -->
+		<script src="/site/js/sidescrolling.js"></script>
+		<script type="text/javascript">
+			const addToFavorites = (foodIdx) => {	// foodIdx변수 사용해서 할거라 동일하게 변수지정
+			    fetch('/add-to-favorites', {		// rest로 요청할 주소
+			        method: 'POST',
+			        headers: {
+			            'Content-Type': 'application/json',
+			        },
+			        body: JSON.stringify({ id: foodIdx }),		// 식별할 id는 foodIdx
+			    })
+			    .then(response => {
+			        if (response.ok) {
+			            return response.text(); // OK 응답일 경우 콘트롤러 ResponseEntity 텍스트 반환
+			        } else {
+			            throw new Error('이용에 불편을 드려 죄송합니다. 다시 시도해주세요');		// 유저에게 에러메세지 반환
+			        }
+			    })
+			    .then(data => {
+			        alert(data);
+			    })
+			    .catch((error) => {
+			        console.error('Error:', error);
+			        alert('즐겨찾기 추가 중 오류가 발생했습니다.');
+			    });
+			};  
+		</script>
 </body>
 </html>

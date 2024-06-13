@@ -1,4 +1,4 @@
-package com.sds.foodfit.model.member;
+package com.sds.foodfit.model.sns;
 
 import org.apache.ibatis.annotations.Mapper;
 
