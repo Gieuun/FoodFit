@@ -56,10 +56,6 @@
 		color: #999;
 }
 
-.macros {
-		margin-bottom: 20px;
-}
-
 .macro {
 		display: flex;
 		align-items: center;
@@ -89,33 +85,11 @@
 		font-size: 14px;
 		color: #666;
 }
-
-.remaining-macros {
-		text-align: center;
-		margin-bottom: 20px;
-}
-
-.remaining-macros h3 {
-		margin: 0;
-		font-size: 16px;
-		color: #333;
-		margin-bottom: 10px;
-}
-
-.remaining-macros .macro {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		background-color: #f1f1f1;
-		padding: 5px 10px;
-		border-radius: 5px;
-		margin-bottom: 5px;
-}
-
-.remaining-macros .macro span {
-		font-size: 14px;
-}
 </style>
+<link
+		rel="stylesheet"
+		href="/site/css/sidescrolling.css"
+>
 </head>
 <body>
 		<th:block
@@ -128,83 +102,85 @@
 						<h2 th:text="${title}"></h2>
 				</div>
 				<!-- 여기서 foodList를 반복해서 각 음식 정보를 표시합니다 -->
-				<div
-						th:each="foodDB : ${foodDBList}"
-						class="food-item"
-				>
-						<div class="macro">
-								<p>
-										<img
-												src="/img/favorite.png"
-												alt="즐겨찾기"
-												class="favorite-icon"
-												style="width: 30%; height: auto;"
-												onclick="addToFavorites(/*[[@{foodDB.id}]]*/)"
-										>
-								<h3 th:text="${foodDB.foodName}">음식 이름</h3>
-								</p>
-						</div>
-						<div class="macro">
-								<div class="calories">
+				<div class="scroll-x">
+						<div
+								th:each="foodDB : ${foodDBList}"
+								class="food-item"
+						>
+								<div class="macro">
 										<p>
-												열량: <span th:text="${foodDB.kcal}">0</span> kcal
+												<img
+														src="/img/favorite.png"
+														alt="즐겨찾기"
+														class="favorite-icon"
+														style="width: 30%; height: auto;"
+														onclick="addToFavorites(/*[[@{foodDB.id}]]*/)"
+												>
+										<h3 th:text="${foodDB.foodName}">음식 이름</h3>
 										</p>
 								</div>
-						</div>
-						<div class="macro">
-								<div class="label">
-										<img
-												src="/img/carbs-icon.png"
-												alt="탄수화물"
-										><span>탄수화물</span>
+								<div class="macro">
+										<div class="calories">
+												<p>
+														열량: <span th:text="${foodDB.kcal}">0</span> kcal
+												</p>
+										</div>
 								</div>
-								<p>
-										<span th:text="${foodDB.carbohydrate}">0</span>
-								</p>
-						</div>
-						<div class="macro">
-								<div class="label">
-										<img
-												src="/img/protein-icon.png"
-												alt="단백질"
-										> <span>단백질</span>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/carbs-icon.png"
+														alt="탄수화물"
+												><span>탄수화물</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.carbohydrate}">0</span>
+										</p>
 								</div>
-								<p>
-										<span th:text="${foodDB.protein}">0</span> g
-								</p>
-						</div>
-						<div class="macro">
-								<div class="label">
-										<img
-												src="/img/fat-icon.png"
-												alt="지방"
-										> <span>지방</span>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/protein-icon.png"
+														alt="단백질"
+												> <span>단백질</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.protein}">0</span> g
+										</p>
 								</div>
-								<p>
-										<span th:text="${foodDB.fat}">0</span> g
-								</p>
-						</div>
-						<div class="macro">
-								<div class="label">
-										<img
-												src="/img/sugar-icon.png"
-												alt="당류"
-										> <span>당류</span>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/fat-icon.png"
+														alt="지방"
+												> <span>지방</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.fat}">0</span> g
+										</p>
 								</div>
-								<p>
-										<span th:text="${foodDB.sugar}">0</span> g
-								</p>
-						</div>
-						<div class="macro">
-								<div class="label">
-										<img
-												src="/img/sodium-icon.png"
-												alt="나트륨"
-										> <span>나트륨</span>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/sugar-icon.png"
+														alt="당류"
+												> <span>당류</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.sugar}">0</span> g
+										</p>
 								</div>
-								<p>
-										<span th:text="${foodDB.sodium}">0</span> mg
-								</p>
+								<div class="macro">
+										<div class="label">
+												<img
+														src="/img/sodium-icon.png"
+														alt="나트륨"
+												> <span>나트륨</span>
+										</div>
+										<p>
+												<span th:text="${foodDB.sodium}">0</span> mg
+										</p>
+								</div>
 						</div>
 				</div>
 				<div class="food-comment">
@@ -223,31 +199,31 @@
 		<!-- footer_link begin -->
 		<th:block th:replace="fragments/footer_link :: footer_link" />
 		<!-- footer_link end -->
+		<script src="/site/js/sidescrolling.js"></script>
+		<script type="text/javascript">
+			const addToFavorites = (foodIdx) => {	// foodIdx변수 사용해서 할거라 동일하게 변수지정
+			    fetch('/add-to-favorites', {		// rest로 요청할 주소
+			        method: 'POST',
+			        headers: {
+			            'Content-Type': 'application/json',
+			        },
+			        body: JSON.stringify({ id: foodIdx }),		// 식별할 id는 foodIdx
+			    })
+			    .then(response => {
+			        if (response.ok) {
+			            return response.text(); // OK 응답일 경우 콘트롤러 ResponseEntity 텍스트 반환
+			        } else {
+			            throw new Error('이용에 불편을 드려 죄송합니다. 다시 시도해주세요');		// 유저에게 에러메세지 반환
+			        }
+			    })
+			    .then(data => {
+			        alert(data);
+			    })
+			    .catch((error) => {
+			        console.error('Error:', error);
+			        alert('즐겨찾기 추가 중 오류가 발생했습니다.');
+			    });
+			};  
+		</script>
 </body>
 </html>
-<script type="text/javascript">
-	const addToFavorites = (foodIdx) => {	// foodIdx변수 사용해서 할거라 동일하게 변수지정
-	    fetch('/add-to-favorites', {		// rest로 요청할 주소
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/json',
-	        },
-	        body: JSON.stringify({ id: foodIdx }),		// 식별할 id는 foodIdx
-	    })
-	    .then(response => {
-	        if (response.ok) {
-	            return response.text(); // OK 응답일 경우 콘트롤러 ResponseEntity 텍스트 반환
-	        } else {
-	            throw new Error('이용에 불편을 드려 죄송합니다. 다시 시도해주세요');		// 유저에게 에러메세지 반환
-	        }
-	    })
-	    .then(data => {
-	        alert(data);
-	    })
-	    .catch((error) => {
-	        console.error('Error:', error);
-	        alert('즐겨찾기 추가 중 오류가 발생했습니다.');
-	    });
-	};  
-
-</script>

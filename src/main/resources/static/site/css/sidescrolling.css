@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+.scroll-x {
+		overflow-x: auto;
+		overflow-y: hidden;
+		white-space: nowrap;
+		-webkit-overflow-scrolling: touch; /* iOS Safari에서 부드러운 스크롤을 위한 설정 */
+		-ms-overflow-style: none; /* IE 및 Edge */
+		scrollbar-width: none; /* Firefox */
+}
