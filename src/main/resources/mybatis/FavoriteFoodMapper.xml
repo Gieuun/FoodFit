@@ -8,8 +8,7 @@
   
   <!-- 로그인 호출할때 세션에서 null 되버림. -->
   <select id="selectUserFavorite" resultType="com.sds.foodfit.domain.FavoriteFood"> 
-    select * from favoriteFood
-    where favoriteFood.memberIdx=(select member.memberIdx from member where member.id=#{id})
+    select * from favoriteFood where memberIdx = #{member.memberIdx}
   </select>
 
   <delete id="deleteOnefood"> 
