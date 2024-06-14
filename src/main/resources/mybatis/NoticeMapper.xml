@@ -35,7 +35,7 @@
 	<!-- 검색된 데이터를 가져오는 쿼리 -->
     <select id="searchNoticesByTitle" resultType="Notice" parameterType="java.util.Map">
         SELECT * FROM notice 
-        WHERE title LIKE CONCAT('%', #{query}, '%')
+        WHERE title LIKE CONCAT('%', #{titleKeyword}, '%')
         ORDER BY noticeIdx DESC 
         LIMIT #{startIndex}, #{rowCount}
     </select>
@@ -43,7 +43,7 @@
     <!-- 검색된 공지사항의 총 개수를 가져오는 쿼리 페이징처리를 위해 전체 레코드 수를 반환 -->
     <select id="getTotalCountByQuery" resultType="int" parameterType="string">
         SELECT COUNT(*) FROM notice 
-        WHERE title LIKE CONCAT('%', #{query}, '%')
+        WHERE title LIKE CONCAT('%', #{titleKeyword}, '%')
     </select>
 
 </mapper>

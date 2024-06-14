@@ -4,35 +4,46 @@
     <title>글쓰기</title>
     <meta charset="UTF-8">
     <!-- Site Icons -->
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- jQuery -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-    <!-- Summernote CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.css" rel="stylesheet">
+    <!-- Custom CSS -->
+    <style>
+        .error-message {
+            color: red;
+        }
+        .error-input {
+            border: 1px solid red;
+        }
+    </style>
 </head>
 <body>
 <br><br><br><br><br><br>
 
 <div class="container">
     <h2>글쓰기</h2>
-    <form>
+    <form id="postForm">
         <div class="form-group">
             <label for="title">제목</label>
             <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요">
+            <div class="error-message" id="titleError"></div>
+        </div>
+
+		<!-- 작성자 이름은 로그인 했을때 닉네임으로 고정 -->
+        <div class="form-group">
+            <span>작성자 <span id="writerName" th:text="${session.member.name}"></span></span>
+            <input type="hidden" name="writer" id="writer" th:value="${session.member.name}">
         </div>
 
         <div class="form-group">
-            <label for="writer">작성자</label>
-            <input type="text" class="form-control" name="writer" placeholder="작성자를 입력하세요">
+            <label for="content">내용:</label><br>
+            <textarea id="content" name="content" rows="15" cols="128"></textarea>
+            <div class="error-message" id="contentError"></div>
         </div>
 
-        <div class="form-group">
-            <label for="content">내용:</label>
-            <textarea id="summernote" class="form-control" name="content"></textarea>
-        </div>
-
-        <button type="button" class="btn btn-primary">글쓰기</button>
+        <button type="button" id="submitBtn" class="btn btn-primary">글쓰기</button>
     </form>
 </div>
 
@@ -41,26 +52,39 @@
 
 </body>
 </html>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.18/summernote-bs4.min.js"></script>
 <script>
-$(document).ready(function() {
-  $('#summernote').summernote({
-    height: 300,
-    focus: true
-  });
-});
+  $('#submitBtn').click(function() {
+    var formData = {
+      title: $('input[name="title"]').val(),
+      writer: $('input[name="writer"]').val(),
+      content: $('#content').val()
+    };
 
-function regist(){
-    $("form").attr({
-        action:"/notice/regist",
-        method:"post"
-    }); 
-    $("form").submit();
-}
-$(function(){
-    $("button").click(function(){
-        regist();
+    $.ajax({
+      type: "POST",
+      contentType: "application/json",
+      url: "/notice/regist",
+      data: JSON.stringify(formData),
+      success: function(response) {
+        window.location.href = "/notice";
+      },
+      error: function(xhr, status, error) {
+        // 오류 처리
+        console.error(error);
+        var errors = JSON.parse(xhr.responseText);
+        if (errors.title) {
+            $('#titleError').text(errors.title);
+            $('input[name="title"]').addClass('error-input');
+        } else {
+            $('#titleError').text('');
+            $('input[name="title"]').removeClass('error-input');
+        }
+        if (errors.content) {
+            $('#contentError').text(errors.content);
+        } else {
+            $('#contentError').text('');
+        }
+      }
     });
-});
+  });
 </script>

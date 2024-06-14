@@ -22,12 +22,12 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public int getTotalCountByQuery(String query) {
-		return noticeDAO.getTotalCountByQuery(query);
+	public int getTotalCountByQuery(String titleKeyword) {
+		return noticeDAO.getTotalCountByQuery(titleKeyword);
 	}
 
 	@Override
-	public List<Notice> selectAll(Map<String, Integer> map) { // getAllNotices
+	public List<Notice> getAllNotices(Map<String, Integer> map) { 
 		return noticeDAO.selectAll(map);
 	}
 
@@ -43,10 +43,7 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	public void insert(Notice notice) {
-		int result = noticeDAO.insert(notice);
-		if (result < 1) {
-			throw new NoticeException("글 등록 실패");
-		}
+		noticeDAO.insert(notice);
 	}
 
 	@Override

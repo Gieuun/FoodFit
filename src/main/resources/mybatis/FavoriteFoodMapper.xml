@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
+<mapper namespace="com.sds.foodfit.model.favoritefood.FavoriteFoodDAO">
+  <insert id="insertFavoriteFood"> 
+      insert into favoriteFood (memberIdx, foodIdx) 
+      values (#{member.memberIdx}, #{foodDB.foodIdx})
+  </insert>
+  
+  <!-- 로그인 호출할때 세션에서 null 되버림. -->
+  <select id="selectUserFavorite" resultType="com.sds.foodfit.domain.FavoriteFood"> 
+    select * from favoriteFood where memberIdx = #{member.memberIdx}
+  </select>
+
+  <delete id="deleteOnefood"> 
+    delete from favoriteFood where memberIdx=#{member.memberIdx} and foodIdx=#{foodDB.foodIdx}
+  </delete>
+  
+  <delete id="deleteMultiFood">
+    delete from favoriteFood where memberIdx = {member.memberIdx} and foodIdx in
+    <foreach collection="foodIdxList" item="foodIdx" open="(" separator="," close=")"> #{foodDB.foodIdx}
+    </foreach>
+  </delete>
+</mapper>

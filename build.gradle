@@ -22,8 +22,8 @@ repositories {
 }
 
 dependencies {
-	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
-	//implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-authorization-server'
+	implementation 'org.springframework.boot:spring-boot-starter-oauth2-client'
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	
 	implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -58,6 +58,11 @@ dependencies {
 	
 	//AOP 추가
 	implementation 'org.springframework.boot:spring-boot-starter-aop:3.2.5'
+	
+	//유효성검사
+	implementation 'org.springframework.boot:spring-boot-starter-validation'
+	
+
 }
 
 tasks.named('test') {

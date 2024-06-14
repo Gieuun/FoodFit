@@ -1,4 +1,4 @@
-package com.sds.foodfit.model.member;
+package com.sds.foodfit.model.role;
 
 import com.sds.foodfit.domain.Role;
 

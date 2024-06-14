@@ -50,9 +50,9 @@ create table member_detail(
 ) default character set utf8;
 
 --비선호음식 테이블
-create table disliked_food(
-   	  dislikedFoodIdx int primary key auto_increment  
-	, disfoodName varchar(100)
+create table FavoriteFood(
+   	  favoriteFoodIdx int primary key auto_increment  
+	, favoriteFoodName varchar(100)
 	, memberDetailIdx int
 	, constraint fk_member_detail_disliked_food_idx foreign key (memberDetailIdx) references member_detail (memberDetailIdx)
 ) default character set utf8;

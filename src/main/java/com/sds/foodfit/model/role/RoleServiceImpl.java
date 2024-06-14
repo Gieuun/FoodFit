@@ -1,4 +1,4 @@
-package com.sds.foodfit.model.member;
+package com.sds.foodfit.model.role;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

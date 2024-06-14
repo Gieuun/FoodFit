@@ -1,4 +1,4 @@
-package com.sds.foodfit.model.member;
+package com.sds.foodfit.model.role;
 
 import org.apache.ibatis.annotations.Mapper;
 
