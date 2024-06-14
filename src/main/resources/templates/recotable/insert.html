@@ -1,88 +1,76 @@
 <!DOCTYPE html>
-<html lang="ko" xmlns:th="http://thymeleaf.org">
-
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
 <!-- Mobile Metas -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!-- Site Metas -->
-<title>밥상진단</title>
+<title>식단 검증 - 유저정보 확인</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-
 <!-- header_link begin -->
-<th:block th:replace="~{fragments/header_link :: header_link}" />
+<th:block th:replace="fragments/header_link :: header_link" />
 <!-- header_link end -->
-
-<!--[if lt IE 9]>
-      <script src="site/https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="site/https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
-<!-- Custom CSS -->
+<!-- 스타일시트 -->
 <style>
-    .input-section {
-        background-color: #f9f9f9;
-        padding: 20px;
-        border-radius: 10px;
-        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        margin-bottom: 20px;
-    }
-
-    .input-section h3,
-    .input-section h5 {
-        margin-bottom: 10px;
-    }
-
-    .input-section .form-group {
-        margin-bottom: 15px;
-    }
-
-    .input-section input,
-    .input-section select,
-    .input-section button {
-        width: 100%;
-        padding: 10px;
-        margin-top: 5px;
-        margin-bottom: 10px;
-        border: 1px solid #ccc;
-        border-radius: 5px;
-    }
-
-    .input-section button {
-        background-color: #007bff;
-        color: #fff;
-        border: none;
-    }
-
-    .submit-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-    }
-
-    .submit-button button {
-        width: auto;
-        padding: 10px 20px;
-    }
+p {
+	margin-bottom: 10px; /* 라디오 버튼 아래 여백 설정 */
+	margin-right: 10px; /* 라디오 버튼 오른쪽 여백 설정 */
+}
+.table-container {
+	margin-top: 20px;
+}
+.table-container table {
+	width: 100%;
+	table-layout: auto; /* 테이블의 레이아웃을 자동으로 설정 */
+}
+.table-container th, .table-container td {
+	padding: 8px 12px;
+	text-align: left;
+	vertical-align: middle;
+	border: 1px solid #ddd;
+	white-space: nowrap; /* 텍스트 줄바꿈 방지 */
+}
+.table-container th {
+	background-color: #f4f4f4;
+}
+.table-container button {
+	padding: 4px 8px;
+	font-size: 12px;
+	margin-left: 10px;
+}
+.form-group {
+	margin-bottom: 20px;
+	display: flex;
+	align-items: center;
+}
+.form-group h3 {
+	margin: 0;
+	width: 150px;
+}
+.form-group input[type="text"],
+.form-group input[type="number"] {
+	flex: 1;
+	padding: 10px;
+	margin-left: 10px;
+	border: 1px solid #ccc;
+	border-radius: 4px;
+	width: 50%; /* 너비를 50%로 조정 */
+}
 </style>
 </head>
-
 <body>
 	<!-- Start header -->
-	<div th:replace="~{fragments/header :: header}" />
+	<th:block th:replace="fragments/header :: header" />
 	<!-- End header -->
-
 	<!-- Start All Pages -->
 	<div class="all-page-title page-breadcrumb">
 		<div class="container text-center">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1>밥상진단</h1>
+					<h1>식단검증 받기</h1>
 				</div>
 			</div>
 		</div>
@@ -94,193 +82,136 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="heading-title text-center">
-						<h2>밥상진단</h2>
-						<p>오늘 먹은것들을 기반으로 식단을 추천해 드립니다</p>
+						<p>검증 받을 식단은?</p>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-12 col-sm-12 col-xs-12">
-					<div class="insert-block">
-						<form id="insertForm">
-							<div class="row">
-								<div class="col-md-6">
-									<div class="input-section">
-										<h3>오늘 어떤 음식을 드셨나요?</h3>
-										<div class="form-group">
-											<select class="custom-select d-block form-control" id="food">
-												<option disabled selected>음식을 골라주세요</option>
-												<option value="1">김치찌개</option>
-												<option value="2">부대찌게</option>
-												<option value="3">불고기</option>
-												<option value="4">미역국</option>
-												<option value="5">떡볶이</option>
-												<option value="6">햄버거</option>
-												<option value="7">피자</option>
-											</select>
-											<div class="help-block with-errors"></div>
-										</div>
-									</div>
-
-									<div class="input-section">
-										<h3>성별을 골라주세요</h3>
-										<div class="form-group">
-											<input id="male" name="gender" type="radio" value=""><label for="male">남성</label>
-											<input id="female" name="gender" type="radio" value=""><label for="female">여성</label>
-										</div>
-									</div>
-
-									<div class="input-section">
-										<h5>키</h5>
-										<div class="form-group">
-											<input id="height" name="height" type="number" value="" ><!-- 플레이스 홀더와 서버에서 때오고 처리 -->
-										</div>
-									</div>
-
-									<div class="input-section">
-										<h5>몸무게</h5>
-										<div class="form-group">
-											<input id="weight" name="weight" type="number" value=""> <!-- 플레이스 홀더와 서버에서 때오고 처리 -->
-										</div>
-									</div>
-
-									<div class="input-section">
-										<div class="submit-button text-center">
-									<!--  <button type="button" class="btn btn-common" onClick="location.href='/recotable/result';">진단받기</button> -->
-									<button type="button" class="btn btn-common" onClick="location.href='/recotable/example';">진단받기</button> 
-									
-											<div id="msgSubmit" class="h3 text-center hidden"></div>
-											<div class="clearfix"></div>
-										</div>
-									</div>
-
+					<div class="contact-block">
+						<form id="InfoInputForm" method="post" action="/calculate">
+							<div class="col-md-12">
+								<div class="form-group">
+									<h3><label for="search">검색:</label></h3>
+									<input type="text" id="search" placeholder="음식을 입력하세요..." onclick="openFoodPopup()">
 								</div>
+								<div class="row table-container">
+									<table id="selectedFoodsTable" class="table table-bordered">
+										<thead>
+											<tr>
+												<th>음식 이름</th>
+											</tr>
+										</thead>
+										<tbody>
+											<!-- 선택된 음식들은 여기 추가됩니다 -->
+										</tbody>
+									</table>
+								</div>
+							</div>
+							<br>
+							<div class="col-md-12">
+								<div class="form-group">
+									<h3><label for="protein">단백질 (g):</label></h3>
+									<input type="number" id="protein" name="protein" placeholder="단백질을 입력하세요" step="0.1">
+								</div>
+								<div class="form-group">
+									<h3><label for="fat">지방 (g):</label></h3>
+									<input type="number" id="fat" name="fat" placeholder="지방을 입력하세요" step="0.1">
+								</div>
+								<div class="form-group">
+									<h3><label for="carbohydrate">탄수화물 (g):</label></h3>
+									<input type="number" id="carbohydrate" name="carbohydrate" placeholder="탄수화물을 입력하세요" step="0.1">
+								</div>
+								<div class="form-group">
+									<h3><label for="height">키 (cm):</label></h3>
+									<input type="number" id="height" name="height" placeholder="키를 입력하세요">
+								</div>
+								<div class="form-group">
+									<h3><label for="weight">몸무게 (kg):</label></h3>
+									<input type="number" id="weight" name="weight" placeholder="몸무게를 입력하세요">
+								</div>
+							</div>
+							<br>
+							<div class="col-md-12">
+								<div class="form-group">
+									<h3>성별</h3>
+									<p>
+										<input id="male" name="gender" type="radio" value="male"> 남성
+									</p>
+									<p>
+										<input id="female" name="gender" type="radio" value="female"> 여성
+									</p>
+								</div>
+							</div>
+							<br>
+							<div class="col-md-12">
+								<div class="form-group">
+									<h3>연령</h3>
+									<p>
+										<input id="teen" name="age" type="radio" value="10"> 10대
+									</p>
+									<p>
+										<input id="twenties" name="age" type="radio" value="20"> 20대
+									</p>
+									<p>
+										<input id="thirties" name="age" type="radio" value="30"> 30대
+									</p>
+									<p>
+										<input id="forties" name="age" type="radio" value="40"> 40대
+									</p>
+									<p>
+										<input id="fifties" name="age" type="radio" value="50"> 50대
+									</p>
+									<p>
+										<input id="sixties" name="age" type="radio" value="60"> 60대 이상
+									</p>
+								</div>
+							</div>
+							<br>
+							<div class="col-md-12 text-center">
+								<button type="submit" class="btn btn-common">검증 받기</button>
 							</div>
 						</form>
+						<br>
 					</div>
 				</div>
 			</div>
 		</div>
-		<!-- End Reservation -->
+	</div>
+	<!-- End Reservation -->
+	<!-- Start Footer -->
+	<th:block th:replace="fragments/footer :: footer" />
+	<!-- End Footer -->
+	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+	<!-- footer_link begin -->
+	<th:block th:replace="fragments/footer_link :: footer_link" />
+	<!-- footer_link end -->
+	
+	<!-- jQuery 및 팝업 창 스크립트 추가 -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+	<script>
+		function openFoodPopup() {
+			var popup = window.open('/foodpopup', 'foodPopup', 'width=600,height=400');
+			popup.focus();
+		}
 		
-		<!-- 리뷰는 추후 작업 -->
-		<!-- Start Customer Reviews -->
-		<div class="customer-reviews-box">
-			<div class="container">
-				<div class="row">
-					<div class="col-lg-12">
-						<div class="heading-title text-center">
-							<h2>Customer Reviews</h2>
-							<p>Lorem Ipsum is simply dummy text of the printing and typesetting</p>
-						</div>
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-8 mr-auto ml-auto text-center">
-						<div id="reviews" class="carousel slide" data-ride="carousel">
-							<div class="carousel-inner mt-4">
-								<div class="carousel-item text-center active">
-									<div class="img-box p-1 border rounded-circle m-auto">
-										<img class="d-block w-100 rounded-circle"
-											src="site/images/profile-1.jpg" alt="">
-									</div>
-									<h5 class="mt-4 mb-0">
-										<strong class="text-warning text-uppercase">Paul
-											Mitchel</strong>
-									</h5>
-									<h6 class="text-dark m-0">Web Developer</h6>
-									<p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur
-										adipiscing elit. Nam eu sem tempor, varius quam at, luctus
-										dui. Mauris magna metus, dapibus nec turpis vel, semper
-										malesuada ante. Idac bibendum scelerisque non non purus.
-										Suspendisse varius nibh non aliquet.</p>
-								</div>
-								<div class="carousel-item text-center">
-									<div class="img-box p-1 border rounded-circle m-auto">
-										<img class="d-block w-100 rounded-circle"
-											src="site/images/profile-3.jpg" alt="">
-									</div>
-									<h5 class="mt-4 mb-0">
-										<strong class="text-warning text-uppercase">Steve
-											Fonsi</strong>
-									</h5>
-									<h6 class="text-dark m-0">Web Designer</h6>
-									<p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur
-										adipiscing elit. Nam eu sem tempor, varius quam at, luctus
-										dui. Mauris magna metus, dapibus nec turpis vel, semper
-										malesuada ante. Idac bibendum scelerisque non non purus.
-										Suspendisse varius nibh non aliquet.</p>
-								</div>
-								<div class="carousel-item text-center">
-									<div class="img-box p-1 border rounded-circle m-auto">
-										<img class="d-block w-100 rounded-circle"
-											src="site/images/profile-7.jpg" alt="">
-									</div>
-									<h5 class="mt-4 mb-0">
-										<strong class="text-warning text-uppercase">Daniel
-											vebar</strong>
-									</h5>
-									<h6 class="text-dark m-0">Seo Analyst</h6>
-									<p class="m-0 pt-3">Lorem ipsum dolor sit amet, consectetur
-										adipiscing elit. Nam eu sem tempor, varius quam at, luctus
-										dui. Mauris magna metus, dapibus nec turpis vel, semper
-										malesuada ante. Idac bibendum scelerisque non non purus.
-										Suspendisse varius nibh non aliquet.</p>
-								</div>
-							</div>
-							<a class="carousel-control-prev" href="#reviews" role="button"
-								data-slide="prev"> <i class="fa fa-angle-left"
-								aria-hidden="true"></i> <span class="sr-only">Previous</span>
-							</a> <a class="carousel-control-next" href="#reviews" role="button"
-								data-slide="next"> <i class="fa fa-angle-right"
-								aria-hidden="true"></i> <span class="sr-only">Next</span>
-							</a>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Customer Reviews -->
+		function setSelectedFood(foodName) {
+			var table = document.getElementById('selectedFoodsTable').getElementsByTagName('tbody')[0];
+			var newRow = table.insertRow();
 
-		<!-- Start Contact info -->
-		<div class="contact-imfo-box">
-			<div class="container">
-				<div class="row">
-					<div class="col-md-4">
-						<i class="fa fa-volume-control-phone"></i>
-						<div class="overflow-hidden">
-							<h4>Phone</h4>
-							<p class="lead">+01 123-456-4590</p>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<i class="fa fa-envelope"></i>
-						<div class="overflow-hidden">
-							<h4>Email</h4>
-							<p class="lead">yourmail@gmail.com</p>
-						</div>
-					</div>
-					<div class="col-md-4">
-						<i class="fa fa-map-marker"></i>
-						<div class="overflow-hidden">
-							<h4>Location</h4>
-							<p class="lead">800, Lorem Street, US</p>
-						</div>
-					</div>
-				</div>
-			</div>
-		</div>
-		<!-- End Contact info -->
+			var cell1 = newRow.insertCell(0);
 
-		<!-- Start Footer -->
-		<div th:replace="~{fragments/footer :: footer}" />
-		<!-- End Footer -->
+			var foodText = document.createTextNode(foodName + " ");
+			var deleteButton = document.createElement('button');
+			deleteButton.textContent = '삭제';
+			deleteButton.className = 'btn btn-danger btn-sm';
+			deleteButton.onclick = function() {
+				table.deleteRow(newRow.rowIndex - 1);
+			};
 
-		<a href="#" id="back-to-top" title="Back to top"
-			style="display: none;">&uarr;</a>
-
-		<!-- footer_link begin -->
-		<th:block th:replace="~{fragments/footer_link :: footer_link}" />
-		<!-- footer_link end -->
+			cell1.appendChild(foodText);
+			cell1.appendChild(deleteButton);
+		}
+	</script>
 </body>
 </html>

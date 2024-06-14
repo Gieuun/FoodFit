@@ -46,4 +46,13 @@
     select sum(fat) as fat from foodDB where foodIdx in
     <foreach collection="foodIdxList" item="foodDB" open="(" separator="," close=")"> #{foodDB}</foreach>
   </select>
+  
+    <!-- 음식 이름을 불러오는 쿼리 -->
+  <select id="getAllFoods" resultMap="foodResultMap">
+    select * from foodDB
+  </select>
+  <!-- 음식이름 검색으로 불러오는 쿼리 -->
+  <select id="searchFoodsByName" parameterType="string" resultMap="foodResultMap">
+	 SELECT * FROM foodDB WHERE foodName LIKE CONCAT('%', #{search}, '%')
+  </select>
 </mapper>
