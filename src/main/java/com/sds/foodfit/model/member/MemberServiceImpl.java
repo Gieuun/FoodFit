@@ -31,8 +31,12 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberDetailDAO memberDetailDAO;
 
+    private final PasswordEncoder passwordEncoder;
+    
     @Autowired
-    private PasswordEncoder passwordEncoder;
+    public MemberServiceImpl(PasswordEncoder passwordEncoder) {
+    	this.passwordEncoder = passwordEncoder;
+    }
 
     @Transactional
     public void regist(MemberDetail memberDetail) throws MemberException {
@@ -57,7 +61,7 @@ public class MemberServiceImpl implements MemberService {
 
 	String hashedPassword = passwordEncoder.encode(memberDetail.getMember().getPwd());
 	memberDetail.getMember().setPwd(hashedPassword);
-
+	
 	int result = memberDAO.insert(memberDetail.getMember());
 
 	if (result < 1) {
@@ -66,10 +70,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	// 홈페이지만 추가 정보 처리
-	if (sns.getSnsName().equals("homepage")) {
-
+	if (sns.getSnsName().equals(sns.getSnsName())) {
 	    log.debug("member result is" + result);
-
 	    // memberDetail 삽입
 	    memberDetailDAO.insert(memberDetail);
 	    if (result < 1) {

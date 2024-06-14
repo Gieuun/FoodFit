@@ -27,12 +27,11 @@ public class CustomUserDetails implements UserDetails {
 		Collection<GrantedAuthority> authList = new ArrayList();
 		authList.add(new GrantedAuthority() {
 			public String getAuthority() {
-				return member.getRole().getRoleName(); // 홈페이지 회원 경우 USER
+				return member.getRole().getRoleName(); //홈페이지 회원의 경우 USER
 			}
 		});
 		return authList;
 	}
-
 	@Override
 	public String getPassword() {
 		return member.getPwd();
