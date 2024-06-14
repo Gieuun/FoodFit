@@ -12,7 +12,7 @@ public class KaKaoLogin {
 	// 웹사이트 이용자가 보게될 동의화면 주소
 		private String endpoint="https://kauth.kakao.com/oauth/authorize";
 		
-		private String client_id="970cb56fa228e863ca1929adc17cd021";
+		private String client_id="06f5c3b2514179d49733971d67210ffe";
 		
 		//콜백 받을때 전달할 파라미터명
 		private String redirect_uri="http://localhost:9876/recomember/sns/kakao/callback";
