@@ -1,42 +1,44 @@
 package com.sds.foodfit.controller;
 
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-
 
 @Controller
 public class MainController {
-	@GetMapping("/")
-	public String getMain() {
-		return "main/index";
-		
-	}
+    @GetMapping("/")
+    public String getMain() {
 
-	@GetMapping("/demo")
-	public String goDemo() {
-		return "demo/input-form";
-	}
+	// 네이버 클라우드서버 이관 시 작동테스트
+	/*
+	 * VisitorLogger visitorLogger = new VisitorLogger();
+	 * visitorLogger.countVisitor();
+	 */
 
-	@GetMapping("/recotable")
-	public String goRecoTable() {
-		return "recotable/insert";
+	return "main/index";
 
-	}
+    }
 
-	@GetMapping("/recofood")
-	public String goRecoFood() {
-		return "recofood/insert";
+    @GetMapping("/demo")
+    public String goDemo() {
+	return "demo/input-form";
+    }
 
-	}
+    @GetMapping("/recotable")
+    public String goRecoTable() {
+	return "recotable/insert";
 
-	@GetMapping("/login")
-	public String goLogin() {
-		return "/recomember/login";
+    }
 
-	}   
+    @GetMapping("/recofood")
+    public String goRecoFood() {
+	return "recofood/insert";
+
+    }
+
+    @GetMapping("/login")
+    public String goLogin() {
+	return "/recomember/login";
+
+    }
 
 }
-  		
-
