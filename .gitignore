@@ -38,3 +38,6 @@ bin/
 
 # VS Code 관련 항목 삭제
 # .vscode/
+
+# GoogleLogin.java 파일을 무시합니다.
+src/main/java/com/sds/foodfit/sns/GoogleLogin.java
