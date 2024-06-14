@@ -1,5 +1,6 @@
 package com.sds.foodfit.model.food;
 
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sds.foodfit.domain.FoodDB;
 
 @Service("calculateFoodService")
 public class CalculateFoodService implements FoodDBService {
@@ -66,6 +68,18 @@ public class CalculateFoodService implements FoodDBService {
 
 	@Override
 	public Map<String, Object> setFoodResult(String jsonData) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FoodDB> getAllFoods() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FoodDB> searchFoodsByName(String search) {
 		// TODO Auto-generated method stub
 		return null;
 	}
