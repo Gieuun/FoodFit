@@ -20,30 +20,36 @@
     </style>
 </head>
 <body>
-<br><br><br><br><br><br>
+<br><br><br>
 
 <div class="container">
     <h2>글쓰기</h2>
     <form id="postForm">
         <div class="form-group">
             <label for="title">제목</label>
-            <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요">
+            <input type="text" class="form-control" name="title" placeholder="제목을 입력하세요" >
             <div class="error-message" id="titleError"></div>
         </div>
 
-		<!-- 작성자 이름은 로그인 했을때 닉네임으로 고정 -->
+		<!-- 작성자 이름은 로그인 했을때 닉네임으로 고정
         <div class="form-group">
             <span>작성자 <span id="writerName" th:text="${session.member.name}"></span></span>
             <input type="hidden" name="writer" id="writer" th:value="${session.member.name}">
         </div>
-
+		-->
+		<div class="form-group">
+            <label for="writer">작성자</label>
+            <input type="text" class="form-control" name="writer" placeholder="작성자를 입력하세요">
+        </div>
+        
         <div class="form-group">
             <label for="content">내용:</label><br>
-            <textarea id="content" name="content" rows="15" cols="128"></textarea>
+            <textarea id="content" name="content" rows="15" cols="148%"></textarea>
             <div class="error-message" id="contentError"></div>
         </div>
 
-        <button type="button" id="submitBtn" class="btn btn-primary">글쓰기</button>
+        <button type="button" id="submitBtn" class="btn btn-primary" style="margin-right: 87%;">글쓰기</button>
+        <button class="btn btn-primary" onclick="location.href='/notice'">목록</button>
     </form>
 </div>
 
