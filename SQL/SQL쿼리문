@@ -104,3 +104,9 @@ create table notice(
     regdate timestamp default now(),
     hit int default 0
 ) default character set utf8;
+
+create table visitorLogs (
+    visitIdx int auto_increment primary key,
+    visitDate timestamp default current_timestamp,
+    visitorId varchar(50)
+);
