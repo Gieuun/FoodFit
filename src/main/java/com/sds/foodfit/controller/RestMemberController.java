@@ -11,11 +11,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sds.foodfit.domain.Member;
-import com.sds.foodfit.domain.MemberDetail;
-import com.sds.foodfit.domain.Role;
 import com.sds.foodfit.exception.MemberException;
-import com.sds.foodfit.model.member.MemberDetailService;
-import com.sds.foodfit.model.member.MemberService;
+import com.sds.foodfit.sns.GoogleLogin;
 import com.sds.foodfit.sns.KaKaoLogin;
 import com.sds.foodfit.sns.NaverLogin;
 
@@ -32,6 +29,9 @@ public class RestMemberController {
 
 	@Autowired
 	private NaverLogin naverLogin;
+	
+	@Autowired
+	private GoogleLogin googleLogin;
 	
 	// 회원정보임시저장
 	@PostMapping("/rest/recomember/temp")
@@ -57,7 +57,7 @@ public class RestMemberController {
 		ResponseEntity entity = null;
 
 		if (sns.equals("google")) {
-			// entity=ResponseEntity.ok(naverLogin.getGrantUrl()); //내용을 보내야 하므로, body도 구성하자
+			entity=ResponseEntity.ok(googleLogin.getGrantUrl()); //내용을 보내야 하므로, body도 구성하자
 		} else if (sns.equals("naver")) {
 			entity = ResponseEntity.ok(naverLogin.getGrantUrl()); // 내용을 보내야 하므로, body도 구성하자
 		} else if (sns.equals("kakao")) {
