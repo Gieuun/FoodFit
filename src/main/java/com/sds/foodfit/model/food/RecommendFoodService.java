@@ -68,4 +68,16 @@ public class RecommendFoodService implements FoodDBService {
 		return null;
 	}
 
+	@Override
+	public List<FoodDB> getAllFoods() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public List<FoodDB> searchFoodsByName(String search) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

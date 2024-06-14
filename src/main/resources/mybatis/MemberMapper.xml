@@ -21,8 +21,8 @@
 		<result 	column="pwd" 					property="pwd"/>
 		<result 	column="email" 					property="email"/>
 		
-		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.member.SnsDAO.select"/>
-		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.member.RoleDAO.select"/>
+		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.sns.SnsDAO.select"/>
+		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.role.RoleDAO.select"/>
 		<association column="memberIdx" property="memberDetail" javaType="MemberDetail" select="com.sds.foodfit.model.member.MemberDetailDAO.selectByMemberIdx"/>
 		
 	</resultMap>
@@ -41,8 +41,8 @@
 		<result 	column="pwd" 					property="pwd"/>
 		<result 	column="email" 					property="email"/>
 		
-		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.member.SnsDAO.select"/>
-		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.member.RoleDAO.select"/>
+		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.sns.SnsDAO.select"/>
+		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.role.RoleDAO.select"/>
 	</resultMap>
 	
 	<select id="selectByMemberIdx" parameterType="int" resultMap="MemberMap2">

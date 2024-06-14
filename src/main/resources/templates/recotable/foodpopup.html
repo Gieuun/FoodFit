@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>음식 선택</title>
+<!-- jQuery 추가 -->
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<!-- Bootstrap CSS 추가 -->
+<link rel="stylesheet" href="/site/css/bootstrap.min.css">
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: #f4f4f9;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 100vh;
+    }
+    .container {
+        width: 90%;
+        max-width: 800px;
+        margin: 0 auto;
+        background-color: #fff;
+        padding: 20px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    h1 {
+        text-align: center;
+        color: #333;
+        margin-bottom: 20px;
+    }
+    .search-container {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+    .search-container input {
+        width: 70%;
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px 0 0 5px;
+    }
+    .search-container button {
+        padding: 10px 20px;
+        border: 1px solid #007bff;
+        background-color: #007bff;
+        color: #fff;
+        border-radius: 0 5px 5px 0;
+        cursor: pointer;
+    }
+    .search-container button:hover {
+        background-color: #0056b3;
+    }
+    table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+    }
+    th, td {
+        padding: 10px;
+        text-align: center;
+        border-bottom: 1px solid #ccc;
+    }
+    th {
+        background-color: #f4f4f9;
+    }
+    tr:hover {
+        background-color: #f1f1f1;
+    }
+    button {
+        padding: 5px 10px;
+        background-color: #007bff;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    button:hover {
+        background-color: #0056b3;
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <h1>음식 선택</h1>
+        <div class="search-container">
+            <input type="text" id="searchInput" placeholder="검색어를 입력하세요">
+            <button onclick="searchFoods()">검색</button>
+        </div>
+        <table id="foodTable" class="table table-striped">
+            <thead>
+                <tr>
+                    <th>음식 이름</th>
+                    <th>추가</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- 음식 데이터는 검색 후 Ajax로 불러옵니다 -->
+            </tbody>
+        </table>
+    </div>
+    <script>
+        function searchFoods() {
+            var query = $('#searchInput').val();
+            if(query.trim() === "") {
+                alert("검색어를 입력하세요.");
+                return;
+            }
+            $.ajax({
+                url: "/api/foods",
+                type: "GET",
+                data: { search: query },
+                success: function(data) {
+                    var rows = '';
+                    if (data.length === 0) {
+                        alert("결과가 없습니다.");
+                    } else {
+                        $.each(data, function(index, food) {
+                            rows += '<tr><td>' + food.foodName + '</td><td><button onclick="selectFood(\'' + food.foodName + '\')">추가</button></td></tr>';
+                        });
+                    }
+                    $('#foodTable tbody').html(rows);
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error fetching foods:', error);
+                }
+            });
+        }
+
+        function selectFood(foodName) {
+            opener.setSelectedFood(foodName);
+            window.close();
+        }
+    </script>
+</body>
+</html>

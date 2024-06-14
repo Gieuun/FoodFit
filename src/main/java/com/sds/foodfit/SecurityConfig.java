@@ -5,13 +5,18 @@ import javax.sql.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
 import org.springframework.security.web.authentication.AuthenticationSuccessHandler;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import com.sds.foodfit.model.member.CustomUserDetailsService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,21 +25,32 @@ import lombok.extern.slf4j.Slf4j;
 @EnableWebSecurity
 public class SecurityConfig {
 
+	@Autowired
+	private DataSource dataSource;
+	
     @Autowired
-    private UserDetailsService userDetailsService;
+    private CustomUserDetailsService customUserDetailsService;
+    
 
-    @Autowired
-    private DataSource dataSource;
-
-    // 단방향 암호화(해시) 객체 등록함
     @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-	return new BCryptPasswordEncoder();
+    public PasswordEncoder passwordEncoder() {
+    	return new BCryptPasswordEncoder();
     }
-
+    
+    @Autowired
+	private AuthenticationConfiguration authenticationConfiguration;
+	
+	@Bean
+	public AuthenticationManager authenticationManager() throws Exception{
+		return authenticationConfiguration.getAuthenticationManager();
+	}
+    
+   
     // 시큐리티 필터체인 객체 호출 (접근허가 관련 작업)
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
+    http.userDetailsService(customUserDetailsService);
+    
 	http.authorizeHttpRequests(authorize -> authorize
 
 		.requestMatchers("/site/**").permitAll() // 모든 요청을 인증 없이 허용.
@@ -45,10 +61,8 @@ public class SecurityConfig {
 
 		.requestMatchers("/rest/notice/**").permitAll() // 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 
-		.requestMatchers("/rest/recomember/**").permitAll().requestMatchers("/recomember/sns/**").permitAll() // sns
-														      // 이용자
-														      // 요청
-														      // 허용
+		.requestMatchers("/rest/recomember/**").permitAll()
+		.requestMatchers("/recomember/sns/**").permitAll() // sns 이용자 요청 허용
 		.requestMatchers("/mypage", "/mypage2").hasAuthority("USER")
 		.requestMatchers("/recomember/mypage", "/recomember/mypage2").hasAuthority("USER")
 
@@ -56,25 +70,33 @@ public class SecurityConfig {
 
 	).formLogin(form -> form
 
-		.loginPage("/recomember/loginform").successHandler(loginEventHandler()) // 로그인 성공시
+		.loginPage("/recomember/loginform")
+		.successHandler(loginEventHandler()) // 로그인 성공시
 		.failureHandler(failureHandler()) // 로그인 실패시
-		.loginProcessingUrl("/recomember/login").usernameParameter("id").passwordParameter("pwd")
+		.loginProcessingUrl("/recomember/login")
+		.usernameParameter("id")
+		.passwordParameter("pwd")
 
 	).httpBasic(httpBasic -> httpBasic.realmName("FoodFit") // 기본 인증 사용 시 realm 이름 설정
-	).logout(logout -> logout.logoutUrl("/logout").logoutSuccessUrl("/").invalidateHttpSession(true)
+	
+	).logout(logout -> logout
+		.logoutUrl("/logout")
+		.logoutSuccessUrl("/")
+		.invalidateHttpSession(true)
 		.deleteCookies("JSESSIONID"));
-
-	// 아래 핸들러가 대신 동작함
-	// LoginFilter loginFilter = new LoginFilter(authenticationManager());
-	// loginFilter.setFilterProcessesUrl("/recomember/login");
-	// http.addFilterBefore(loginFilter,
-	// UsernamePasswordAuthenticationFilter.class);
-
+	
+	
+		AuthenticationManager authenticationManager = authenticationManager();
+		 LoginFilter loginFilter = new LoginFilter(authenticationManager);
+		 loginFilter.setFilterProcessesUrl("/recomember/login");
+		 http.addFilterBefore(loginFilter, UsernamePasswordAuthenticationFilter.class);
+	
 	http.csrf((auth) -> auth.disable());
 	return http.build();
     }
-
-    // 로그인 성공시 동작할 핸들러
+    
+    
+	// 로그인 성공시 동작할 핸들러
     public AuthenticationSuccessHandler loginEventHandler() {
 	log.debug("로그인 핸들러 요청");
 	return new LoginEventHandler();
@@ -83,7 +105,7 @@ public class SecurityConfig {
     // 로그인 실패시 동작할 핸들러
     public AuthenticationFailureHandler failureHandler() {
 
-	return new FaildEventHandler();
+	return new FailedEventHandler();
     }
-
+	
 }
