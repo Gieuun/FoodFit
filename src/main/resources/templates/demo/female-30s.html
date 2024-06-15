@@ -66,20 +66,27 @@
 <body>
 <th:block th:replace="~{fragments/header :: header}"/>
 <br><br><br><br>
+ 	<div class="results">
+    		<h3 style="margin-left: 17%;">
+    			당신의 기초대사량: <span th:text="${bmr}">BMR</span> kcal
+			</h3>
+    		<h3 style="margin-left: 17%;">하루 권장 칼로리: <span th:text="${tdee}">TDEE</span> kcal</h3>
+		</div><br>
+		<div style="margin-left: 18%;"><strong>100g 기준</strong></div>
     <div class="container food-items">
         <div class="food-item">
             <img src="https://ottogi.okitchen.co.kr/pds/upfile/2020-08-24_427850333[26].jpg ">
-            <h3>연어 샐러드</h3>
+            <h3>연어 샐러드(174kcal)</h3>
             <p>높은 단백질과 건강한 지방으로 이루어진 연어와 신선한 채소와 함께 어우러진 풍성한 맛의 연어 샐러드</p>
         </div>
         <div class="food-item">
             <img src="https://recipe1.ezmember.co.kr/cache/recipe/2023/07/03/8a05c06066a2d60919517564516050471.jpg">
-            <h3>그릭 요거트</h3>
+            <h3>그릭 요거트(117kcal)</h3>
             <p>고단백 건강 식품의 대표주자, 그릭 요거트! 건강한 단백질과 고지방의 조화, 그리고 신선한 맛을 한 숟가락에 담아보세요.</p>
         </div>
         <div class="food-item">
             <img src="https://mblogthumb-phinf.pstatic.net/MjAyMjA0MTNfNTYg/MDAxNjQ5ODI3MjAwMDgz.g_6Z4JYQtvvyNVMTHkv67RhmaMWxj63q2hO_1ri7y20g.xRkmTND39Gk75QlaRPyZmBLJg5UtW9J60JbXi866OuYg.JPEG.3jeong/%EC%95%84%EB%B3%B4%EC%B9%B4%EB%8F%84_%ED%9A%A8%EB%8A%A5_5.jpg?type=w800">
-            <h3>아보카도</h3>
+            <h3>아보카도(156kcal)</h3>
             <p>부드럽고 크림진 아보카도, 건강과 맛의 완벽한 조화! 신선한 영양을 한 입에 느껴보세요</p>
         </div>
     </div>
@@ -116,3 +123,4 @@
     <script th:src="@{/site/js/custom.js}"></script>
 </th:block>
 </body>
+</html>
