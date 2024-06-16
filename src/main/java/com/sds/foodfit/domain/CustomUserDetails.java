@@ -12,54 +12,51 @@ import lombok.Data;
 @Data
 public class CustomUserDetails implements UserDetails {
 
-	private Member member;
-	private MemberDetail memberDetail;
-	private Object favoriteFood;
+    private Member member;
 
-	public CustomUserDetails(Member member, MemberDetail memberDetail, FavoriteFood favoriteFood) {
-		this.member = member;
-		this.memberDetail = memberDetail;
-		this.favoriteFood = favoriteFood;
-	}
+    public CustomUserDetails(Member member) {
+	this.member = member;
+    }
 
-	@Override
-	public Collection<? extends GrantedAuthority> getAuthorities() {
-		Collection<GrantedAuthority> authList = new ArrayList();
-		authList.add(new GrantedAuthority() {
-			public String getAuthority() {
-				return member.getRole().getRoleName(); //홈페이지 회원의 경우 USER
-			}
-		});
-		return authList;
-	}
-	@Override
-	public String getPassword() {
-		return member.getPwd();
-	}
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+	Collection<GrantedAuthority> authList = new ArrayList();
+	authList.add(new GrantedAuthority() {
+	    public String getAuthority() {
+		return member.getRole().getRoleName(); // 홈페이지 회원의 경우 USER
+	    }
+	});
+	return authList;
+    }
 
-	@Override
-	public String getUsername() {
-		return member.getName();
-	}
+    @Override
+    public String getPassword() {
+	return member.getPwd();
+    }
 
-	@Override
-	public boolean isAccountNonExpired() {
-		return true;
-	}
+    @Override
+    public String getUsername() {
+	return member.getName();
+    }
 
-	@Override
-	public boolean isAccountNonLocked() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonExpired() {
+	return true;
+    }
 
-	@Override
-	public boolean isCredentialsNonExpired() {
-		return true;
-	}
+    @Override
+    public boolean isAccountNonLocked() {
+	return true;
+    }
 
-	@Override
-	public boolean isEnabled() {
-		return true;
-	}
+    @Override
+    public boolean isCredentialsNonExpired() {
+	return true;
+    }
+
+    @Override
+    public boolean isEnabled() {
+	return true;
+    }
 
 }
