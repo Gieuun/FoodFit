@@ -16,5 +16,6 @@ public interface FoodDBService { // 이 인터페이스는 음식과 밥상에�
 	
 	List<FoodDB> getAllFoods();
 	List<FoodDB> searchFoodsByName(String search);
+	List<FoodDB> findByFoodName(String foodName);
 
 }

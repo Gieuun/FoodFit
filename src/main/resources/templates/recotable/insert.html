@@ -52,12 +52,11 @@ p {
 }
 .form-group input[type="text"],
 .form-group input[type="number"] {
-	flex: 1;
 	padding: 10px;
 	margin-left: 10px;
 	border: 1px solid #ccc;
 	border-radius: 4px;
-	width: 50%; /* 너비를 50%로 조정 */
+	width: 200px; /* 너비를 고정 */
 }
 </style>
 </head>
@@ -90,6 +89,7 @@ p {
 				<div class="col-lg-12 col-sm-12 col-xs-12">
 					<div class="contact-block">
 						<form id="InfoInputForm" method="post" action="/calculate">
+							<input type="hidden" id="selectedFoods" name="selectedFoods">
 							<div class="col-md-12">
 								<div class="form-group">
 									<h3><label for="search">검색:</label></h3>
@@ -207,10 +207,21 @@ p {
 			deleteButton.className = 'btn btn-danger btn-sm';
 			deleteButton.onclick = function() {
 				table.deleteRow(newRow.rowIndex - 1);
+				updateSelectedFoods();
 			};
 
 			cell1.appendChild(foodText);
 			cell1.appendChild(deleteButton);
+			updateSelectedFoods();
+		}
+
+		function updateSelectedFoods() {
+			var selectedFoods = [];
+			var table = document.getElementById('selectedFoodsTable').getElementsByTagName('tbody')[0];
+			for (var i = 0, row; row = table.rows[i]; i++) {
+				selectedFoods.push(row.cells[0].innerText.trim());
+			}
+			document.getElementById('selectedFoods').value = selectedFoods.join(',');
 		}
 	</script>
 </body>
