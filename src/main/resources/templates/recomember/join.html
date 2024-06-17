@@ -113,7 +113,7 @@ label{
 								<div class="col-md-12">
 									<div class="form-group">
 										<label for="Pwd">비밀번호 확인</label> 
-										<input type="password" class="form-control" id="pwdCheck" name="pwd">
+										<input type="password" class="form-control" id="pwdCheck" name="pwdCheck">
 									</div>
 								</div>
 							
@@ -183,7 +183,7 @@ function getAuthForm(sns){
 			data : $("#join_form").serialize(),
 			success : function(response) {
 				alert(response)
-				window.location.href="/recomember/healthform"
+				window.location.href="/recomember/registform"
 			},
 			error : function(xhr, status, err) {
 				alert("회원정보 저장 실패");

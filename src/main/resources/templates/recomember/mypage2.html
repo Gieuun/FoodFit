@@ -77,7 +77,7 @@
 										<div class="row">
 												<div class="col-md-12">
 														<div class="heading-title text-center">
-																<h2>선호 음식</h2>
+																<h2 th:text="${member.name} + '님의 선호 음식'"></h2>
 														</div>
 														<div th:each="foodDB : ${FavoriteFoodList}" class="food-item">
 																<div class="macro">

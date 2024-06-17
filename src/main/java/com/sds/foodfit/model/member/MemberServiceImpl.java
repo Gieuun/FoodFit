@@ -31,19 +31,14 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberDetailDAO memberDetailDAO;
 
-    private final PasswordEncoder passwordEncoder;
-    
-    @Autowired
-    public MemberServiceImpl(PasswordEncoder passwordEncoder) {
-    	this.passwordEncoder = passwordEncoder;
-    }
-
     @Transactional
     public void regist(MemberDetail memberDetail) throws MemberException {
 
 	// SNS 정보 확인
 	Sns sns = memberDetail.getMember().getSns();
 	if (sns == null || sns.getSnsName() == null) {
+		sns= new Sns();
+		memberDetail.getMember().setSns(sns);;
 	    throw new MemberException("SNS 정보가 null입니다.");
 	}
 	// SNS 정보 설정
@@ -58,9 +53,8 @@ public class MemberServiceImpl implements MemberService {
 	}
 	Role role = roleDAO.selectByName(memberDetail.getMember().getRole().getRoleName());
 	memberDetail.getMember().setRole(role); // role_idx가 채워진 DTO를 다시 MemberDTO 에 대입
-
-	String hashedPassword = passwordEncoder.encode(memberDetail.getMember().getPwd());
-	memberDetail.getMember().setPwd(hashedPassword);
+	
+	
 	
 	int result = memberDAO.insert(memberDetail.getMember());
 
@@ -81,8 +75,9 @@ public class MemberServiceImpl implements MemberService {
 	}
     }
 
+    @Override
     public Member selectById(String id) {
-	return memberDAO.selectById(id);
+    	return memberDAO.selectById(id);
     }
 
 }

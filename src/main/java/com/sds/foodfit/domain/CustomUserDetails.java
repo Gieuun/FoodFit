@@ -7,27 +7,41 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 
 //회원의 상세정보를 가진 객체 
+@Slf4j
 @Data
 public class CustomUserDetails implements UserDetails {
 
     private Member member;
+    
+    private MemberDetail memberDetail;
+    
+    private FavoriteFood favoriteFood;
 
-    public CustomUserDetails(Member member) {
+    public CustomUserDetails(Member member, MemberDetail memberDetail, FavoriteFood favoriteFood) {
 	this.member = member;
+	this.memberDetail = memberDetail;
+	this.favoriteFood = favoriteFood;
+	
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-	Collection<GrantedAuthority> authList = new ArrayList();
-	authList.add(new GrantedAuthority() {
-	    public String getAuthority() {
-		return member.getRole().getRoleName(); // 홈페이지 회원의 경우 USER
-	    }
-	});
-	return authList;
-    }
+
+	@Override
+	public Collection<? extends GrantedAuthority> getAuthorities() {
+		Collection<GrantedAuthority> authList = new ArrayList();
+		authList.add(new GrantedAuthority() {
+			public String getAuthority() {
+				
+				log.debug("Role 이름은 "+ member.getRole().getRoleName());
+				
+				return member.getRole().getRoleName(); //홈페이지 회원의 경우 USER
+			}
+			
+		});
+		return authList;
+	}
 
     @Override
     public String getPassword() {

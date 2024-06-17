@@ -21,9 +21,4 @@ public class AppConfig {
 	return new RestTemplate();
     }
 
-    @Bean
-    public CustomUserDetailsService customUserDetailsService() {
-	return new CustomUserDetailsService();
-    }
-
 }

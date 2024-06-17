@@ -164,7 +164,7 @@ body {
 			<div class="row">
 				<div class="col-lg-12">
 					<form id="health_form">
-						
+					
 						<div class="row">
 							<input type="hidden" name="sns.snsName" value="homepage">
 							<div class="col-md-12">
@@ -251,14 +251,28 @@ body {
 
 	
 	function regist(){
+		$.ajax({
+			url:"/recomember/regist",
+			type:"post",
+			data:$("#health_form").serialize(),
+			success:function(result, status, xhr){
+				alert(result);
+				location.href="/recomember/loginform"
+			},
+			error:function(xhr, status, err){
+				let json = JSON.parse(xhr.responseText);
+				alert(json.msg);
+			}
+		});
 		
-		console.log($("#health_form").serialize());
+		
+		/*
 		$("#health_form").attr({
-			action:"/recomember/regist",
+			action:"/recomember/healthform",
 			method:"post"
 		});
 		$("#health_form").submit();
-		
+		*/
 	}
 	$(function() {
 		$("#bt_regist").click(function() {
