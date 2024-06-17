@@ -213,66 +213,47 @@ p {
 </body>
 </html>
 <script type="text/javascript">
-	$(document)
-			.ready(
-					function() {
-						$("#bt_result")
-								.click(
-										function() {
-											//form의 데이터를 주워담을 array객체 만듦			
-											let formDataArray = $(
-													"#InfoInputForm")
-													.serializeArray();
+    $(document).ready(function() {
+        $("#bt_result").click(function() {
+            // form의 데이터를 주워담을 array객체 만듦			
+            let formDataArray = $("#InfoInputForm").serializeArray();
 
-											// form 데이터 가져옴
-											let formData = {};
-											$
-													.each(
-															formDataArray,
-															function(_, field) {
-																formData[field.name] = field.value;
-															});
+            // form 데이터 가져옴
+            let formData = {};
+            $.each(formDataArray, function(_, field) {
+                formData[field.name] = field.value;
+            });
 
-											// 유저가 필수값을 모두 입력하게 함. (alert을 띄워서 일지시켜주고, 모든 값 입력하게 함)
-											let missingCheck = [];
-											$
-													.each(
-															requiredField,
-															function(_,
-																	fieldName) {
-																if (!formData
-																		.hasOwnProperty(fieldName)
-																		|| formData[fieldName] == "") {
-																	missingCheck
-																			.push(fieldName);
-																}
-															});
+            // 필수 입력 필드 배열 정의
+            let requiredField = ['gender', 'age', 'type'];
 
-											if (missingCheck.length > 0) {
-												alert("모든 문항을 체크해주세요 ㅠㅠ (빠진문항 :"
-														+ missingCheck + ")");
-											}
+            // 유저가 필수값을 모두 입력하게 함. (alert을 띄워서 인지시켜주고, 모든 값 입력하게 함)
+            let missingCheck = [];
+            $.each(requiredField, function(_, fieldName) {
+                if (!formData.hasOwnProperty(fieldName) || formData[fieldName] === "") {
+                    missingCheck.push(fieldName);
+                }
+            });
 
-											// ajax로 전달 요청
-											$
-													.ajax({
-														url : "/food/result",
-														type : "POST",
+            if (missingCheck.length > 0) {
+                alert("모든 문항을 체크해주세요 ㅠㅠ (빠진문항 :" + missingCheck + ")");
+                return; // 필수 입력 값이 누락되었으므로 중단
+            }
 
-														contentType : "application/json",
-														data : JSON
-																.stringify(formData),
-														success : function(
-																result, status,
-																xhr) {
-															alert("나에게 맞는 음식이 선정됐습니다. 다음의 결과를 확인해주세요 :D");
-															window.location.href = "/food/result";
-														},
-														error : function(xhr,
-																status, err) {
-															alert("서버에 오류가 있습니다. 이용에 불편을 드려 죄송합니다.");
-														}
-													});
-										});
-					});
+            // ajax로 전달 요청
+            $.ajax({
+                url: "/food/result",
+                type: "POST",
+                contentType: "application/json",
+                data: JSON.stringify(formData),
+                success: function(result, status, xhr) {
+                    alert("나에게 맞는 음식이 선정됐습니다. 다음의 결과를 확인해주세요 :D");
+                    window.location.href = "/food/result";
+                },
+                error: function(xhr, status, err) {
+                    alert("서버에 오류가 있습니다. 이용에 불편을 드려 죄송합니다.");
+                }
+            });
+        });
+    });
 </script>

@@ -18,7 +18,7 @@ import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class LoginFilter extends UsernamePasswordAuthenticationFilter{
+public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
 	public LoginFilter(AuthenticationManager authenticationManager) {
 		super.setAuthenticationManager(authenticationManager);

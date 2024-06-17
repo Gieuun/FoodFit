@@ -8,7 +8,6 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sds.foodfit.domain.CustomUserDetails;
-import com.sds.foodfit.domain.FavoriteFood;
 import com.sds.foodfit.domain.Member;
 import com.sds.foodfit.domain.MemberDetail;
 import com.sds.foodfit.exception.FavoriteFoodException;
@@ -22,11 +21,11 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-	@Autowired
-	private MemberDAO memberDAO;
-
-	@Autowired
-	private MemberDetailDAO memberDetailDAO;
+    @Autowired
+    private MemberDAO memberDAO;
+    
+    @Autowired
+    private MemberDetailDAO memberDetailDAO;
 
 	@Autowired
 	private FavoriteFoodDAO favoriteFoodDAO;
@@ -74,6 +73,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 		}
 		*/
 		return new CustomUserDetails(member, memberDetail, null);
-	}
+    }
 
 }
