@@ -149,6 +149,9 @@ section.notice {
     width: 1px;
     height: 1px;
 }
+.hidden {
+    display: none;
+}
 </style>
 </head>
 <body>
@@ -209,19 +212,18 @@ section.notice {
             <div class="d-flex justify-content-between align-items-center">
                 <div class="d-flex justify-content-center flex-grow-1">
 				    <ul class="pagination mb-0">
-				        <li>
-				            <a class="page-link" th:if="${pager.currentPage > 1}" th:href="@{/notice/search(titleKeyword=${titleKeyword}, currentPage=${pager.currentPage - 1})}"> Previous</a>
-				            <a class="page-link" th:if="${pager.currentPage <= 1}">Previous</a>
-				        </li>
-				        <li th:each="i : ${#numbers.sequence(pager.firstPage, pager.lastPage)}"
-				            th:class="${pager.currentPage == i} ? 'page-item active' : 'page-item'">
-				            <a class="page-link" th:href="@{/notice/search(titleKeyword=${titleKeyword}, currentPage=${i})}" th:text="${i}"></a>
-				            
-				        </li>
-				        <li>
-				            <a class="page-link" th:if="${pager.currentPage < pager.totalPage}" th:href="@{/notice/search(titleKeyword=${titleKeyword}, currentPage=${pager.currentPage + 1})}">Next</a>
-				            <a class="page-link" th:if="${pager.currentPage >= pager.totalPage}">Next</a>
-				        </li>
+				    <li th:classappend="${(pager.currentPage <= 10) ? 'hidden' : ''}">
+                                            <a class="page-link" th:if="${pager.currentPage > 1}" th:href="@{/notice(currentPage=${pager.firstPage - 1})}">Previous</a>
+                                            <a class="page-link" th:if="${pager.currentPage <= 1}">Previous</a>
+                                        </li>
+                    <li th:each="i : ${#numbers.sequence(pager.firstPage, pager.lastPage)}"
+                        th:class="${pager.currentPage == i} ? 'page-item active' : 'page-item'">
+                        <a class="page-link" th:href="@{/notice(currentPage=${i})}" th:text="${i}"></a>
+                    </li>
+                    <li th:classappend="${(pager.currentPage >= pager.totalPage or pager.lastPage >= pager.totalPage) ? 'hidden' : ''}">
+                        <a class="page-link" th:if="${pager.currentPage < pager.totalPage and pager.lastPage < pager.totalPage}" th:href="@{/notice(currentPage=${pager.firstPage + 10})}">Next</a>
+                        <a class="page-link" th:if="${pager.currentPage >= pager.totalPage or pager.lastPage >= pager.totalPage}">Next</a>
+                    </li>
 				    </ul>
 				</div>
                 	<div class="submit-button text-center">
@@ -244,3 +246,17 @@ section.notice {
     <th:block th:replace="~{fragments/footer_link :: footer_link}"/>
 </body>
 </html>
+<script>
+        function validateSearchForm(event) {
+            var searchInput = document.getElementById('search').value;
+            if (searchInput.length < 2) {
+                alert('검색어를 두 글자 이상 입력해주세요.');
+                event.preventDefault(); 
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var searchForm = document.querySelector('form[action="/notice/search"]');
+            searchForm.addEventListener('submit', validateSearchForm);
+        });
+    </script>

@@ -248,3 +248,17 @@ section.notice {
     <th:block th:replace="~{fragments/footer_link :: footer_link}"/>
 </body>
 </html>
+<script>
+        function validateSearchForm(event) {
+            var searchInput = document.getElementById('search').value;
+            if (searchInput.length < 2) {
+                alert('검색어를 두 글자 이상 입력해주세요.');
+                event.preventDefault(); 
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', function() {
+            var searchForm = document.querySelector('form[action="/notice/search"]');
+            searchForm.addEventListener('submit', validateSearchForm);
+        });
+    </script>
