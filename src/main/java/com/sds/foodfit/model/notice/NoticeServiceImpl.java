@@ -63,7 +63,7 @@ public class NoticeServiceImpl implements NoticeService {
 	}
 
 	@Override
-	public List<Notice> searchNoticesByTitle(Map<String, Object> map) { // Object말고 다른걸로
+	public List<Notice> searchNoticesByTitle(Map<String, Object> map) { 
 		return noticeDAO.searchNoticesByTitle(map);
 	}
 

@@ -21,8 +21,8 @@
 		<result 	column="pwd" 					property="pwd"/>
 		<result 	column="email" 					property="email"/>
 		
-		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.member.SnsDAO.select"/>
-		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.member.RoleDAO.select"/>
+		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.sns.SnsDAO.select"/>
+		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.role.RoleDAO.select"/>
 		<association column="memberIdx" property="memberDetail" javaType="MemberDetail" select="com.sds.foodfit.model.member.MemberDetailDAO.selectByMemberIdx"/>
 		
 	</resultMap>
@@ -31,7 +31,7 @@
 		select memberIdx , name, id, pwd, email, snsIdx, roleIdx
 		from member where id=#{id}
 	</select>
-	
+
 	<!-- 아래의 맵은 자식(memberdetail)을 위한 맵이다. 서로 참조관계에 있기 때문에, 순환관계에 빠지지 않도록
 	맵을 하나 더 두고, 이맵에서는 자식을 호출하지 않는다. -->
 	<resultMap type="Member" id="MemberMap2">
@@ -41,8 +41,8 @@
 		<result 	column="pwd" 					property="pwd"/>
 		<result 	column="email" 					property="email"/>
 		
-		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.member.SnsDAO.select"/>
-		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.member.RoleDAO.select"/>
+		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.sns.SnsDAO.select"/>
+		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.role.RoleDAO.select"/>
 	</resultMap>
 	
 	<select id="selectByMemberIdx" parameterType="int" resultMap="MemberMap2">

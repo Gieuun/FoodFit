@@ -66,27 +66,34 @@
 <body>
 <th:block th:replace="~{fragments/header :: header}"/>
 <br><br><br><br>
+ 	<div class="results">
+    		<h3 style="margin-left: 17%;">
+    			당신의 기초대사량: <span th:text="${bmr}">BMR</span> kcal
+			</h3>
+    		<h3 style="margin-left: 17%;">하루 권장 칼로리: <span th:text="${tdee}">TDEE</span> kcal</h3>
+		</div><br>
+		<div style="margin-left: 18%;"><strong>100g 기준</strong></div>
     <div class="container food-items">
         <div class="food-item">
-            <img src="https://img.freepik.com/premium-photo/concept-tasty-food-dried-apple-chips-space-text_185193-114494.jpg ">
-            <h3>음식1</h3>
-            <p>20대 여성이 많이 찾는 저당 간식 "사과칩"</p>
+            <img src="https://static.wtable.co.kr/image/production/service/recipe/75/947f2352-6847-49db-9067-9bdd7de672d2.jpg">
+            <h3>두부 스테이크(101kcal)</h3>
+            <p>건강과 맛을 한 번에! 고단백 옵션으로 당신의 식사를 풍성하게 만들어보세요.</p>
         </div>
         <div class="food-item">
-            <img src="https://i.pinimg.com/originals/22/00/fe/2200fe11a9baab5734aee23ca38fe26e.jpg">
-            <h3>음식2</h3>
-            <p>탄수화물이 적고 단백질 함량이 높은 닭가슴살 샐러드</p>
+            <img src="https://thingool123.godohosting.com/data/goods/editor/220225/3_102957.jpg">
+            <h3>코다리찜(94kcal)</h3>
+            <p>부드럽고 고소한 맛이 일품! 영양가 높은 코다리를 찜하여 건강하게 즐기세요.</p>
         </div>
         <div class="food-item">
-            <img src="https://thingool123.godohosting.com/gd5replace/thingotr4652/data/editor/goods/210514/24c8dd2a95491b5ace09c05d2a5238aa_180616.jpg">
-            <h3>음식3</h3>
-            <p>목마를때 커피는 그만, 여성호르몬, 비타민 가득한 석류쥬스</p>
+            <img src="https://thingool123.godohosting.com/data/goods/20/11/45/1000016273/1000016273_detail_018.jpg">
+            <h3>갈치구이(137kcal)</h3>
+            <p>진한 풍미와 고소한 맛이 어우러진 갈치구이는 한 끼 식사로 안성맞춤입니다!</p>
         </div>
     </div>
     <div class="benefits">
         <h3>지금 가입하시면 누리는 "푸드핏" 멤버십 서비스 혜택!</h3>
         <ul>
-            <li>✅나에게 맞는 건강한 음식 추천! <strong>알레르기 정보도 제공</strong></li>
+            <li>✅나에게 맞는 건강한 음식 추천!</li>
             <li>✅내가 먹는 식사나 간식을 기록할 수 있어요</li>
             <li>✅먹은 음식의 일일 섭취 권장량을 체크할 수 있어요</li>
         </ul>
@@ -116,3 +123,4 @@
     <script th:src="@{/site/js/custom.js}"></script>
 </th:block>
 </body>
+</html>

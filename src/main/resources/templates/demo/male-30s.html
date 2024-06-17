@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<!-- Site Icons -->
+<link rel="shortcut icon" href="images/favicon.ico" type="image/x-icon">
+<link rel="apple-touch-icon" href="images/apple-touch-icon.png">
+
+<!-- header_link.html -->
+<th:block th:fragment="header_link">
+    <link rel="shortcut icon" th:href="@{/images/favicon.ico}" type="image/x-icon">
+    <link rel="apple-touch-icon" th:href="@{/images/apple-touch-icon.png}">
+
+    <link rel="stylesheet" th:href="@{/site/css/bootstrap.min.css}">
+    <link rel="stylesheet" th:href="@{/site/css/style.css}">
+    <link rel="stylesheet" th:href="@{/site/css/responsive.css}">
+    <link rel="stylesheet" th:href="@{/site/css/classic.css}">
+    <link rel="stylesheet" th:href="@{/site/css/classic.date.css}">
+    <link rel="stylesheet" th:href="@{/site/css/classic.time.css}">
+    <link rel="stylesheet" th:href="@{/site/css/custom.css}">
+</th:block>
+<title>데모 결과페이지</title>
+
+<style>
+.buttons button {
+    background-color: #4CAF50; /* 배경색 */
+    color: white; /* 글자색 */
+    padding: 10px 20px; /* 안쪽 여백 */
+    border: none; /* 테두리 없음 */
+    border-radius: 5px; /* 모서리 둥글게 */
+    cursor: pointer; /* 커서 모양 변경 */
+    text-decoration: none; /* 텍스트에 밑줄 없앰 */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 */
+}
+
+.buttons button:hover {
+    background-color: #45a049; /* 마우스 호버 시 배경색 변경 */
+}
+		.food-item img {
+		    width: 300px; /* 원하는 가로 크기 */
+		    height: 200px; /* 원하는 세로 크기 */
+		}
+        .food-items {
+            display: flex; /* 가로로 배열하기 위해 flexbox 사용 */
+            justify-content: space-between; /* 요소들 사이에 균일한 간격 유지 */
+            flex-wrap: wrap; /* 요소들이 넘치면 다음 줄로 넘어갈 수 있도록 설정 */
+        }
+        .food-item {
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            margin: 0 10px;
+            padding: 10px;
+            width: calc(33.333% - 20px); /* 3개의 요소를 가로로 배열하므로 폭을 33.333%로 설정 */
+            box-sizing: border-box; /* 요소의 패딩과 테두리를 포함한 크기를 지정 */
+        }
+        .food-item h3 {
+            margin: 10px 0;
+        }
+        .benefits,
+        .buttons {
+            text-align: center; /* 가운데 정렬 */
+            margin-top: 50px; /* 위쪽 여백 추가 */
+        }
+    </style>
+</head>
+<body>
+<th:block th:replace="~{fragments/header :: header}"/>
+<br><br><br><br>
+ 		<div class="results">
+    		<h3 style="margin-left: 17%;">
+    			당신의 기초대사량: <span th:text="${bmr}">BMR</span> kcal
+			</h3>
+    		<h3 style="margin-left: 17%;">하루 권장 칼로리: <span th:text="${tdee}">TDEE</span> kcal</h3>
+		</div><br>
+		<div style="margin-left: 18%;"><strong>100g 기준</strong></div>
+    <div class="container food-items">
+        <div class="food-item">
+            <img src="https://blog.kakaocdn.net/dn/dplxhG/btsrDD5a3QU/gh1aL0F2waJxKiGJmatfqk/img.jpg">
+            <h3>부추무침(90kcal)</h3>
+            <p>부추의 신선하고 고소한 맛이 입안을 채우는 부추무침!</p>
+        </div>
+        <div class="food-item">
+            <img src="https://lh5.googleusercontent.com/proxy/a5APXiBZ3Spt7d03ilYv9GcrFrFPhUfwnU_3exv0_-Dp9lHYCr_XF-KEHQ1iyiHgigkRN4cGfNnxQqOLcmawTJpXVbP1lMwNROMT4pWf85Y">
+            <h3>아몬드(500kcal)</h3>
+            <p>손쉽게 즐기는 건강 간식, 고단백 아몬드! 영양 가득한 아몬드로 건강한 라이프스타일을 유지하세요.</p>
+        </div>
+        <div class="food-item">
+            <img src="https://static.wtable.co.kr/image/production/service/recipe/399/c194fb37-39ff-4ddc-b876-b2ad03bbcd4a.jpg?size=800x800">
+            <h3>연포탕(54kcal)</h3>
+            <p>건강과 맛의 조화, 열량 걱정 없는 연포탕을 즐겨보세요!</p>
+        </div>
+    </div>
+    <div class="benefits">
+        <h3>지금 가입하시면 누리는 "푸드핏" 멤버십 서비스 혜택!</h3>
+        <ul>
+            <li>✅나에게 맞는 건강한 음식 추천!</li>
+            <li>✅내가 먹는 식사나 간식을 기록할 수 있어요</li>
+            <li>✅먹은 음식의 일일 섭취 권장량을 체크할 수 있어요</li>
+        </ul>
+    </div>
+    <div class="buttons">
+        <button class="join" onclick="location.href='/login'">가입하러 가기</button>
+        <button class="home" onclick="location.href='/'">홈으로</button>
+    </div>
+    <br><br><br><br>
+    <th:block th:replace="~{fragments/footer :: footer}"/>
+
+  <!-- footer_link.html -->
+<th:block th:fragment="footer_link">
+    <script th:src="@{/site/js/jquery-3.2.1.min.js}"></script>
+    <script th:src="@{/site/js/popper.min.js}"></script>
+    <script th:src="@{/site/js/bootstrap.min.js}"></script>
+    <script th:src="@{/site/js/jquery.superslides.min.js}"></script>
+    <script th:src="@{/site/js/images-loded.min.js}"></script>
+    <script th:src="@{/site/js/isotope.min.js}"></script>
+    
+    <script th:src="@{/site/js/picker.js}"></script>
+    <script th:src="@{/site/js/picker.date.js}"></script>
+    <script th:src="@{/site/js/picker.time.js}"></script>
+    <script th:src="@{/site/js/legacy.js}"></script>
+    <script th:src="@{/site/js/form-validator.min.js}"></script>
+    <script th:src="@{/site/js/contact-form-script.js}"></script>
+    <script th:src="@{/site/js/custom.js}"></script>
+</th:block>
+</body>
+</html>

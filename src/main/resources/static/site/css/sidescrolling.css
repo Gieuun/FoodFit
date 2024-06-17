@@ -1,0 +1,112 @@
+@charset "UTF-8";
+
+@media (min-width: 828px) {
+    .item-container {
+        width: 80%; /* 가로 너비를 50%로 설정 */
+        margin: auto; /* 중앙 정렬을 위해 margin을 auto로 설정 */
+    }
+    
+    .food-item {
+        display: inline-block;
+        width: 70%; /* 전체화면의 70%비율로 맞춤 */
+        margin-right: 1%; /* 좌우 간격을 위한 여백 설정 */
+        margin-bottom: 10px;
+        border: 1px solid #ddd; /* 경계선 추가 */
+        border-radius: 8px; /* 모서리를 둥글게 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+        background-color: #fff; /* 배경색 추가 */
+        padding: 50px; /* 내부 여백 추가 */
+    }
+}
+
+@media (max-width: 828px) {
+    .item-container {
+        width: 100%; /* 가로 너비를 디바이스 너비에 맞춤 */
+        margin: auto; /* 중앙 정렬을 위해 margin을 auto로 설정 */
+    }
+
+    .food-item {
+        display: inline-block;
+        width: 100%; /* 모바일에서 하나의 객체가 전체 너비를 차지하도록 설정 */
+        margin-right: 0; /* 모바일에서는 여백을 제거 */
+        margin-bottom: 10px;
+        border: 1px solid #ddd; /* 경계선 추가 */
+        border-radius: 8px; /* 모서리를 둥글게 */
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
+        background-color: #fff; /* 배경색 추가 */
+        padding: 80px; /* 내부 여백 추가 */
+    }
+}
+
+
+.item-container {
+    padding-top: 100px; /* 헤더 블록의 높이만큼 여백 추가 */
+}
+
+.item-container .textline {
+    text-align: center;
+}
+
+
+.scroll-x {
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    -webkit-overflow-scrolling: touch; /* iOS Safari에서 부드러운 스크롤을 위한 설정 */
+    -ms-overflow-style: none; /* IE 및 Edge */
+    scrollbar-width: none; /* Firefox */
+    display: flex; /* Flexbox를 사용하여 가로 정렬 */
+}
+
+.scroll-x::-webkit-scrollbar {
+    display: none; /* 웹킷 브라우저에서 스크롤바 숨기기 */
+}
+
+.food-item h3 {
+    font-size: 16px;
+}
+
+.food-item p {
+    font-size: 11px;
+}
+
+.calories {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.calories h2 {
+    margin: 0;
+    font-size: 24px;
+    color: #333;
+}
+
+.calories p {
+    margin: 0;
+    color: #999;
+}
+
+.macro {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.macro .label {
+    display: flex;
+    align-items: center;
+}
+
+.macro .label img {
+    width: 20px;
+    height: 20px;
+    margin-right: 10px;
+}
+
+.macro .label span {
+    font-size: 14px;
+    color: #666;
+    margin-left: 30px;
+    margin-right: 5px;
+}

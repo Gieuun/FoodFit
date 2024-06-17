@@ -7,106 +7,102 @@
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 
 <!-- header_link begin -->
-	<th:block th:replace="~{fragments/header_link :: header_link}"/>
-    <!-- header_link end -->
-    <title>체험하기</title>
-    <style>
-        /* age select box width 줄이기 */
-        #age {
-            width: 150px; /* 원하는 가로 길이 설정 */
-        }
-        .survey-form {
-            max-width: 600px;
-            margin: 0 auto;
-            padding: 20px;
-        }
+<th:block th:replace="~{fragments/header_link :: header_link}"/>
+<!-- header_link end -->
+<title>체험하기</title>
+<style>
+    #age {
+        width: 150px; /* 원하는 가로 길이 설정 */
+    }
+    .survey-form {
+        max-width: 600px;
+        margin: 0 auto;
+        padding: 20px;
+    }
 
-        .text-center {
-            text-align: center;
-        }
-        .btn-common {
-            padding: 5px 10px; /* 버튼 안쪽 여백 조정 */
-            font-size: 14px; /* 버튼 텍스트 크기 조정 */
-            width: 40px; /* 버튼 너비 설정 */
-        }
-    </style>
+    .text-center {
+        text-align: center;
+    }
+    .btn-primary {
+        padding: 5px 10px; /* 버튼 안쪽 여백 조정 */
+        font-size: 14px; /* 버튼 텍스트 크기 조정 */
+        width: 130px; /* 버튼 너비 설정 */
+        margin-left: 45%;
+        background-color: #D2B48C;
+        color: #ffffff;
+    }
+    .btn-primary:hover {
+        background-color: #D2B48C;
+        border-color: #D2B48C;
+    }
+</style>
 </head>
 
 <body>
 <th:block th:replace="~{fragments/header :: header}"/>
-	<!-- Start All Pages -->
-	<div class="all-page-title page-breadcrumb">
-		<div class="container text-center">
-			<div class="row">
-				<div class="col-lg-12">
-					<h1>체험하기</h1>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End All Pages -->
-<br><br><br><br>
-    <div class="survey-form">
-        <h2 class="text-center">밑에 세부사항을 기입해주세요.</h2>
-        <br><br>
-        <form id="survey-form">
-            <div class="form-group">
-                <label for="gender">당신의 성별은?</label>
-                <div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="male" value="남">
-                        <label class="form-check-label" for="male">남</label>
-                    </div>
-                    <div class="form-check form-check-inline">
-                        <input class="form-check-input" type="radio" name="gender" id="female" value="여">
-                        <label class="form-check-label" for="female">여</label>
-                    </div>
-                </div>
+<!-- Start All Pages -->
+<div class="all-page-title page-breadcrumb">
+    <div class="container text-center">
+        <div class="row">
+            <div class="col-lg-12">
+                <h1>체험하기</h1>
             </div>
-
-            <div class="form-group">
-                <label for="age">당신의 연령은?</label>
-                <select class="form-control" id="age" name="age">
-                    <option value="10대">10대</option>
-                    <option value="20대">20대</option>
-                    <option value="30대">30대</option>
-                    <option value="40대">40대</option>
-                    <option value="50대">50대</option>
-                    <option value="60대 이상">60대 이상</option>
-                </select>
-            </div>
-
-            <div class="form-group">
-                <label for="height">당신의 키와 몸무게를 적어주세요.</label>
-                <div class="form-inline">
-                    <label for="height" class="mr-2">키:</label>
-                    <input type="number" class="form-control mr-2" id="height" name="height" placeholder="cm">
-                    <label for="weight" class="mr-2">몸무게:</label>
-                    <input type="number" class="form-control" id="weight" name="weight" placeholder="kg">
-                </div>
-            </div>
-            <br>
-            
-					<button type="button" class="btn btn-common" id="bt_result">추천음식 보러가기</button>
-        </form>
+        </div>
     </div>
+</div>
+<!-- End All Pages -->
+<br><br>
+<div class="survey-form">
+    <h2 class="text-center">연령대와 성별을 선택하시고 키,몸무게를 입력해주세요</h2>
+    <br><br>
+    <form onsubmit="event.preventDefault(); redirectBasedOnSelection();">
+        <fieldset>
+            <label>
+                <input type="radio" name="age-gender" value="male-20s">
+                20대 남성&nbsp&nbsp&nbsp
+            </label>
+            <label>
+                <input type="radio" name="age-gender" value="male-30s">
+                30대 남성&nbsp&nbsp&nbsp
+            </label>
+            <label>
+                <input type="radio" name="age-gender" value="male-40s">
+                40대이상 남성
+            </label><br>
+            <label>
+                <input type="radio" name="age-gender" value="female-20s" required>
+                20대 여성&nbsp&nbsp&nbsp
+            </label>
+            <label>
+                <input type="radio" name="age-gender" value="female-30s">
+                30대 여성&nbsp&nbsp&nbsp
+            </label>
+            <label>
+                <input type="radio" name="age-gender" value="female-40s">
+                40대이상 여성
+            </label><br><br><br>
+        </fieldset>
+        <fieldset>
+            <label for="height">키(cm):&nbsp&nbsp&nbsp&nbsp&nbsp&nbsp</label>
+            <input type="number" id="height" name="height" required><br><br>
+            <label for="weight">몸무게(kg):</label>
+            <input type="number" id="weight" name="weight" required><br><br>
+        </fieldset>
+        <button class="btn btn-primary" type="submit">추천받기</button>
+    </form>
+</div>
 <br><br><br><br>
-    <th:block th:replace="~{fragments/footer :: footer}"/>
+<th:block th:replace="~{fragments/footer :: footer}"/>
 
-    <th:block th:replace="~{fragments/footer_link :: footer_link}"/>
+<th:block th:replace="~{fragments/footer_link :: footer_link}"/>
 </body>
 </html>
 <script type="text/javascript">
-    function goResult() {
-        $("#survey-form").attr({
-            action: "/demo/demoResult",
-            method: "get"
-        }).submit();
-    }
-
-    $(function() {
-        $("#bt_result").click(function() {
-            goResult();
-        });
-    });
+function redirectBasedOnSelection() {
+    const selection = document.querySelector('input[name="age-gender"]:checked').value;
+    const height = document.getElementById('height').value;
+    const weight = document.getElementById('weight').value;
+    const url = `/demo/${selection}?height=${height}&weight=${weight}`;
+    window.location.href = url;
+}
 </script>
