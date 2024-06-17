@@ -28,6 +28,7 @@ public interface FoodDBDAO { // 여기에 FoodDB select 관련로직 다 넣으�
 	
 	public List<FoodDB> getAllFoods(); //밥상진단- 음식 이름 가져오기
 	
-	public List<FoodDB> searchFoodsByName(@Param("search") String search); //밥상진단 - 음식이름 검색으로 가져오기 
-
+    public List<FoodDB> searchFoodsByName(@Param("search") String search); 
+    
+    public List<FoodDB> findByFoodName(@Param("foodName") String foodName);
 }
