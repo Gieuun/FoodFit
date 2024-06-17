@@ -66,25 +66,32 @@
 <body>
 <th:block th:replace="~{fragments/header :: header}"/>
 <br><br><br><br>
+ 		<div class="results">
+    		<h3 style="margin-left: 17%;">
+    			당신의 기초대사량: <span th:text="${bmr}">BMR</span> kcal
+			</h3>
+    		<h3 style="margin-left: 17%;">하루 권장 칼로리: <span th:text="${tdee}">TDEE</span> kcal</h3>
+		</div><br>
+		<div style="margin-left: 18%;"><strong>100g 기준</strong></div>
     <div class="container food-items">
         <div class="food-item">
             <img src="https://cdn.011st.com/11dims/resize/600x600/quality/75/11src/product/5741380106/B.jpg?325000000">
-            <h3>고등어 구이</h3>
+            <h3>고등어 구이(275kcal)</h3>
             <p>부드럽고 고소한 맛이 일품인 고등어 구이! 고단백 저지방의 건강한 선택, 바다의 풍미를 만끽하세요.</p>
         </div>
         <div class="food-item">
             <img src="https://lh6.googleusercontent.com/proxy/AYDoFztAxPgJw4u5vL4bsPE7Lea6uqlHPDtxDIMEza6ZsRhcpO797X4vDeaFrpWlvEP6524Y-z9zB79-dnk8HGHYGg">
-            <h3>보쌈</h3>
+            <h3>보쌈(290kcal)</h3>
             <p>한국의 전통적인 맛, 보쌈! 신선한 채소와 함께 담백한 돼지고기의 풍미를 만나보세요. 건강하고 맛있는 한 끼 식사의 완벽한 선택입니다.</p>
         </div>
         <div class="food-item">
             <img src="https://img.freepik.com/premium-photo/tuna-salad-sandwich-generative-art-by-ai_35887-7657.jpg">
-            <h3>참치 샐러드 샌드위치</h3>
+            <h3>참치 샐러드 샌드위치(316kcal)</h3>
             <p>신선한 야채와 고단백 참치가 만나 식욕을 자극하는 참치 샐러드 샌드위치!</p>
         </div>
     </div>
     <div class="benefits">
-        <h3>지금 가입하시면 누리는 "푸드핏" 멤버십 서비스 혜택!</h3>
+        <h3>푸드핏에 가입하시면 이러한 혜택을 누리실 수 있어요!</h3>
         <ul>
             <li>✅나에게 맞는 건강한 음식 추천!</li>
             <li>✅내가 먹는 식사나 간식을 기록할 수 있어요</li>
@@ -116,3 +123,4 @@
     <script th:src="@{/site/js/custom.js}"></script>
 </th:block>
 </body>
+</html>
