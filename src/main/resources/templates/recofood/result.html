@@ -8,84 +8,6 @@
 >
 <title>푸드핏 - 음식추천 결과</title>
 <th:block th:replace="fragments/header_link :: header_link" />
-<style>
-@media ( min-width : 828px) {
-		.item-container {
-				width: 40%; /* 가로 너비를 50%로 설정 */
-				margin: auto; /* 중앙 정렬을 위해 margin을 auto로 설정 */
-		}
-}
-
-@media ( max-width : 828px) {
-		.item-container {
-				width: 100%; /* 가로 너비를 디바이스 너비에 맞춤 */
-				padding: 10px; /* 작은 간격으로 설정 */
-		}
-}
-
-.item-container {
-		padding-top: 100px; /* 헤더 블록의 높이만큼 여백 추가 */
-}
-
-.food-item {
-		margin-right: 10px;
-		margin-bottom: 10px;
-}
-
-.food-item h3 {
-		font-size: 16px;
-}
-
-.food-item p {
-		font-size: 11px;
-}
-
-.calories {
-		text-align: center;
-		margin-bottom: 20px;
-}
-
-.calories h2 {
-		margin: 0;
-		font-size: 24px;
-		color: #333;
-}
-
-.calories p {
-		margin: 0;
-		color: #999;
-}
-
-.macro {
-		display: flex;
-		align-items: center;
-		justify-content: space-between;
-		margin-bottom: 10px;
-}
-
-.macro .label {
-		display: flex;
-		align-items: center;
-}
-
-.macro .label img {
-		width: 20px;
-		height: 20px;
-		margin-right: 10px;
-}
-
-.macro .label span {
-		font-size: 14px;
-		color: #666;
-		margin-left: 30px;
-		margin-right: 5px;
-}
-
-.macro .percentage {
-		font-size: 14px;
-		color: #666;
-}
-</style>
 <link
 		rel="stylesheet"
 		href="/site/css/sidescrolling.css"
@@ -97,10 +19,11 @@
 				class="header"
 		/>
 		<div class="item-container">
-				<div class="headline">
+				<div class="textline">
 						<h1>음식 추천 결과</h1>
 						<h2 th:text="${title}"></h2>
 				</div>
+				<br>
 				<!-- 여기서 foodList를 반복해서 각 음식 정보를 표시합니다 -->
 				<div class="scroll-x">
 						<div
@@ -142,7 +65,7 @@
 												<img
 														src="/img/protein-icon.png"
 														alt="단백질"
-												> <span>단백질</span>
+												><span>단백질</span>
 										</div>
 										<p>
 												<span th:text="${foodDB.protein}">0</span> g
@@ -153,7 +76,7 @@
 												<img
 														src="/img/fat-icon.png"
 														alt="지방"
-												> <span>지방</span>
+												><span>지방</span>
 										</div>
 										<p>
 												<span th:text="${foodDB.fat}">0</span> g
@@ -164,7 +87,7 @@
 												<img
 														src="/img/sugar-icon.png"
 														alt="당류"
-												> <span>당류</span>
+												><span>당류</span>
 										</div>
 										<p>
 												<span th:text="${foodDB.sugar}">0</span> g
@@ -175,7 +98,7 @@
 												<img
 														src="/img/sodium-icon.png"
 														alt="나트륨"
-												> <span>나트륨</span>
+												><span>나트륨</span>
 										</div>
 										<p>
 												<span th:text="${foodDB.sodium}">0</span> mg
@@ -183,10 +106,12 @@
 								</div>
 						</div>
 				</div>
-				<div class="food-comment">
+				<br>
+				<div class="textline">
 						<h4>* 본 영양성분 표시는 식품의약품안전처 영양성분DB를 활용한 자료이며, 각 음식의 100g당 함유량 입니다. *</h4>
 						<p>식기별 음식담는 중량 (추정치) : 밥그릇 200g, 국그릇 200g, 사발그릇 200g, 중접시 300g, 대접시 500g</p>
 				</div>
+				<br>
 		</div>
 		<th:block th:replace="fragments/footer :: footer" />
 		<!-- End Footer -->
@@ -196,34 +121,69 @@
 				title="Back to top"
 				style="display: none;"
 		>&uarr;</a>
+		
 		<!-- footer_link begin -->
 		<th:block th:replace="fragments/footer_link :: footer_link" />
 		<!-- footer_link end -->
-		<script src="/site/js/sidescrolling.js"></script>
-		<script type="text/javascript">
-			const addToFavorites = (foodIdx) => {	// foodIdx변수 사용해서 할거라 동일하게 변수지정
-			    fetch('/add-to-favorites', {		// rest로 요청할 주소
-			        method: 'POST',
-			        headers: {
-			            'Content-Type': 'application/json',
-			        },
-			        body: JSON.stringify({ id: foodIdx }),		// 식별할 id는 foodIdx
-			    })
-			    .then(response => {
-			        if (response.ok) {
-			            return response.text(); // OK 응답일 경우 콘트롤러 ResponseEntity 텍스트 반환
-			        } else {
-			            throw new Error('이용에 불편을 드려 죄송합니다. 다시 시도해주세요');		// 유저에게 에러메세지 반환
-			        }
-			    })
-			    .then(data => {
-			        alert(data);
-			    })
-			    .catch((error) => {
-			        console.error('Error:', error);
-			        alert('즐겨찾기 추가 중 오류가 발생했습니다.');
-			    });
-			};  
-		</script>
+		
 </body>
 </html>
+<!-- 즐겨찾기 추가하기 -->
+<script type="text/javascript">
+	const addToFavorites = (foodIdx) => {	// foodIdx변수 사용해서 할거라 동일하게 변수지정
+	    fetch('/add-to-favorites', {		// rest로 요청할 주소
+	        method: 'POST',
+	        headers: {
+	            'Content-Type': 'application/json',
+	        },
+	        body: JSON.stringify({ id: foodIdx }),		// 식별할 id는 foodIdx
+	    })
+	    .then(response => {
+	        if (response.ok) {
+	            return response.text(); // OK 응답일 경우 콘트롤러 ResponseEntity 텍스트 반환
+	        } else {
+	            throw new Error('이용에 불편을 드려 죄송합니다. 다시 시도해주세요');		// 유저에게 에러메세지 반환
+	        }
+	    })
+	    .then(data => {
+	        alert(data);
+	    })
+	    .catch((error) => {
+	        console.error('Error:', error);
+	        alert('즐겨찾기 추가 중 오류가 발생했습니다.');
+	    });
+	};  
+</script>
+<!-- 스크롤 구현하기 -->
+<script src="/site/js/sidescrolling.js"></script>
+<script type="text/javascript">
+	const scrollContainer = document.querySelector('.scroll-x');
+	let moving=false;
+	let startX;
+	let scrollLeft;
+	
+	// 마우스를 놓고 x축 이동 시 좌표 기준으로 컨테이너를 재배치 
+	scrollContainer.addEventListener('mousedown', (e)=>{
+		moving=true;
+		startX=e.pageX - scrollContainer.offsetLeft;
+		scrollLeft=scrollContainer.scrollLeft;
+	});
+	
+	// 작동홀딩1
+	scrollContainer.addEventListener('mouseleave', ()=>{
+		moving=false;
+	});
+	
+	// 작동홀딩2
+	scrollContainer.addEventListener('mouseup', ()=>{
+		moving=false;
+	});
+	
+	scrollContainer.addEventListener('mousemove', (e)=>{
+		if(!moving) return;
+		e.preventDefault();
+		const x = e.pageX - scrollContainer.offsetLeft;
+		const walk = (x-startX)*1.8;		// 스크롤 속도
+		scrollContainer.scrollLeft = scrollLeft - walk;
+	});
+</script>
