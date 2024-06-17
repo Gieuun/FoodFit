@@ -43,28 +43,48 @@ public class RecoTableController {
             return foodDBService.getAllFoods();
         }
     }
-
     @PostMapping("/calculate")
     public String calculate(@RequestParam("selectedFoods") String selectedFoods,
-                            @RequestParam("protein") float inputProtein,
-                            @RequestParam("fat") float inputFat,
-                            @RequestParam("carbohydrate") float inputCarbohydrate,
+                            @RequestParam("protein") float protein,
+                            @RequestParam("fat") float fat,
+                            @RequestParam("carbohydrate") float carbohydrate,
                             @RequestParam("height") int height,
                             @RequestParam("weight") int weight,
                             @RequestParam("gender") String gender,
                             @RequestParam("age") int age,
                             Model model) {
 
-        List<String> foodNames = List.of(selectedFoods.split(","));
+        System.out.println("selectedFoods: " + selectedFoods);
+
+        // 음식 이름에서 불필요한 공백 및 '삭제' 제거
+        List<String> foodNames = List.of(selectedFoods.split(","))
+                                      .stream()
+                                      .map(String::trim)
+                                      .map(name -> name.replace(" 삭제", "")) // 배열에서 제거하기 위해서 '삭제' 버튼의 삭제를 문자열로 인식해서 제거 
+                                      .collect(Collectors.toList());
+
+        System.out.println("foodNames: " + foodNames);
 
         List<FoodDB> foods = foodNames.stream()
-                .flatMap(name -> foodDBService.findByFoodName(name).stream())
+                .flatMap(name -> {
+                    List<FoodDB> foundFoods = foodDBService.findByFoodName(name);
+                    System.out.println("Found foods for " + name + ": " + foundFoods);
+                    return foundFoods.stream();
+                })
                 .collect(Collectors.toList());
 
+        System.out.println("foods: " + foods);
+
+        // mapToDouble을 사용하여 float 값을 합산
         float totalProtein = (float) foods.stream().mapToDouble(FoodDB::getProtein).sum();
         float totalFat = (float) foods.stream().mapToDouble(FoodDB::getFat).sum();
         float totalCarbohydrate = (float) foods.stream().mapToDouble(FoodDB::getCarbohydrate).sum();
         float totalKcal = (float) foods.stream().mapToDouble(FoodDB::getKcal).sum();
+
+        System.out.println("totalProtein: " + totalProtein);
+        System.out.println("totalFat: " + totalFat);
+        System.out.println("totalCarbohydrate: " + totalCarbohydrate);
+        System.out.println("totalKcal: " + totalKcal);
 
         double bmr;
         if (gender.equals("male")) {
@@ -80,9 +100,10 @@ public class RecoTableController {
         model.addAttribute("totalProtein", totalProtein);
         model.addAttribute("totalFat", totalFat);
         model.addAttribute("totalCarbohydrate", totalCarbohydrate);
-        model.addAttribute("inputProtein", inputProtein);
-        model.addAttribute("inputFat", inputFat);
-        model.addAttribute("inputCarbohydrate", inputCarbohydrate);
+
+        model.addAttribute("inputCarbohydrate", carbohydrate);
+        model.addAttribute("inputProtein", protein);
+        model.addAttribute("inputFat", fat);
 
         return "recotable/result";
     }
