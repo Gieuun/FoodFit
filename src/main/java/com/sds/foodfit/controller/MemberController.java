@@ -15,6 +15,8 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.LinkedMultiValueMap;
@@ -68,6 +70,8 @@ public class MemberController {
 
 	@Autowired
 	private SnsService snsService;
+	
+
 
 	// 로그인 폼 요청 처리
 	@GetMapping("/recomember/loginform")
@@ -78,11 +82,12 @@ public class MemberController {
 	// 로그인 요청처리
 	@PostMapping("/recomember/login")
 	public String login(Member member) {
+		
 		return "redirect:/";
 	}
 
 	// 로그아웃 요청 처리
-	@GetMapping("/logout")
+	@GetMapping("/recomember/logout")
 	public String logout(HttpSession session) {
 		session.invalidate();
 
@@ -96,15 +101,14 @@ public class MemberController {
 	}
 
 	// 건강정보 폼 요청 처리
-	@GetMapping("/recomember/healthform")
+	@GetMapping("/recomember/registform")
 	public String getHealthForm() {
-		return "recomember/health";
+		return "recomember/regist";
 	}
 
 	// 마이페이지 폼 요청 처리
-	@GetMapping("/mypage")
+	@GetMapping("/recomember/mypage")
 	public String getMypageForm(Model model, HttpSession session) {
-
 		// 로그인한 회원 정보 가져오기
 		Member member = (Member) session.getAttribute("member");
 
@@ -114,9 +118,8 @@ public class MemberController {
 
 		return "recomember/mypage";
 	}
-
 	// 마이페이지 폼 요청 처리
-	@GetMapping("/mypage2")
+	@GetMapping("/recomember/mypage2")
 	public String getMypage2Form(Model model, HttpSession session) {
 
 		// 로그인한 회원 정보 가져오기
@@ -136,15 +139,12 @@ public class MemberController {
 		log.debug("회원가입 요청 시도");
 
 		// 세션에서 임시 회원 정보 가져오기
-		Member member = (Member) session.getAttribute("member");
-		if(member.getPwd() == null || member.getPwd().isEmpty()) {
-			member.setPwd(""); //비밀번호 기본값으로 설정
-		}
-		log.debug("member id" + member.getId());
-		log.debug("member id" + member.getEmail());
-		log.debug("member id" + member.getName());
-		log.debug("member id" + member.getSns().getSnsName());
-
+		Member member = (Member) session.getAttribute("temp");
+		log.debug("member name " + member.getName());
+		log.debug("member id " + member.getId());
+		log.debug("member pwd " + member.getPwd());
+		log.debug("member email " + member.getEmail());
+		
 		log.debug("세션으로부터 꺼낸 member is " + member);
 
 		// 일반 유저가 홈페이지 가입 시엔 USER 권한을 부여
@@ -158,8 +158,11 @@ public class MemberController {
 		// 데이터베이스에 회원 정보 저장하는 로직 수행
 		log.debug("등록 컨트롤러 호출");
 		memberService.regist(memberDetail);
+		
+		//임시 정보 회원가입ㅎ
+		session.removeAttribute("temp");
 
-		return "recomember/login";
+		return null;
 	}
 
 	/*================================================================== 
@@ -440,7 +443,7 @@ public class MemberController {
 		return mav;
 	}
 	/*--------------------------------------------------------------------------
-	 구글 소셜 로그인 구현
+	 구글 소셜 로그인 구현 구현이 잘안됨,,
 	 --------------------------------------------------------------------------- */
 	@GetMapping("/recomember/sns/google/callback")
 	public ModelAndView googleCallback(@RequestParam("code") String code, HttpSession session) {

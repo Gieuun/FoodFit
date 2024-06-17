@@ -28,7 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Aspect
 @Component
 public class AuthAspect {
-
+/*
 	@Autowired
 	private MemberDAO memberDAO;
 
@@ -83,4 +83,5 @@ public class AuthAspect {
 
 		return obj;
 	}
+*/
 }

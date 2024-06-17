@@ -11,4 +11,5 @@ public interface MemberDAO {
 
 	public Member selectById(String id); // id에 해당하는 회원정보 가져오기
 
+
 }

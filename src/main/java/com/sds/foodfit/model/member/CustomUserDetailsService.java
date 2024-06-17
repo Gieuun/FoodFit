@@ -4,12 +4,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sds.foodfit.domain.CustomUserDetails;
 import com.sds.foodfit.domain.FavoriteFood;
 import com.sds.foodfit.domain.Member;
 import com.sds.foodfit.domain.MemberDetail;
+import com.sds.foodfit.exception.FavoriteFoodException;
+import com.sds.foodfit.exception.MemberDetailException;
 import com.sds.foodfit.exception.MemberException;
 import com.sds.foodfit.model.favoritefood.FavoriteFoodDAO;
 
@@ -27,61 +30,50 @@ public class CustomUserDetailsService implements UserDetailsService {
 
 	@Autowired
 	private FavoriteFoodDAO favoriteFoodDAO;
+	
+	private final PasswordEncoder passwordEncoder;
+	
+	//생성자 주입
+	public CustomUserDetailsService(PasswordEncoder passwordEncoder) {
+		this.passwordEncoder =passwordEncoder;
+	}
 
 	@Override
-	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException, MemberException {
+	public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException, MemberException ,FavoriteFoodException {
+		
 		log.debug("로그인 검증할 아이디는 " + id);
 
 		Member member = memberDAO.selectById(id);
-		log.debug("회원 정보 조회 결과: " + member);
-
+		log.debug("회원 정보 : " + member);
+		
 		if (member == null) {
-			log.debug("userID =========" + id + "에 해당하는 유저가 존재하지 않습니다.");
 			throw new MemberException("일치하는 회원정보가 없습니다.");
 		}
+		
+		log.debug("db 에 있는 비번은 "+ member.getPwd());
+		log.debug("새롭게 생성된 비번은 "+ passwordEncoder.encode(member.getPwd()));
+		
 
 		// 회원 idx값 조회
-		Integer memberIdx = member.getMemberIdx();
+	    Integer memberIdx = member.getMemberIdx();
 		log.debug("회원의 Idx 정보 : " + memberIdx);
-
-		if (memberIdx == null) {
-			log.debug("회원의 idx 정보가 null 입니다 :" + member);
-			throw new UsernameNotFoundException("회원의 IDX 정보가 없습니다");
-		}
 		
-		MemberDetail memberDetail =null;
-		try {
-			// 회원 추가정보 조회
-			memberDetail = memberDetailDAO.selectByMemberIdx(memberIdx);
-			log.debug("회원의 상세 정보 조회 결과: " + memberDetail);
-			member.setMemberDetail(memberDetail);
-		} catch (Exception e) {
-			log.error("회원 상제 정보 조회 중 오류 발생", e);
-			throw new UsernameNotFoundException("회원 상세 정보 조회 중 오류 발생", e);
-		}
-
-		FavoriteFood favoriteFood =null;
-		try {
-			// 선호 음식 정보 조회
-			favoriteFood = favoriteFoodDAO.selectUserFavorite(memberIdx);
-			log.debug("마이푸드 정보 조회 결과: " + favoriteFood);
-			
-		} catch (Exception e) {
-			log.error("선호 음식 정보 조회 중 오류 발생", e);
-			throw new UsernameNotFoundException("선호 음식 정보 조회 중 오류 발생", e);
-			
-		}
-
-		// UserDetails로 변환하여 반환
-		UserDetails userDetails = new CustomUserDetails(member, memberDetail, favoriteFood);
-
-		// 변환된 UserDetails를 로그 기록
-		log.debug("로그인 검증 완료한 UserDetails: " + userDetails);
+		MemberDetail memberDetail = memberDetailDAO.selectByMemberIdx(memberIdx);
+		log.debug("회원 추가정보 : "+ memberDetail);
 		
-		log.debug("member found : {}" + member);
-		log.debug("멤버디테일 =====" +memberDetail);
-		log.debug("마이푸드 =====" +favoriteFood);
-		return userDetails;
+		if(memberDetail ==null) {
+			throw new MemberDetailException("일치하는 상세정보가 없습니다");
+		}
+	
+		/* 데이터가가 저장이 안되서 이걸 포함시켜서 넘기면 로그인 처리안되고 주석으로 남겨서 하면 
+		    로그인 처리 잘된다.. 여기만 해결하면 되는데,,
+		FavoriteFood favoriteFood = favoriteFoodDAO.selectUserFavorite(memberIdx);
+		log.debug("마이푸드 정보 조회 결과: " + favoriteFood);
+		if(favoriteFood == null) {
+			throw new FavoriteFoodException("일치하는 마이 푸드가 없습니다.");
+		}
+		*/
+		return new CustomUserDetails(member, memberDetail, null);
 	}
 
 }
