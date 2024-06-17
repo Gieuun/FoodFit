@@ -7,11 +7,11 @@
   </insert>
   
   <!-- 로그인 호출할때 세션에서 null 되버림. -->
-  <select id="selectUserFavorite" resultType="com.sds.foodfit.domain.FavoriteFood"> 
+  <select id="selectUserFavorite" parameterType="java.lang.Integer" resultType="com.sds.foodfit.domain.FavoriteFood"> 
     select * from favoriteFood where memberIdx = #{member.memberIdx}
   </select>
 
-  <delete id="deleteOnefood"> 
+  <delete id="deleteOnefood" parameterType="java.lang.Integer"> 
     delete from favoriteFood where memberIdx=#{member.memberIdx} and foodIdx=#{foodDB.foodIdx}
   </delete>
   
