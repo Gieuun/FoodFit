@@ -88,7 +88,7 @@ p {
 			<div class="row">
 				<div class="col-lg-12 col-sm-12 col-xs-12">
 					<div class="contact-block">
-						<form id="InfoInputForm" method="post" action="/calculate">
+						<form id="InfoInputForm" method="post" action="/recotable/calculate" onsubmit="return validateForm()">
 							<input type="hidden" id="selectedFoods" name="selectedFoods">
 							<div class="col-md-12">
 								<div class="form-group">
@@ -103,7 +103,9 @@ p {
 											</tr>
 										</thead>
 										<tbody>
-											<!-- 선택된 음식들은 여기 추가됩니다 -->
+											<tr>
+												<!-- 선택된 음식들은 여기 추가됩니다 -->
+											</tr>
 										</tbody>
 									</table>
 								</div>
@@ -191,37 +193,79 @@ p {
 	<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 	<script>
 		function openFoodPopup() {
-			var popup = window.open('/foodpopup', 'foodPopup', 'width=600,height=400');
+			var popup = window.open('/recotable/foodpopup', 'foodPopup', 'width=600,height=400');
 			popup.focus();
 		}
 		
 		function setSelectedFood(foodName) {
 			var table = document.getElementById('selectedFoodsTable').getElementsByTagName('tbody')[0];
-			var newRow = table.insertRow();
-
-			var cell1 = newRow.insertCell(0);
+			var row = table.rows[0]; // 첫 번째 행 선택
+			var cell = row.insertCell(-1); // 새로운 셀 추가
 
 			var foodText = document.createTextNode(foodName + " ");
 			var deleteButton = document.createElement('button');
 			deleteButton.textContent = '삭제';
 			deleteButton.className = 'btn btn-danger btn-sm';
 			deleteButton.onclick = function() {
-				table.deleteRow(newRow.rowIndex - 1);
+				row.deleteCell(cell.cellIndex);
 				updateSelectedFoods();
 			};
 
-			cell1.appendChild(foodText);
-			cell1.appendChild(deleteButton);
+			cell.appendChild(foodText);
+			cell.appendChild(deleteButton);
 			updateSelectedFoods();
 		}
 
 		function updateSelectedFoods() {
 			var selectedFoods = [];
 			var table = document.getElementById('selectedFoodsTable').getElementsByTagName('tbody')[0];
-			for (var i = 0, row; row = table.rows[i]; i++) {
-				selectedFoods.push(row.cells[0].innerText.trim());
+			var row = table.rows[0]; // 첫 번째 행 선택
+			for (var i = 0, cell; cell = row.cells[i]; i++) {
+				selectedFoods.push(cell.innerText.trim());
 			}
 			document.getElementById('selectedFoods').value = selectedFoods.join(',');
+		}
+
+		function validateForm() {
+			var selectedFoods = document.getElementById('selectedFoods').value;
+			var protein = document.getElementById('protein').value;
+			var fat = document.getElementById('fat').value;
+			var carbohydrate = document.getElementById('carbohydrate').value;
+			var height = document.getElementById('height').value;
+			var weight = document.getElementById('weight').value;
+			var gender = document.querySelector('input[name="gender"]:checked');
+			var age = document.querySelector('input[name="age"]:checked');
+
+			if (selectedFoods === "") {
+				alert("음식을 선택해 주세요.");
+				return false;
+			}
+			if (protein === "") {
+				document.getElementById('protein').value = 0;
+			}
+			if (fat === "") {
+				document.getElementById('fat').value = 0;
+			}
+			if (carbohydrate === "") {
+				document.getElementById('carbohydrate').value = 0;
+			}
+			if (height === "" ) {
+				alert("키를 입력해 주새요.");
+				return false;
+			}
+			if (weight === "" ) {
+				alert("몸무게를 입력해 주새요.");
+				return false;
+			}
+			if (!gender) {
+				alert("성별을 선택해 주세요.");
+				return false;
+			}
+			if (!age) {
+				alert("연령을 선택해 주세요.");
+				return false;
+			}
+			return true;
 		}
 	</script>
 </body>

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -83,7 +84,7 @@
     }
 </style>
 </head>
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
     <div class="container">
         <h1>음식 선택</h1>
         <div class="search-container">
@@ -110,7 +111,7 @@
                 return;
             }
             $.ajax({
-                url: "/api/foods",
+                url: "/recotable/api/foods", // URL 경로를 수정했습니다.
                 type: "GET",
                 data: { search: query },
                 success: function(data) {
@@ -125,7 +126,7 @@
                     $('#foodTable tbody').html(rows);
                 },
                 error: function(xhr, status, error) {
-                    console.error('Error fetching foods:', error);
+                    console.error('음식을 가져오는데 실패했습니다:', error);
                 }
             });
         }
