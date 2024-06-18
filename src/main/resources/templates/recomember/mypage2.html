@@ -3,350 +3,154 @@
 <head>
 <meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
-
 <!-- Mobile Metas -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-
 <!-- Site Metas -->
 <title>건강페이지</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-
 <!-- 헤더 링크 -->
 <!-- header_link begin -->
 <th:block th:replace="~{fragments/header_link :: header_link}" />
 <!-- header_link end -->
-
 <!--[if lt IE 9]>
       <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
       <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
     <![endif]-->
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
 <style type="text/css">
 .wrapper {
-	display: flex;
+		display: flex;
 }
 
 .btn {
-	width: 100%;
-	display: flex;
+		width: 100%;
+		display: flex;
 }
 
 .btn>button {
-	align-items: center;
-	flex-direction: column
+		align-items: center;
+		flex-direction: column
 }
 
 .type {
-	display: flex;
+		display: flex;
 }
 
 .type .btn {
-	align-items: center;
-	flex-direction: column;
-	width: 20%;
+		align-items: center;
+		flex-direction: column;
+		width: 20%;
 }
 
 .pwd_text {
-	color: red;
-	font-size: 11px;
-	font-weight: 600;
-	margin-left: 8px;
+		color: red;
+		font-size: 11px;
+		font-weight: 600;
+		margin-left: 8px;
 }
 </style>
 </head>
 <body>
-
-	<!-- Start header -->
-	<th:block th:replace="~{fragments/header :: header}" />
-	<!-- End header -->
-
-
-
-
-	<!-- Start All Pages -->
-	<div class="all-page-title page-breadcrumb">
-		<div class="container text-center">
-			<div class="row">
-				<div class="col-lg-12">
-					<h1>마이페이지</h1>
-				</div>
-			</div>
-		</div>
-	</div>
-	<!-- End All Pages -->
-
-	<!-- Start Contact -->
-	<div class="contact-box">
-		<div class="container">
-			<div class="wrapper">
-				<!--Start content  -->
-				<div class="content">
-
-					<!--Start Heading title  -->
-					<div class="row">
-						<div class="col-md-12">
-							<div class="heading-title text-center">
-								<h2>선호 음식</h2>
-							</div>
+		<!-- Start header -->
+		<th:block th:replace="~{fragments/header :: header}" />
+		<!-- End header -->
+		<!-- Start All Pages -->
+		<div class="all-page-title page-breadcrumb">
+				<div class="container text-center">
+						<div class="row">
+								<div class="col-lg-12">
+										<h1>마이페이지</h1>
+								</div>
 						</div>
-					</div>
-					<!--End Heading title  -->
-
-					<div class="col-lg-12">
-						<form id="mypage_form">
-							<div class="row">
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="name">이름</label> 
-										<input type="text" class="form-control" th:vaue="${member.name}">
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="id">아이디</label>
-										<div class="type">
-											<input type="text" class="form-control" id="id"
-												th:value="${member.id}" oninput="idModify()">
-											<button class="btn btn-common" id="id_check" type="button"
-												onClick="checkId()">중복확인</button>
-											<button class="btn btn-common" id="id_update" type="button"
-												onClick="updateId()">변경하기</button>
-										</div>
-										<div id="id_check_result"></div>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="currentPwd">현재 비밀번호</label><span
-											class="pwd_text">*현재 비밀번호는 암호화 처리해서 보여줌</span> <input
-											type="password" class="form-control" id="currentPwd"
-											name="pwd" th:value="${member.pwd}" readonly>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="pwd">새 비밀번호</label>
-										<div class="input-group">
-											<input type="password" class="form-control" id="pwd">
-											<div class="input-group-append">
-												<span class="input-group-text" id="togglePwd"
-													onclick="togglePasswordVisibility('pwd', 'togglePwd')">
-													<i class="fas fa-eye"></i>
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="confirmPwd">새 비밀번호 확인</label>
-										<div class="input-group">
-											<input type="password" class="form-control" id="confirmPwd">
-											<div class="input-group-append">
-												<span class="input-group-text" id="toggleConfirmPwd"
-													onclick="togglePasswordVisibility('confirmPwd', 'toggleConfirmPwd')">
-													<i class="fas fa-eye"></i>
-												</span>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<div class="input-group">
-											<div class="input-group-append">
-												<button class="btn btn-common" id="pwd_check" type="button"
-													onclick="changePassword()">변경하기</button>
-											</div>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="email">이메일</label>
-										<div class="type">
-											<input type="email" class="form-control"
-												th:value="${member.email}">
-											<button class="btn btn-common" id="email_check" type="button">중복확인</button>
-										</div>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="age">나이대</label> <select class="form-control"
-											id="age">
-											<option th:if="${member.memberDetail.age == null}"
-												th:value="">나이대를 선택해주세요</option>
-											<option th:selected="${member.memberDetail.age == '10'}"
-												th:value="10대">10대</option>
-											<option th:selected="${member.memberDetail.age == '20'}"
-												th:value="20대">20대</option>
-											<option th:selected="${member.memberDetail.age == '30'}"
-												th:value="30대">30대</option>
-											<option th:selected="${member.memberDetail.age == '40'}"
-												th:value="40대">40대</option>
-											<option th:selected="${member.memberDetail.age == '50'}"
-												th:value="50대">50대</option>
-											<option th:selected="${member.memberDetail.age == '60'}"
-												th:value="60대">60대</option>
-										</select>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="gender">성별</label> <select class="form-control"
-											id="gender">
-											<option th:if="${member.memberDetail.gender == null}"
-												value="">성별을 선택하세요</option>
-											<option th:selected="${member.memberDetail.gender == 'male'}"
-												value="male">male(남성)</option>
-											<option
-												th:selected="${member.memberDetail.gender == 'female'}"
-												value="female">female(여성)</option>
-										</select>
-									</div>
-								</div>
-
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="height">신장</label>
-										<div class="input-group">
-											<input type="number" class="form-control"
-												th:value="${member.memberDetail.height != null ? member.memberDetail.height : ''}">
-											<div class="input-group-append">
-												<span class="input-group-text">cm</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-md-12">
-									<div class="form-group">
-										<label th:for="weight">체중</label>
-										<div class="input-group">
-											<input type="number" class="form-control"
-												th:value="${member.memberDetail.weight != null ? member.memberDetail.weight : ''}">
-											<div class="input-group-append">
-												<span class="input-group-text">kg</span>
-											</div>
-										</div>
-									</div>
-								</div>
-								
-								<div class="col-md-12">
-									<div class="submit-button text-center btn">
-										<button class="btn btn-common" id="bt_update" type="button">수정하기</button>
-										<button class="btn btn-common" id="bt_del" type="button">회원탈퇴</button>
-										<div id="msgSubmit" class="h3 text-center hidden"></div>
-										<div class="clearfix"></div>
-									</div>
-								</div>
-									
-							</div>
-						</form>
-					</div>
 				</div>
-				<!--end contet  -->
-
-			</div>
 		</div>
-	</div>
-
-	<!-- End Contact -->
-
-	<!-- Start Footer -->
-	<div th:insert="~{fragments/footer :: footer}"></div>
-	<!-- End Footer -->
-
-	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-
-	<!-- js link -->
-	<div th:insert="~{fragments/footer_link :: footer_link}"></div>
-
+		<!-- End All Pages -->
+		<!-- Start Contact -->
+		<div class="contact-box">
+				<div class="container">
+						<div class="wrapper">
+								<!--Start content  -->
+								<div class="content">
+										<!--Start Heading title  -->
+										<div class="row">
+												<div class="col-md-12">
+														<div class="heading-title text-center">
+																<h2 th:text="${member.name} + '님의 선호 음식'"></h2>
+														</div>
+														<div th:each="foodDB : ${FavoriteFoodList}" class="food-item">
+																<div class="macro">
+																		<h3 th:text="${foodDB.foodName}">음식 이름</h3>
+																</div>
+																<div class="macro">
+																		<div class="calories">
+																				<p>
+																						열량: <span th:text="${foodDB.kcal}">0</span> kcal
+																				</p>
+																		</div>
+																</div>
+																<div class="macro">
+																		<div class="label">
+																				<img src="/img/carbs-icon.png" alt="탄수화물"><span>탄수화물</span>
+																		</div>
+																		<p>
+																				<span th:text="${foodDB.carbohydrate}">0</span>
+																		</p>
+																</div>
+																<div class="macro">
+																		<div class="label">
+																				<img src="/img/protein-icon.png" alt="단백질"> <span>단백질</span>
+																		</div>
+																		<p>
+																				<span th:text="${foodDB.protein}">0</span> g
+																		</p>
+																</div>
+																<div class="macro">
+																		<div class="label">
+																				<img src="/img/fat-icon.png" alt="지방"> <span>지방</span>
+																		</div>
+																		<p>
+																				<span th:text="${foodDB.fat}">0</span> g
+																		</p>
+																</div>
+																<div class="macro">
+																		<div class="label">
+																				<img src="/img/sugar-icon.png" alt="당류"> <span>당류</span>
+																		</div>
+																		<p>
+																				<span th:text="${foodDB.sugar}">0</span> g
+																		</p>
+																</div>
+																<div class="macro">
+																		<div class="label">
+																				<img src="/img/sodium-icon.png" alt="나트륨"> <span>나트륨</span>
+																		</div>
+																		<p>
+																				<span th:text="${foodDB.sodium}">0</span> mg
+																		</p>
+																</div>
+														</div>
+												</div>
+										</div>
+										<!--End Heading title  -->
+										<div class="col-lg-12">
+												<form id="mypage_form"></form>
+										</div>
+								</div>
+								<!--end contet  -->
+						</div>
+				</div>
+		</div>
+		<!-- End Contact -->
+		<!-- Start Footer -->
+		<div th:insert="~{fragments/footer :: footer}"></div>
+		<!-- End Footer -->
+		<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+		<!-- js link -->
+		<div th:insert="~{fragments/footer_link :: footer_link}"></div>
 </body>
 </html>
-
-
 <script type="text/javascript">
-	/*======================================
-		패스워드 눈 모양 아이콘 클릭할때 마다 비밀번호 거시성 전환 코드
-	=======================================*/
-	function togglePasswordVisibility(inputId, iconId) {
-		let input = document.getElementById(inputId);
-		let icon = document.getElementById(iconId);
-
-		if (input.type === "password") {
-			input.type = "text";
-			icon.innerHTML = '<i class="fas fa-eye-slash"></i>';
-		} else {
-			input.type = "password";
-			icon.innerHTML = '<i class="fas fa-eye"></i>';
-		}
-	}
-
-	// 비밀번호 변경 함수
-	function changePassword() {
-		// 새 비밀번호 입력란의 값을 가져옴
-		let newPassword = document.getElementById("pwd").value;
-
-		// 새 비밀번호 확인 입력란의 값을 가져옴
-		let confirmPassword = document.getElementById("confirmPwd").value;
-
-		// 새 비밀번호와 비밀번호 확인이 일치하는지 확인
-		if (newPassword === confirmPassword) {
-			// 일치할 경우, 비밀번호 변경 로직 수행
-			// 여기에 비밀번호 변경을 위한 서버 요청 등의 코드를 추가할 수 있음
-			// 예: 서버로 변경된 비밀번호를 전송하여 데이터베이스에 저장
-
-			// 비밀번호 변경이 성공적으로 처리되면 사용자에게 알림
-			alert("비밀번호가 성공적으로 변경되었습니다.");
-		} else {
-			// 일치하지 않을 경우, 사용자에게 오류 메시지 표시
-			alert("새 비밀번호와 비밀번호 확인이 일치하지 않습니다. 다시 확인해주세요.");
-		}
-	}
-
-	$(function() {
-
-		function update() {
-			$("#bt_update").att({
-				action : "/recomember/update",
-				method : "post"
-			});
-			$("#bt_update").submit();
-		}
-
-		function del() {
-			$("#bt_del").att({
-				action : "/recomember/del",
-				method : "post"
-			});
-			$("#bt_del").submit();
-		}
-
-		//회원 정보 수정 함수
-		$("#bt_update").click(function() {
-			update();
-		});
-
-		//회원 탈퇴 함수
-		$("#bt_del").click(function() {
-			del();
-		});
-
-	})
+	
 </script>
-
-
-

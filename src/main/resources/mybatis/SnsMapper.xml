@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
-<mapper namespace="com.sds.foodfit.model.member.SnsDAO">
+<mapper namespace="com.sds.foodfit.model.sns.SnsDAO">
 
 	<!-- 결과 맵 정의 -->
 	<resultMap id="SnsMap" type="Sns">
@@ -9,8 +9,7 @@
 	</resultMap>
 
 	<!-- 회원가입 시 role의 정보가 필요함, 롤의 이름을 통해 Role DTO를 채우기 위함 -->
-	<select id="selectByName" parameterType="String"
-		resultMap="SnsMap">
+	<select id="selectByName" parameterType="String" resultMap="SnsMap">
 		select * from sns where snsName=#{snsName}
 	</select>
 

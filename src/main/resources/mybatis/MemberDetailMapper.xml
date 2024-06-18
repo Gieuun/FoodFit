@@ -15,16 +15,11 @@
 		<result column="age" property="age" />
 		<result column="height" property="height" />
 		<result column="weight" property="weight" />
-		<association column="memberIdx" property="member"
-			javaType="Member"
-			select="com.sds.foodfit.model.member.MemberDAO.selectByMemberIdx" />
+		<association column="memberIdx" property="member" javaType="Member" select="com.sds.foodfit.model.member.MemberDAO.selectByMemberIdx" />
 	</resultMap>
 
-	<!-- memberIdx 에 속한 상세정보 가져오기 -->
-	<select id="selectByMemberIdx" parameterType="int"
-		resultMap="MemberDetailMap">
+	<!-- 로그인 호출 시 여기서도 null이 됌 -->
+	<select id="selectByMemberIdx" parameterType="java.lang.Integer" resultMap="MemberDetailMap">
 		select * from memberDetail where memberIdx=#{memberIdx}
 	</select>
-
-
 </mapper>

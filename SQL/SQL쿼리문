@@ -57,11 +57,11 @@ insert into role(roleName) values('USER');
 insert into role(roleName) values('GUEST');
 
 -- 비선호음식 테이블
-create table dislikedFood(
-    dislikedFoodIdx int primary key auto_increment,
-    disfoodName varchar(100),
+create table FavoriteFood(
+    favoriteFoodIdx int primary key auto_increment,
+    FavoritefoodName varchar(100),
     memberDetailIdx int,
-    constraint fk_memberDetail_dislikedFood foreign key (memberDetailIdx) references memberDetail (memberDetailIdx)
+    constraint fk_memberDetail_favoriteFood foreign key (memberDetailIdx) references memberDetail (memberDetailIdx)
 ) default character set utf8;
 
 -- 음식 테이블 (API 데이터를 추출하여 보관)
@@ -104,3 +104,9 @@ create table notice(
     regdate timestamp default now(),
     hit int default 0
 ) default character set utf8;
+
+create table visitorLogs (
+    visitIdx int auto_increment primary key,
+    visitDate timestamp default current_timestamp,
+    visitorId varchar(50)
+);
