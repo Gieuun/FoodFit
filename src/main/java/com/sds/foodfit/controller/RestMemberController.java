@@ -81,7 +81,7 @@ public class RestMemberController {
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	@GetMapping("/rest/recomember/adminlink")
 	public ResponseEntity getAdminLink() {
-		return ResponseEntity.ok("/admin/upload");
+		return ResponseEntity.ok("/upload");
 	}
 
 	@ExceptionHandler(MemberException.class)

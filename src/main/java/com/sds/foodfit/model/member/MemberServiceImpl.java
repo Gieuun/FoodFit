@@ -1,12 +1,10 @@
 package com.sds.foodfit.model.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.sds.foodfit.domain.Member;
-import com.sds.foodfit.domain.MemberDetail;
 import com.sds.foodfit.domain.Role;
 import com.sds.foodfit.domain.Sns;
 import com.sds.foodfit.exception.MemberException;
@@ -28,35 +26,31 @@ public class MemberServiceImpl implements MemberService {
     @Autowired
     private MemberDAO memberDAO;
 
-    @Autowired
-    private MemberDetailDAO memberDetailDAO;
-
     @Transactional
-    public void regist(MemberDetail memberDetail) throws MemberException {
+    public void regist(Member member) throws MemberException {
 
 	// SNS 정보 확인
-	Sns sns = memberDetail.getMember().getSns();
+	Sns sns = member.getSns();
 	if (sns == null || sns.getSnsName() == null) {
-		sns= new Sns();
-		memberDetail.getMember().setSns(sns);;
+	    sns = new Sns();
+	    member.setSns(sns);
+	    ;
 	    throw new MemberException("SNS 정보가 null입니다.");
 	}
 	// SNS 정보 설정
 	String snsName = sns.getSnsName();
 	Sns selectedSns = snsDAO.selectByName(snsName);
-	memberDetail.getMember().setSns(selectedSns);
+	member.setSns(selectedSns);
 
 	// Role 정보 설정 전에 null 체크
-	if (memberDetail.getMember().getRole() == null || memberDetail.getMember().getRole().getRoleName() == null) {
+	if (member.getRole() == null || member.getRole().getRoleName() == null) {
 	    log.debug("등록전 롤이 없네요 ");
 	    throw new MemberException("Role 정보가 설정되지 않았습니다.");
 	}
-	Role role = roleDAO.selectByName(memberDetail.getMember().getRole().getRoleName());
-	memberDetail.getMember().setRole(role); // role_idx가 채워진 DTO를 다시 MemberDTO 에 대입
-	
-	
-	
-	int result = memberDAO.insert(memberDetail.getMember());
+	Role role = roleDAO.selectByName(member.getRole().getRoleName());
+	member.setRole(role); // role_idx가 채워진 DTO를 다시 MemberDTO 에 대입
+
+	int result = memberDAO.insert(member);
 
 	if (result < 1) {
 	    log.debug("member insert 실패  ");
@@ -66,8 +60,6 @@ public class MemberServiceImpl implements MemberService {
 	// 홈페이지만 추가 정보 처리
 	if (sns.getSnsName().equals(sns.getSnsName())) {
 	    log.debug("member result is" + result);
-	    // memberDetail 삽입
-	    memberDetailDAO.insert(memberDetail);
 	    if (result < 1) {
 		log.debug("member detail insert 실패  ");
 		throw new MemberException("회원 추가정보 등록 실패");
@@ -77,7 +69,7 @@ public class MemberServiceImpl implements MemberService {
 
     @Override
     public Member selectById(String id) {
-    	return memberDAO.selectById(id);
+	return memberDAO.selectById(id);
     }
 
 }

@@ -19,7 +19,7 @@
 	</resultMap>
 
 	<!-- 로그인 호출 시 여기서도 null이 됌 -->
-	<select id="selectByMemberIdx" parameterType="java.lang.Integer" resultMap="MemberDetailMap">
-		select * from memberDetail where memberIdx=#{memberIdx}
+	<select id="selectByMemberIdx" parameterType="int" resultMap="MemberDetailMap">
+		select * from memberDetail where memberIdx=#{member.memberIdx}
 	</select>
 </mapper>

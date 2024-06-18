@@ -13,7 +13,7 @@
 		href="/site/css/sidescrolling.css"
 >
 </head>
-<body>
+<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
 		<th:block
 				th:replace="fragments/header :: header"
 				class="header"
@@ -186,4 +186,9 @@
 		const walk = (x-startX)*1.8;		// 스크롤 속도
 		scrollContainer.scrollLeft = scrollLeft - walk;
 	});
+	
+	// 우클릭 방지
+	document.getElementById('item-container').addEventListener('contextmenu', function(e) {
+    e.preventDefault();
+});
 </script>
