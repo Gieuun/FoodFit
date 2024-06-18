@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,16 +34,26 @@ public class RestMemberController {
 	@Autowired
 	private GoogleLogin googleLogin;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	// 회원정보임시저장
 	@PostMapping("/rest/recomember/temp")
 	public ResponseEntity temp(Member member, HttpSession session) {
-
-		log.debug("저장된 member is {}",member);
 			
+		log.debug("member name "+member.getName());
+		log.debug("member id "+member.getId());
+		log.debug("member pwd "+member.getPwd());
+		log.debug("member email "+member.getEmail());
+		
 		// 세션에 임시 회원 정보 담기
-		session.setAttribute("member", member);
-			
-			
+		session.setAttribute("temp", member);
+		
+		//비밀번호 암호화
+		String encodedPass = passwordEncoder.encode(member.getPwd());
+		member.setPwd(encodedPass);
+		log.debug("암호화된 비밀번호는 "+encodedPass);
+				
 		Member dto =(Member)session.getAttribute("member");
 		log.debug("세션에서 꺼낸 member is ",dto);
 

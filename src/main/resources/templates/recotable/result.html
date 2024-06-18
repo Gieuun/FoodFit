@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>식단 기록</title>
+    <title>식단 검증 결과</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -97,59 +97,59 @@
     <div class="container">
         <div class="header">식단 검증 결과</div>
         <div class="calorie">
-            <span>일일 권장 섭취 칼로리량: </span><span th:text="${dailyCalories}"></span> kcal
+            <span>총 칼로리: </span><span th:text="${totalKcal}"></span> kcal / <span th:text="${dailyCalories}"></span> kcal (일일 권장 칼로리)
         </div>
         <div class="nutrient-bar">
             <span>
-                <img src="carbs_icon.png" alt="탄수화물 아이콘" class="icon">
+                <img src="/img/carbs-icon.png" alt="탄수화물 아이콘" class="icon">
                 탄수화물
             </span>
-            <span>0 %</span>
+            <span th:text="${totalCarbohydrate} + 'g'">0g</span>
         </div>
         <div class="progress-bar">
-            <div class="progress carbs" style="width: 0%;"></div>
+            <div th:style="'width:' + (${totalCarbohydrate} / ${inputCarbohydrate} * 100) + '%'" class="progress carbs"></div>
         </div>
         <div class="nutrient-bar">
             <span>
-                <img src="protein_icon.png" alt="단백질 아이콘" class="icon">
+                <img src="/img/protein-icon.png" alt="단백질 아이콘" class="icon">
                 단백질
             </span>
-            <span>0 %</span>
+            <span th:text="${totalProtein} + 'g'">0g</span>
         </div>
         <div class="progress-bar">
-            <div class="progress protein" style="width: 0%;"></div>
+            <div th:style="'width:' + (${totalProtein} / ${inputProtein} * 100) + '%'" class="progress protein"></div>
         </div>
         <div class="nutrient-bar">
             <span>
-                <img src="fat_icon.png" alt="지방 아이콘" class="icon">
+                <img src="/img/fat-icon.png" alt="지방 아이콘" class="icon">
                 지방
             </span>
-            <span>0 %</span>
+            <span th:text="${totalFat} + 'g'">0g</span>
         </div>
         <div class="progress-bar">
-            <div class="progress fat" style="width: 0%;"></div>
+            <div th:style="'width:' + (${totalFat} / ${inputFat} * 100) + '%'" class="progress fat"></div>
         </div>
         <div class="recommendation">남은 끼니는 어떻게 먹어야 할까요?</div>
         <div class="recommendation-box carbs-box">
             <span>
-                <img src="carbs_icon.png" alt="탄수화물 아이콘" class="icon">
+                <img src="/img/carbs-icon.png" alt="탄수화물 아이콘" class="icon">
                 탄수화물
             </span>
-            <span>0g 더 먹어도 괜찮아요</span>
+            <span th:text="${inputCarbohydrate} - ${totalCarbohydrate} > 0 ? ${inputCarbohydrate} - ${totalCarbohydrate} + 'g 더 먹어도 괜찮아요' : '충분히 드셨어요'"></span>
         </div>
         <div class="recommendation-box protein-box">
-            <span>
-                <img src="protein_icon.png" alt="단백질 아이콘" class="icon">
+            <span> 	
+                <img src="/img/protein-icon.png" alt="단백질 아이콘" class="icon">
                 단백질
             </span>
-            <span>0g 더 먹어도 괜찮아요</span>
+            <span th:text="${inputProtein} - ${totalProtein} > 0 ? ${inputProtein} - ${totalProtein} + 'g 더 먹어도 괜찮아요' : '충분히 드셨어요'"></span>
         </div>
         <div class="recommendation-box fat-box">
             <span>
-                <img src="fat_icon.png" alt="지방 아이콘" class="icon">
+                <img src="/img/fat-icon.png" alt="지방 아이콘" class="icon">
                 지방
             </span>
-            <span>0g 더 먹어도 괜찮아요</span>
+            <span th:text="${inputFat} - ${totalFat} > 0 ? ${inputFat} - ${totalFat} + 'g 더 먹어도 괜찮아요' : '충분히 드셨어요'"></span>
         </div>
         <a href="#" class="record-button">기록하기</a>
     </div>

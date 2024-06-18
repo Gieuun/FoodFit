@@ -1,58 +1,80 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="com.sds.foodfit.model.food.FoodDBDAO">
-  <resultMap id="foodResultMap" type="com.sds.foodfit.domain.FoodDB">
-    <id property="foodIdx" column="foodIdx" />
-    <result property="foodName" column="foodName" />
-    <result property="kcal" column="kcal" />
-    <result property="carbohydrate" column="carbohydrate" />
-    <result property="protein" column="protein" />
-    <result property="fat" column="fat" />
-    <result property="sugar" column="sugar" />
-    <result property="sodium" column="sodium" />
-  </resultMap>
-  <select id="selectHighProtein" resultMap="foodResultMap"> <!-- 불러온 데이터 중 고단백 식품 상위 10개 추천 -->
-    select * from foodDB order by protein desc limit 10
-  </select>
-  <select id="selectLowSugar" resultMap="foodResultMap"> <!-- 불러온 데이터 중 저당 식품 상위 10개 추천 -->
-    select * from foodDB order by sugar asc limit 10
-  </select>
-  <!-- 저염식품= 하루 권장량 2,400mg 기준 1끼 800mg 이하인 제품 -->
-  <select id="selectLowSodium" resultMap="foodResultMap">
+	<resultMap id="foodResultMap"
+		type="com.sds.foodfit.domain.FoodDB">
+		<id property="foodIdx" column="foodIdx" />
+		<result property="foodName" column="foodName" />
+		<result property="kcal" column="kcal" />
+		<result property="carbohydrate" column="carbohydrate" />
+		<result property="protein" column="protein" />
+		<result property="fat" column="fat" />
+		<result property="sugar" column="sugar" />
+		<result property="sodium" column="sodium" />
+	</resultMap>
+  
+    <select id="selectOneFood" parameterType="int" resultMap="foodResultMap">
+      select * from foodDB where foodIdx=#{foodIdx}
+    </select>
+    
+	<select id="selectHighProtein" resultMap="foodResultMap"> <!-- 불러온 데이터 중 고단백 식품 상위 10개 추천 -->
+		select * from foodDB order by protein desc limit 10
+	</select>
+	<select id="selectLowSugar" resultMap="foodResultMap"> <!-- 불러온 데이터 중 저당 식품 상위 10개 추천 -->
+		select * from foodDB order by sugar asc limit 10
+	</select>
+	<!-- 저염식품= 하루 권장량 2,400mg 기준 1끼 800mg 이하인 제품 -->
+	<select id="selectLowSodium" resultMap="foodResultMap">
    <![CDATA[
     select * from (select * from foodDB where sodium<800 
     order by sodium asc limit 60) as subquery order by sugar asc limit 10
    ]]>
-  </select>
-  <!-- 밥상진단용은 SQL에서 호출 후 DAO, Service객체에서 선별해서 출력해야함. 우선 10개를 랜덤하게 불러오게 한다 -->
-  <select id="selectRandomHundred" resultMap="foodResultMap"> select * from foodDB order by rand() limit 10
-  </select>
-  <select id="selectByFoodIdx" resultMap="foodResultMap"> select * from foodDB where foodIdx=#{foodDB.foodIdx}
-  </select>
-  <!-- 밥상딘단 관련 게산 맵핑 -->
-  <select id="sumKcalByFoodIdx" parameterType="list" resultType="int">
-    select sum(kcal) as kcal from foodDB where foodIdx in
-    <foreach collection="foodIdxList" item="foodDB" open="(" separator="," close=")"> #{foodDB}</foreach>
-  </select>
-  <select id="sumCarbohydrateByFoodIdx" parameterType="list" resultType="int">
-    select sum(carbohydrate) as carbohydrate from foodDB where foodIdx in
-    <foreach collection="foodIdxList" item="foodDB" open="(" separator="," close=")"> #{foodDB}</foreach>
-  </select>
-  <select id="sumProteinByFoodIdx" parameterType="list" resultType="int">
-    select sum(protein) as protein from foodDB where foodIdx in
-    <foreach collection="foodIdxList" item="foodDB" open="(" separator="," close=")"> #{foodDB}</foreach>
-  </select>
-  <select id="sumFatByFoodIdx" parameterType="list" resultType="int">
-    select sum(fat) as fat from foodDB where foodIdx in
-    <foreach collection="foodIdxList" item="foodDB" open="(" separator="," close=")"> #{foodDB}</foreach>
-  </select>
-  
-    <!-- 음식 이름을 불러오는 쿼리 -->
-  <select id="getAllFoods" resultMap="foodResultMap">
-    select * from foodDB
-  </select>
-  <!-- 음식이름 검색으로 불러오는 쿼리 -->
-  <select id="searchFoodsByName" parameterType="string" resultMap="foodResultMap">
-	 SELECT * FROM foodDB WHERE foodName LIKE CONCAT('%', #{search}, '%')
-  </select>
+	</select>
+	<!-- 밥상진단용은 SQL에서 호출 후 DAO, Service객체에서 선별해서 출력해야함. 우선 10개를 랜덤하게 불러오게 한다 -->
+	<select id="selectRandomHundred" resultMap="foodResultMap"> select * from foodDB
+		order by rand() limit 10
+	</select>
+	<select id="selectByFoodIdx" resultMap="foodResultMap"> select * from foodDB
+		where foodIdx=#{foodDB.foodIdx}
+	</select>
+	<!-- 밥상딘단 관련 게산 맵핑 -->
+	<select id="sumKcalByFoodIdx" parameterType="list"
+		resultType="int">
+		select sum(kcal) as kcal from foodDB where foodIdx in
+		<foreach collection="foodIdxList" item="foodDB" open="("
+			separator="," close=")"> #{foodDB}</foreach>
+	</select>
+	<select id="sumCarbohydrateByFoodIdx" parameterType="list"
+		resultType="int">
+		select sum(carbohydrate) as carbohydrate from foodDB where foodIdx in
+		<foreach collection="foodIdxList" item="foodDB" open="("
+			separator="," close=")"> #{foodDB}</foreach>
+	</select>
+	<select id="sumProteinByFoodIdx" parameterType="list"
+		resultType="int">
+		select sum(protein) as protein from foodDB where foodIdx in
+		<foreach collection="foodIdxList" item="foodDB" open="("
+			separator="," close=")"> #{foodDB}</foreach>
+	</select>
+	<select id="sumFatByFoodIdx" parameterType="list"
+		resultType="int">
+		select sum(fat) as fat from foodDB where foodIdx in
+		<foreach collection="foodIdxList" item="foodDB" open="("
+			separator="," close=")"> #{foodDB}</foreach>
+	</select>
+
+	<!-- 음식 이름을 불러오는 쿼리 -->
+	<select id="getAllFoods" resultMap="foodResultMap">
+		select * from foodDB
+	</select>
+	<!-- 음식이름 검색으로 불러오는 쿼리 -->
+	<select id="searchFoodsByName" parameterType="string"
+		resultMap="foodResultMap">
+		SELECT * FROM foodDB WHERE foodName LIKE CONCAT('%', #{search}, '%')
+	</select>
+
+	<select id="findByFoodName" resultMap="foodResultMap">
+		SELECT * FROM foodDB WHERE foodName = #{foodName}
+	</select>
+
 </mapper>
