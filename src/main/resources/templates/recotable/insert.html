@@ -2,10 +2,7 @@
 <html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<!-- Mobile Metas -->
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<!-- Site Metas -->
 <title>식단 검증 - 유저정보 확인</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
@@ -25,16 +22,18 @@ p {
 .table-container table {
 	width: 100%;
 	table-layout: auto; /* 테이블의 레이아웃을 자동으로 설정 */
+	border-collapse: collapse; /* 테이블의 보더를 겹치게 설정 */
 }
 .table-container th, .table-container td {
 	padding: 8px 12px;
 	text-align: left;
 	vertical-align: middle;
-	border: 1px solid #ddd;
+	border: none; /* 보더 제거 */
 	white-space: nowrap; /* 텍스트 줄바꿈 방지 */
 }
 .table-container th {
 	background-color: #f4f4f4;
+	border: 1px solid #ddd; /* 헤더에만 보더 추가 */
 }
 .table-container button {
 	padding: 4px 8px;
@@ -57,6 +56,19 @@ p {
 	border: 1px solid #ccc;
 	border-radius: 4px;
 	width: 200px; /* 너비를 고정 */
+}
+.form-group .info {
+	color: #555;
+	font-size: 14px;
+	margin-top: 5px;
+	margin-left: 160px;
+}
+.inline-label {
+	display: flex;
+	align-items: center;
+}
+.inline-label h3 {
+	margin: 0;
 }
 </style>
 </head>
@@ -112,6 +124,9 @@ p {
 							</div>
 							<br>
 							<div class="col-md-12">
+								<div class="form-group">
+									<h4>하루 동안 목표로 하는 영양성분의 양을 입력해 주세요.(1 이상으로 입력해 주세요)</h4>
+								</div>
 								<div class="form-group">
 									<h3><label for="protein">단백질 (g):</label></h3>
 									<input type="number" id="protein" name="protein" placeholder="단백질을 입력하세요" step="0.1">
@@ -240,21 +255,20 @@ p {
 				alert("음식을 선택해 주세요.");
 				return false;
 			}
-			if (protein === "") {
-				document.getElementById('protein').value = 0;
+	
+			// 유효성 검사 추가
+			if (protein < 1 || fat < 1 || carbohydrate < 1) {
+				alert("단백질, 지방, 탄수화물은 1 이상의 값을 입력해주세요.");
+				return false;
 			}
-			if (fat === "") {
-				document.getElementById('fat').value = 0;
-			}
-			if (carbohydrate === "") {
-				document.getElementById('carbohydrate').value = 0;
-			}
+
 			if (height === "" ) {
-				alert("키를 입력해 주새요.");
+				alert("키를 입력해 주세요.");
 				return false;
 			}
 			if (weight === "" ) {
-				alert("몸무게를 입력해 주새요.");
+				alert("몸무게를 입력해 주세요.");
+
 				return false;
 			}
 			if (!gender) {

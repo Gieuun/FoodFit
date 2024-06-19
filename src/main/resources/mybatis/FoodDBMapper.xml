@@ -12,6 +12,11 @@
 		<result property="sugar" column="sugar" />
 		<result property="sodium" column="sodium" />
 	</resultMap>
+  
+    <select id="selectOneFood" parameterType="int" resultMap="foodResultMap">
+      select * from foodDB where foodIdx=#{foodIdx}
+    </select>
+    
 	<select id="selectHighProtein" resultMap="foodResultMap"> <!-- 불러온 데이터 중 고단백 식품 상위 10개 추천 -->
 		select * from foodDB order by protein desc limit 10
 	</select>

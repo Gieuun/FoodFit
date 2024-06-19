@@ -2,51 +2,50 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd">
 <mapper namespace="com.sds.foodfit.model.member.MemberDAO">
 
-	<insert id="insert" parameterType="Member">
-		insert into member(name, id, pwd, email, roleIdx, snsIdx)
-		values(#{name}, #{id}, #{pwd}, #{email}, #{role.roleIdx} , #{sns.snsIdx})
-		
-		<!-- member_detail에 추가적인 insert 를 위해 부모 테이블인 member의 idx값을 곧바로 추출 -->
-		<selectKey keyColumn="memberIdx" keyProperty="memberIdx" resultType="int" order="AFTER">
-			select last_insert_id() as memberIdx
-		</selectKey> 
+	<insert id="insert" parameterType="com.sds.foodfit.domain.Member">
+		 insert into member (name, id, pwd, email, gender, age, height, weight, snsIdx, roleIdx)
+		 values (#{name}, #{id}, #{pwd}, #{email}, #{gender}, #{age}, #{height}, #{weight}, #{sns.snsIdx}, #{role.roleIdx})
 	</insert>
+	
+	<!-- 아이디 중복 확인 -->
+    <select id="isIdExists" resultType="int" parameterType="String">
+        SELECT COUNT(*) FROM member WHERE id = #{id}
+    </select>
 	
 	<!--홈페이지 회원 경우 비밀번호가 존재하고, 비밀번호는 member 테이블에 존재하므로, join 을 해야한다 
 	하지만 mybatis 객체 간 관계를 이용하면 association -->
 	<resultMap  id="MemberMap" type="Member">
-		<id 		column="memberIdx" 		property="memberIdx"/>
+		<id 			column="memberIdx" 			property="memberIdx"/>
 		<result 	column="name" 					property="name"/>
 		<result 	column="id" 						property="id"/>
 		<result 	column="pwd" 					property="pwd"/>
 		<result 	column="email" 					property="email"/>
+		<result 	column="gender" 				property="gender"/>
+		<result 	column="age" 					property="age"/>
+		<result 	column="height" 				property="height"/>
+		<result 	column="weight" 				property="weight"/>
 		
 		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.sns.SnsDAO.select"/>
 		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.role.RoleDAO.select"/>
-		<association column="memberIdx" property="memberDetail" javaType="MemberDetail" select="com.sds.foodfit.model.member.MemberDetailDAO.selectByMemberIdx"/>
 		
 	</resultMap>
 	<!-- id를 이용한 회원조회 -->
 	<select id="selectById" parameterType="String" resultMap="MemberMap">
-		select memberIdx , name, id, pwd, email, snsIdx, roleIdx
+		select memberIdx , name, id, pwd, email, gender, age, height, weight, snsIdx, roleIdx
 		from member where id=#{id}
-	</select>
-
-	<!-- 아래의 맵은 자식(memberdetail)을 위한 맵이다. 서로 참조관계에 있기 때문에, 순환관계에 빠지지 않도록
-	맵을 하나 더 두고, 이맵에서는 자식을 호출하지 않는다. -->
-	<resultMap type="Member" id="MemberMap2">
-		<id 		column="memberIdx" 		property="memberIdx"/>
-		<result 	column="name" 					property="name"/>
-		<result 	column="id" 						property="id"/>
-		<result 	column="pwd" 					property="pwd"/>
-		<result 	column="email" 					property="email"/>
-		
-		<association column="snsIdx" property="sns" javaType="Sns" select="com.sds.foodfit.model.sns.SnsDAO.select"/>
-		<association column="roleIdx" property="role" javaType="Role" select="com.sds.foodfit.model.role.RoleDAO.select"/>
-	</resultMap>
+	</select>	
 	
-	<select id="selectByMemberIdx" parameterType="int" resultMap="MemberMap2">
-		select * from member where memberIdx=#{memberIdx}
-	</select>
+	<!--회원정보수정-->
+	<update id="update" parameterType="Member">
+		update member 
+		set name=#{name}, id=#{id}, pwd=#{pwd}, email=#{email}, gender=#{gender}, age=#{age},  height=#{height}, weight=#{weight}
+		where memberIdx=#{memberIdx}
+	</update>
 	
+	
+	<!--회원정보삭제
+	<delete id="delete" parameterType="int">
+		delete from member where memberIdx=#{memberIdx}
+	</delete>
+	-->
 </mapper>

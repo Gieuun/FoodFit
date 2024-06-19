@@ -15,7 +15,6 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,6 +23,7 @@ import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -33,7 +33,6 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sds.foodfit.domain.Member;
-import com.sds.foodfit.domain.MemberDetail;
 import com.sds.foodfit.domain.Role;
 import com.sds.foodfit.model.member.MemberService;
 import com.sds.foodfit.model.role.RoleService;
@@ -71,6 +70,9 @@ public class MemberController {
 	@Autowired
 	private SnsService snsService;
 	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 
 
 	// 로그인 폼 요청 처리
@@ -95,17 +97,46 @@ public class MemberController {
 	}
 
 	// 회원가입 폼 요청 처리
-	@GetMapping("/recomember/joinform")
-	public String getJoinForm() {
-		return "recomember/join";
-	}
-
-	// 건강정보 폼 요청 처리
 	@GetMapping("/recomember/registform")
-	public String getHealthForm() {
+	public String getJoinForm() {
 		return "recomember/regist";
 	}
+	
+	// 아이디 중복 확인 처리
+	 @PostMapping("/recomember/checkId")
+	    @ResponseBody
+	    public String checkId(@RequestParam("id") String id) {
+	        boolean isExists = memberService.isIdExists(id);
+	        return String.valueOf(isExists); // true 또는 false 문자열 반환
+	    }
+	
+	//회원 정보 수정 처리
+	@PostMapping("/recomember/update")
+	public ResponseEntity<String> update(Member member, HttpSession session) {
+	    Member loginUser = (Member) session.getAttribute("member");
+	    log.debug("loginUser 정보는 " + loginUser);
 
+	    member.setMemberIdx(loginUser.getMemberIdx());
+	    memberService.update(member);
+	    
+	    //세션 정보 업데이트
+	    session.setAttribute("member", member);
+
+	    log.debug("회원 정보가 성공적으로 업데이트 되었습니다.");
+	    return ResponseEntity.ok("회원 정보가 성공적으로 업데이트 되었습니다.");
+    }
+	
+	/*
+	//회원 정보 삭제 처리
+	@PostMapping("/recomember/delete")
+	public String delete(int memberIdx) {
+		
+		memberService.delete(memberIdx);
+		
+		return "redirect:/logout";
+	}
+	*/
+	
 	// 마이페이지 폼 요청 처리
 	@GetMapping("/recomember/mypage")
 	public String getMypageForm(Model model, HttpSession session) {
@@ -118,8 +149,10 @@ public class MemberController {
 
 		return "recomember/mypage";
 	}
-	// 마이페이지 폼 요청 처리
-	@GetMapping("/recomember/mypage2")
+	
+	
+	// 선호 음식 폼 요청 처리
+	@GetMapping("/recomember/favorite")
 	public String getMypage2Form(Model model, HttpSession session) {
 
 		// 로그인한 회원 정보 가져오기
@@ -129,41 +162,49 @@ public class MemberController {
 
 		log.debug("member is{} " + member);
 
-		return "recomember/mypage2";
+		return "recomember/favorite";
 	}
 
 	// 홈페이지 회원가입 요청 처리
 	@PostMapping("/recomember/regist")
-	public String HealthForm(MemberDetail memberDetail, HttpSession session) {
-
+	public String HealthForm(Member member, HttpSession session) {
 		log.debug("회원가입 요청 시도");
-
-		// 세션에서 임시 회원 정보 가져오기
-		Member member = (Member) session.getAttribute("temp");
-		log.debug("member name " + member.getName());
-		log.debug("member id " + member.getId());
-		log.debug("member pwd " + member.getPwd());
-		log.debug("member email " + member.getEmail());
 		
-		log.debug("세션으로부터 꺼낸 member is " + member);
-
+		log.debug("member name "+member.getName());
+		log.debug("member id "+member.getId());
+		log.debug("member pwd "+member.getPwd());
+		log.debug("member email "+member.getEmail());
+		log.debug("member gender "+member.getGender());
+		log.debug("member age "+member.getAge());
+		log.debug("member height "+member.getHeight());
+		log.debug("member weight "+member.getWeight());
+		
+		//세션에 회원 정보 담기
+		session.setAttribute("member", member);
+		
+		//비밀번호 암호화
+		String encodedPass = passwordEncoder.encode(member.getPwd());
+		member.setPwd(encodedPass);
+		log.debug("암호화된 비밀번호는 "+encodedPass);
+				
+		Member dto =(Member)session.getAttribute("member");
+		log.debug("세션에서 꺼낸 member is ",dto);
+		
 		// 일반 유저가 홈페이지 가입 시엔 USER 권한을 부여
 		Role role = new Role();
 		role.setRoleName("USER");
 		member.setRole(role);
 
-		// MemberDetail 객체 생성
-		memberDetail.setMember(member); // 회원 정보 객체 설정
-
 		// 데이터베이스에 회원 정보 저장하는 로직 수행
 		log.debug("등록 컨트롤러 호출");
-		memberService.regist(memberDetail);
+		memberService.regist(member);
 		
-		//임시 정보 회원가입ㅎ
-		session.removeAttribute("temp");
-
-		return null;
+		// 세션 무효화하여 자동 로그인 방지
+	    session.invalidate();
+		
+		return "redirect:/login";
 	}
+	
 
 	/*================================================================== 
 	  네이버 서버에서들어온 콜백 요청처리
@@ -275,9 +316,7 @@ public class MemberController {
 		Member dto  = memberService.selectById(id);
 
 		if (dto == null ) {
-			MemberDetail memberDetail = new MemberDetail();
-			memberDetail.setMember(member);
-			memberService.regist(memberDetail);
+			memberService.regist(member);
 			dto = member;
 		} else {
 			dto.setRole(role);
@@ -410,15 +449,13 @@ public class MemberController {
 		Role role = roleService.selectByName("USER");
 		member.setRole(role);
 
-		MemberDetail memberDetail = new MemberDetail();
-		memberDetail.setMember(member);
 
 		// 이메일로 사용자 조회
 		Member dto = memberService.selectById(email);
 
 		if (dto == null) {
 		    // 신규 사용자 등록
-		    memberService.regist(memberDetail);
+		    memberService.regist(member);
 		    dto = member;
 		    log.debug("가입처리");
 		} else {
@@ -429,7 +466,6 @@ public class MemberController {
 
 		session.setAttribute("member", dto);
 		log.debug("현재 가진 권한은 " + dto.getRole().getRoleName());
-		log.debug("memberDetail 회원정보 " + memberDetail);
 		log.debug("member sns 회원정보 " + member);
 
 		Authentication auth = new UsernamePasswordAuthenticationToken(member.getName(), null,
@@ -443,7 +479,7 @@ public class MemberController {
 		return mav;
 	}
 	/*--------------------------------------------------------------------------
-	 구글 소셜 로그인 구현 구현이 잘안됨,,
+	 구글 소셜 로그인 구현
 	 --------------------------------------------------------------------------- */
 	@GetMapping("/recomember/sns/google/callback")
 	public ModelAndView googleCallback(@RequestParam("code") String code, HttpSession session) {
@@ -518,15 +554,13 @@ public class MemberController {
 	    		Role role = roleService.selectByName("USER");
 	    		member.setRole(role);
 
-	    		MemberDetail memberDetail = new MemberDetail();
-	    		memberDetail.setMember(member);
 
 	    		// 이메일로 사용자 조회
 	    		Member dto = memberService.selectById(email);
 
 	    		if (dto == null) {
 	    		    // 신규 사용자 등록
-	    		    memberService.regist(memberDetail);
+	    		    memberService.regist(member);
 	    		    dto = member;
 	    		    log.debug("가입처리");
 	    		} else {
@@ -538,7 +572,6 @@ public class MemberController {
 	            //세션 설정
 	        	session.setAttribute("member", dto);
 	        	log.debug("현재 가진 권한 : "+dto.getRole().getRoleName());
-	        	log.debug("memberDetail 회원 정보 : "+ memberDetail);
 	        	log.debug("member sns 회원정보 : "+ member);
 
 	        	Authentication auth = new UsernamePasswordAuthenticationToken(member.getName(), null,

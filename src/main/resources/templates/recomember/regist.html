@@ -8,129 +8,50 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <!-- Site Metas -->
-<title>건강정보 입력</title>
+<title>회원가입</title>
 <meta name="keywords" content="">
 <meta name="description" content="">
 <meta name="author" content="">
-
 
 <!-- 헤더 링크 -->
 <!-- header_link begin -->
 <th:block th:replace="~{fragments/header_link :: header_link}" />
 <!-- header_link end -->
 
-<!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
 <style type="text/css">
-* {
-	padding: 0;
-	margin: 0;
-	border: none;
-}
-
-body {
-	font-size: 14px;
-	font-family: 'Roboto', sans-serif;
-}
-
-.health_wrapper {
-	width: 500PX;
-	height: 350px;
-	padding: 40px;
-	box-sizing: border-box;
-	margin: 0 auto;
-}
-
-.health_wrapper>h2 {
-	font-size: 24px;
-	color: #28d485;
-	margin-bottom: 20px;
-}
-
-#health_form>input {
-	width: 100%;
-	height: 48px;
-	padding: 0 10px;
-	box-sizing: border-box;
-	margin-bottom: 12px;
-	border-radius: 6px;
-	background-color: #F8F8F8;
-}
-
-#health_form>input::placeholder {
-	color: #D2D2D2;
-}
-
-#health_form>input[type="button"] {
-	color: #fff;
-	font-size: 16px;
-	background: rgb(96, 167, 96);
-}
-
-#health_form .login_check {
-	width: 100%;
-	display: flex;
-	flex: 1;
-	margin-top: 10px;
-}
-
-#health_form .login_check a {
-	flex: 1;
-	margin-right: 5px;
-}
-
-#health_form .login_check a:last-of-type {
-	margin-right: 0px;
-}
-
-#health_form .login_check input[type="button"] {
-	color: #fff;
-	font-size: 16px;
-	background: rgb(96, 167, 96);
-	width: 100%;
-	margin-right: 5px;
-	border-radius: 6px;
-	height: 48px;
-}
-
-#health_form>label {
-	color: #555555;
-	font-size: 15px;
-}
-
-#sns {
-	justify-content: space-around;
-	width: 100%;
+.btArea {
 	display: flex;
 }
-
-#sns input {
-	width: 55px;
-	margin: 20px 0px;
+label{
+	font-weight: bold;
 }
-
-#login_text {
-	position: relative;
-	margin: 20px 0px;
-	text-align: center;
+.num{
+	color: red;
 	font-size: 12px;
-	color: #09aa5c;
 }
-
-#login_text::after {
-	content: "";
-	position: absolute;
-	top: 40px;
-	left: 0px;
-	width: 100%;
-	height: 1px;
-	border-radius: 5px;
-	background: #dadada;
+.type{
+	display: flex;
 }
-
+.type .btn{
+	width:20%;
+}
+.pwdText{
+	display: flex;
+}
+.pwdText p {
+	margin-left: 7px;
+}
+mark{
+	background:  #09aa5c;
+	border-radius: 7px;
+	font-weight: bold
+}
+.box{
+	border-radius: 10px;
+}
+.btn{
+	border-radius: 10px
+}
 </style>
 </head>
 <body>
@@ -138,6 +59,7 @@ body {
 	<!-- Start header -->
 	<th:block th:replace="~{fragments/header :: header}" />
 	<!-- End header -->
+
 
 	<!-- Start All Pages -->
 	<div class="all-page-title page-breadcrumb">
@@ -157,31 +79,89 @@ body {
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="heading-title text-center">
-						<h2>건강정보입력</h2>
+						<h2>회원가입</h2>
+						<p><mark>FoodFit</mark> 에서 나의 건강을 찾아봐요~</p>
 					</div>
 				</div>
 			</div>
 			<div class="row">
 				<div class="col-lg-12">
-					<form id="health_form">
-					
+					<form id="regist_form">
 						<div class="row">
 							<input type="hidden" name="sns.snsName" value="homepage">
-							<div class="col-md-12">
+							
+							<!-- 이름 입력 시작 -->
+								<div class="col-md-12">
 									<div class="form-group">
-										<label for="gender">성별</label> 
-										<select class="form-control" id="gender" name="gender">
+										<label for="name">이름</label><span id="name_message" style="color: red; font-size: 12px;"></span>
+										<input type="text" id="name" class="form-control box" name="name" placeholder="한글 또는 영문으로 입력해주세요.">
+									</div>
+								</div>
+							<!-- 이름 입력 끝 -->	
+
+
+							<!-- 아이디 입력 시작 -->
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="id">아이디</label><span id="id_message" style="color: red; font-size: 12px;"></span>
+										<div class="type">
+											<input type="text" class="form-control box" id="id" name="id" maxlength="15"  placeholder="아이디를 입력해주세요"  onkeyup="validateId()">
+											<button class="btn btn-common" id="id_check" type="button" onClick="checkId()">중복확인</button>
+										</div>
+										<div id="id_check_result"></div>
+									</div>
+								</div>
+							<!-- 아이디 입력 끝 -->	
+							
+							
+							<!-- 비밀번호 입력 시작 -->	
+								<div class="col-md-12">
+									<div class="form-group">
+										<div class="pwdText">
+											<label for="Pwd">비밀번호</label><span id="pwd_message" style="color: red; font-size: 12px;"></span>
+										</div>
+										<input type="password" class="form-control box" id="pwd" name="pwd"  maxlength="16" placeholder="비밀번호를 입력해주세요">
+									</div>
+								</div>
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="pwdCheck">비밀번호 확인</label><span id="pwdCheck_message" style="color: red; font-size: 12px;"></span>
+										<input type="password" class="form-control box" id="pwdCheck" name="pwdCheck" maxlength="16" onkeyup="checkPasswordMatch();" placeholder="비밀번호를 확인해주세요">
+									</div>
+								</div>
+							<!-- 비밀번호 입력 끝 -->		
+							
+							<!-- 이메일 입력 시작 -->
+							        <div class="col-md-12">
+							            <div class="form-group">
+							                <label for="email">이메일</label><span id="email_message" style="color: red; font-size: 12px;"></span>
+							                <div class="type">
+							                    <input type="email" id="email" class="form-control box" name="email" placeholder="예)Foofit@naver.com" onkeyup="validateEmail()">
+							                    <button class="btn btn-common" id="email_check" type="button" onclick="checkEmail()">중복확인</button>
+							                </div>
+							            </div>
+							        </div>
+							<!-- 이메일 입력 끝 -->	
+							
+								
+							<!-- 성별 입력 시작 -->	
+								<div class="col-md-12">
+									<div class="form-group">
+										<label for="gender">성별</label><span id="gender_message" style="color: red; font-size: 12px;"></span>
+										<select class="form-control box" id="gender" name="gender">
 											<option value="" selected>성별을 선택하세요</option>
 											<option value="male">male(남성)</option>
 											<option value="female">female(여성)</option>
 										</select>
 									</div>
 								</div>
+							<!-- 성별 입력 끝 -->		
 
+						<!-- 연령 입력 시작 -->
 							<div class="col-md-12">
 									<div class="form-group">
-										<label for="age">연령대</label> 
-										<select class="form-control" id="age" name="age">
+										<label for="age">연령대</label><span id="age_message" style="color: red; font-size: 12px;"></span> 
+										<select class="form-control box" id="age" name="age">
 											<option value="">연령대를 선택해주세요.</option>
 											<option value="10" id="teen">10</option>
 											<option value="20" id="twenties">20</option>
@@ -192,41 +172,47 @@ body {
 										</select>
 									</div>
 								</div>
-
+						<!-- 연령 입력 끝 -->		
+	
+						<!-- 키 입력 시작 -->
 							<div class="col-md-12">
 									<div class="form-group">
-										<label for="height">신장</label>
+										<label for="height">신장</label><span id="height_message" style="color: red; font-size: 12px;"></span>
 										<div class="input-group">
-											<input type="number" class="form-control" name="height" placeholder="입력 예) 173.5">
+											<input type="number" id="height"  class="form-control box" name="height" placeholder="입력 예) 173.5">
 											<div class="input-group-append">
 												<span class="input-group-text">cm</span>
 											</div>
 										</div>
 									</div>
 								</div>
+						<!-- 키 입력 끝 -->		
 							
-								<div class="col-md-12">
+						<!-- 체중 입력 시작 -->
+							<div class="col-md-12">
 									<div class="form-group">
-										<label th:for="weight">체중</label>
+										<label for="weight">체중</label><span id="weight_message" style="color: red; font-size: 12px;"></span>
 										<div class="input-group">
-											<input type="number" class="form-control" name="weight" placeholder=" 입력 예) 76.3">
+											<input type="number" id="weight" class="form-control box" name="weight" placeholder=" 입력 예) 76.3">
 											<div class="input-group-append">
 												<span class="input-group-text">kg</span>
 											</div>
 										</div>
 									</div>
 								</div>
-							
+						<!-- 체중 입력 끝 -->	
+								
+								<div class="col-md-12">
+        							<div id="error_message" style="color: red;"></div> <!-- 오류 메시지 표시 요소 추가 -->
+    							</div>
+								
 
 							<div class="col-md-12">
-								<div class="submit-button text-center btnArea">
-									<div class="login_check">
-											<button class="btn btn-common" id="bt_prev" type="button">이전</button>
-											<button class="btn btn-common" id="bt_regist" type="button">가입하기</button>
-									</div>
+								<div class="submit-button text-center btArea">
+									<button class="btn btn-common" id="bt_prev" type="button" onClick="prev()">이전</button>
+									<button class="btn btn-common" id="bt_regist" type="button" onClick="validateForm()">가입하기</button>
 								</div>
 							</div>
-							
 						</div>
 					</form>
 				</div>
@@ -234,7 +220,6 @@ body {
 		</div>
 	</div>
 	<!-- End Contact -->
-
 
 	<!-- Start Footer -->
 	<div th:insert="~{fragments/footer :: footer}"></div>
@@ -245,44 +230,149 @@ body {
 	<!-- js link -->
 	<div th:insert="~{fragments/footer_link :: footer_link}"></div>
 	
+	<!--vaildateForm()코드 site/js/lib.js로 넣어놨습니다. 유효성 검사 코드가 기러서 lib로 빼놓음  -->
+	<script src="/site/js/lib.js"></script>
+
 </body>
 </html>
+
+
 <script type="text/javascript">
 
-	
-	function regist(){
-		$.ajax({
-			url:"/recomember/regist",
-			type:"post",
-			data:$("#health_form").serialize(),
-			success:function(result, status, xhr){
-				alert(result);
-				location.href="/recomember/loginform"
-			},
-			error:function(xhr, status, err){
-				let json = JSON.parse(xhr.responseText);
-				alert(json.msg);
-			}
-		});
+		// 아이디 유효성 검사 함수
+		function isValidId(id) {
+		    return /^[a-zA-Z0-9!@#$%^&*()\-+=]{1,15}$/.test(id);
+		}
 		
+		// 아이디 중복 확인 함수
+		function checkId() {
+		    let id = document.getElementById("id").value;
 		
-		/*
-		$("#health_form").attr({
-			action:"/recomember/healthform",
+		    if (!isValidId(id)) {
+		        document.getElementById("id_message").style.color = 'red';
+		        document.getElementById("id_message").innerHTML = '아이디는 영문자, 숫자, 그리고 특수문자를 포함하여 최대 15자까지 입력 가능합니다.';
+		        document.getElementById("id_check_result").innerHTML = '';
+		        return;
+		    }
+		    $.ajax({
+		        type: "POST",
+		        url: "/recomember/checkId",
+		        data: {
+		            id: id
+		        },
+		        success: function(response) {
+		            if (response === 'true') {
+		                document.getElementById("id_message").style.color = 'red';
+		                document.getElementById("id_check_result").innerHTML = '이미 사용 중인 아이디입니다.';
+		            } else {
+		                document.getElementById("id_message").style.color = 'green';
+		                document.getElementById("id_check_result").innerHTML = '사용 가능한 아이디입니다.';
+		            }
+		        },
+		        error: function() {
+		            alert("서버 오류가 발생하였습니다.");
+		        }
+		    });
+		}
+		
+		// 패스워드 확인 함수
+		function checkPasswordMatch() {
+		    let password = document.getElementById("pwd").value;
+		    let confirmPassword = document.getElementById("pwdCheck").value;
+		
+		    // 비밀번호 일치 여부를 확인하여 메시지 표시
+		    if (password === confirmPassword) {
+		        document.getElementById("pwdCheck_message").style.color = 'green';
+		        document.getElementById("pwdCheck_message").innerHTML = '비밀번호가 일치합니다.';
+		    } else {
+		        document.getElementById("pwdCheck_message").style.color = 'red';
+		        document.getElementById("pwdCheck_message").innerHTML = '비밀번호가 일치하지 않습니다.';
+		    }
+		}
+		
+		// 이메일 중복 확인 함수
+		function checkEmail() {
+		    let email = document.getElementById("email").value;
+		
+		    if (!isValidEmail(email)) {
+		        document.getElementById("email_message").style.color = 'red';
+		        document.getElementById("email_message").innerHTML = '유효한 이메일 주소가 아닙니다.';
+		        return;
+		    }
+		
+		    let usedEmails = ['smw262@naver.com', 'dfg1234@naver.com']; // 이미 사용 중인 이메일 목록
+
+		    
+		    if (usedEmails.includes(email)) {
+		        document.getElementById("email_message").style.color = 'red';
+		        document.getElementById("email_message").innerHTML = '*이미 사용 중인 이메일입니다.';
+		    } else {
+		        document.getElementById("email_message").style.color = 'green';
+		        document.getElementById("email_message").innerHTML = '사용 가능한 이메일입니다.';
+		    }
+		}
+		
+		function isValidEmail(email) {
+		    // 이메일 패턴을 간단히 확인하는 함수
+		    return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+		}
+		
+		function validateEmail() {
+		    let email = document.getElementById("email").value;
+		    if (!isValidEmail(email)) {
+		        document.getElementById("email_message").style.color = 'red';
+		        document.getElementById("email_message").innerHTML = '유효한 이메일 주소가 아닙니다.';
+		    } else {
+		        document.getElementById("email_message").innerHTML = '';
+		    }
+		}
+		
+		// 아이디 유효성 검사 함수 (키 입력 시)
+		function validateId() {
+		    let id = document.getElementById("id").value;
+		    if (!isValidId(id)) {
+		        document.getElementById("id_message").style.color = 'red';
+		        document.getElementById("id_message").innerHTML = '아이디는 영문자, 숫자, 그리고 특수문자를 포함하여 최대 15자까지 입력 가능합니다.';
+		        document.getElementById("id_check_result").innerHTML = '';
+		    } else {
+		        document.getElementById("id_message").innerHTML = '';
+		        document.getElementById("id_check_result").innerHTML = '';
+		    }
+		}
+	    
+	function regist() {
+		if(!validateForm()){
+			return; //유효성 검사 통과 못하면 아래 ajax 실행불가
+		}
+		$("#regist_form").attr({
+			action:"/recomember/regist",
 			method:"post"
 		});
-		$("#health_form").submit();
-		*/
+		$("#regist_form").submit();
 	}
 	$(function() {
 		$("#bt_regist").click(function() {
-			regist();
+			regist();			
 		});
+		
+		$(function() {
+			$("#bt_prev").click(function() {
+				location.href = "/recomember/loginform"
+			});
+		})
+		
+		// 아이디 입력 필드에 대한 유효성 검사를 위한 이벤트 핸들러 연결
+		$("#id").on('keyup', function() {
+			validateId(); 
+		});
+		
+		// 이메일 입력 필드에 대한 유효성 검사를 위한 이벤트 핸들러 연결
+        $("#email").on('keyup', function() {
+            validateEmail();
+        });
+
 	});
-	
-	$(function() {
-		$("#bt_prev").click(function() {
-			location.href = "/recomember/joinform"
-		});
-	})
 </script>
+
+
+
