@@ -10,11 +10,10 @@ public class Member {
 	private String id;
 	private String pwd;
 	private String email;
-	
-	private Sns sns; //has a 관계로 부모를 보유
-	private Role role; //has a 관계로 부모를 보유
-	private MemberDetail memberDetail; // 회원추가정보객체 가짐
-
-	
-
+	private String gender;
+	private int age;
+	private double height;
+	private double weight;
+	private Sns sns; // has a 관계로 부모를 보유
+	private Role role; // has a 관계로 부모를 보유
 }

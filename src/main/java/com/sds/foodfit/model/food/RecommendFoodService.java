@@ -80,4 +80,10 @@ public class RecommendFoodService implements FoodDBService {
 		return null;
 	}
 
+	@Override
+	public List<FoodDB> findByFoodName(String foodName) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 }

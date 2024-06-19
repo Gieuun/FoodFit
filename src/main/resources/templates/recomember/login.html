@@ -114,6 +114,10 @@
 	color: red;
 	font-weight: 700;
 }
+
+label{
+	font-weight: bold;
+}
 </style>
 </head>
 <body>
@@ -162,13 +166,20 @@
 								<input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요">
 							</div>
 						</div>
+						
+						<div class="col-md-12">
+							<div class="submit-button text-center btnArea">
+								<button class="btn btn-common" id="login" type="button" onClick="validateForm()">로그인</button>
+							</div>
+						</div>
+						
 
 						<div class="col-md-12">
 							<div class="form-group">
 								<ul id="loginArea">
 									<li><a href="#" class="find_text">아이디 찾기</a></li>
 									<li><a href="#" class="find_text">비밀번호 찾기</a></li>
-									<li><a href="/recomember/joinform"><span class="accent">회원가입</span></a></li>
+									<li><a href="/recomember/registform"><span class="accent">회원가입</span></a></li>
 								</ul>
 							</div>
 						</div>
@@ -201,13 +212,7 @@
 						 <div class="col-md-12">
         					<div id="error_message" style="color: red;"></div> <!-- 오류 메시지 표시 요소 추가 -->
     					</div>
-
-						<div class="col-md-12">
-							<div class="submit-button text-center btnArea">
-								<button class="btn btn-common" id="login" type="button" onClick="validateForm()">로그인</button>
-							</div>
-						</div>
-
+    					
 					</form>
 				</div>
 			</div>
@@ -278,7 +283,7 @@
 			pwdError.textContent = "*비밀번호를 입력해주세요.";
 			return false;
 		}
-		return isValid;		
+		return true;		
 	}
 
 	function loginCheck() {
