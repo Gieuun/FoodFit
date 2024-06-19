@@ -10,7 +10,7 @@
 
 	<!-- 회원가입 시 role의 정보가 필요함, 롤의 이름을 통해 Role DTO를 채우기 위함 -->
 	<select id="selectByName" parameterType="String" resultMap="SnsMap">
-		select * from sns where snsName=#{snsName}
+		select * from sns where snsName=#{snsNname}
 	</select>
 
 	<select id="select" parameterType="int" resultMap="SnsMap">

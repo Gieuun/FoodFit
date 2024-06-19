@@ -57,7 +57,7 @@ public class SecurityConfig {
 			.requestMatchers("/recomember/sns/**").permitAll() // sns 이용자 요청 허용
 			.requestMatchers("/rest/recomember/**").permitAll()	
 
-			.requestMatchers("/recomember/mypage", "/recomember/mypage2").hasAuthority("USER")
+			.requestMatchers("/recomember/mypage", "/recomember/favorite").hasAuthority("USER")
 			.anyRequest().authenticated() // 그 외의 요청은 인증 필요
 	);
 	

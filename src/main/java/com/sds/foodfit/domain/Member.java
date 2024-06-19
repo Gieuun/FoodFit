@@ -16,5 +16,4 @@ public class Member {
     private double weight;
     private Sns sns; // has a 관계로 부모를 보유
     private Role role; // has a 관계로 부모를 보유
-
 }

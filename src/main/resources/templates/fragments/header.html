@@ -31,14 +31,14 @@
                         </li>
                       </th:block>  
                         
-                       <th:block th:if="${session.member  != null && session.temp == null}">
+                       <th:block th:if="${session.member  != null}">
 	                        <li class="nav-item dropdown">
 	                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 	                                <span th:text="${session.member.name}+'님' "></span>
 	                            </a>
-	                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+	                            <div  class="dropdown-menu" aria-labelledby="navbarDropdown">
 	                                <a class="dropdown-item" href="/recomember/mypage">회원정보</a>
-	                                <a class="dropdown-item" href="/recomember/mypage2">선호 음식정보</a>
+	                                <a class="dropdown-item" href="/recomember/favorite">선호 음식정보</a>
 	                                <a class="dropdown-item" href="/logout">로그아웃</a>
 	                            </div>
 	                        </li>

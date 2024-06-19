@@ -1,3 +1,4 @@
+
 package com.sds.foodfit.model.favoritefood;
 
 import java.util.List;

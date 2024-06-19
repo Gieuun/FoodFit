@@ -128,23 +128,29 @@
 		color: red;
 		font-weight: 700;
 }
+
+label{
+	font-weight: bold;
+}
 </style>
 </head>
 <body>
-		<!-- Start header -->
-		<th:block th:replace="~{fragments/header :: header}" />
-		<!-- End header -->
-		<!-- Start All Pages -->
-		<div class="all-page-title page-breadcrumb">
-				<div class="container text-center">
-						<div class="row">
-								<div class="col-lg-12">
-										<h1>FoodFit!</h1>
-								</div>
-						</div>
+
+	<!-- Start header -->
+	<th:block th:replace="~{fragments/header :: header}" />
+	<!-- End header -->
+
+	<!-- Start All Pages -->
+	<div class="all-page-title page-breadcrumb">
+		<div class="container text-center">
+			<div class="row">
+				<div class="col-lg-12">
+					<h1>FoodFit!</h1>
 				</div>
+			</div>
 		</div>
-		<!-- End All Pages -->
+	</div>
+	<!-- End All Pages -->
 		<!-- Start Contact -->
 		<div class="contact-box">
 				<div class="container">
@@ -158,61 +164,33 @@
 						<div class="row">
 								<div class="col-lg-12">
 										<form id="login_form">
-												<input
-														type="hidden"
-														name="sns.snsName"
-														value="homepage"
-												>
+										
+												<input type="hidden" name="sns.snsName" value="homepage">
+												
 												<div class="col-md-12">
 														<div class="form-group">
-																<label for="id">아이디</label><span
-																		id="id_message"
-																		style="color: red; font-size: 12px;"
-																></span> <input
-																		type="text"
-																		class="form-control"
-																		id="id"
-																		name="id"
-																		placeholder="아이디를 입력해주세요."
+																<label for="id">아이디</label><span id="id_message" style="color: red; font-size: 12px;"></span> 
+																<input type="text" class="form-control" id="id" name="id" placeholder="아이디를 입력해주세요."
 																>
 														</div>
 												</div>
 												<div class="col-md-12">
 														<div class="form-group">
-																<label for="pwd">비밀번호</label><span
-																		id="pwd_message"
-																		style="color: red; font-size: 12px;"
-																></span> <input
-																		type="password"
-																		class="form-control"
-																		id="pwd"
-																		name="pwd"
-																		placeholder="비밀번호를 입력해주세요"
-																>
+																<label for="pwd">비밀번호</label><span id="pwd_message" style="color: red; font-size: 12px;"></span> 
+																<input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요">
 														</div>
 												</div>
 												<div class="col-md-12">
 														<div class="submit-button text-center btnArea">
-																<button
-																		class="btn btn-common"
-																		id="login"
-																		type="button"
-																		onClick="validateForm()"
-																>로그인</button>
+																<button class="btn btn-common" id="login" type="button" onClick="validateForm()">로그인</button>
 														</div>
 												</div>
 												<div class="col-md-12">
 														<div class="form-group">
 																<ul id="loginArea">
-																		<li><a
-																				href="#"
-																				class="find_text"
-																		>아이디 찾기</a></li>
-																		<li><a
-																				href="#"
-																				class="find_text"
-																		>비밀번호 찾기</a></li>
-																		<li><a href="/recomember/joinform"><span class="accent">회원가입</span></a></li>
+																		<li><a href="#" class="find_text" >아이디 찾기</a></li>
+																		<li><a href="#" class="find_text" >비밀번호 찾기</a></li>
+																		<li><a href="/recomember/registform"><span class="accent">회원가입</span></a></li>
 																</ul>
 														</div>
 												</div>
@@ -221,58 +199,47 @@
 																<p id="login_text">소셜 로그인</p>
 																<div id="sns">
 																		<ul>
-																				<li><a
-																						href="javascript:getAuthForm('google')"
-																						class="google"
-																				> <img
-																								alt="구글 소셜 로그인 "
-																								src="/site/images/google_logo_icon.png"
-																						>
-																				</a></li>
-																				<li><a
-																						href="javascript:getAuthForm('naver')"
-																						class="naver"
-																				> <img
-																								alt="네이버 소셜 로그인 "
-																								src="/site/images/naver_logo_icon.png"
-																						>
-																				</a></li>
-																				<li><a
-																						href="javascript:getAuthForm('kakao')"
-																						class="kakao"
-																				> <img
-																								alt="카카오 소셜 로그인 "
-																								src="/site/images/kakao_logo_icon.png"
-																						>
-																				</a></li>
+																				<li>
+																					<a href="javascript:getAuthForm('google')" class="google"> 
+																						<img alt="구글 소셜 로그인 " src="/site/images/google_logo_icon.png" >
+																					</a>
+																				</li>
+																				<li>
+																					<a href="javascript:getAuthForm('naver')" class="naver"> 
+																						<img alt="네이버 소셜 로그인 " src="/site/images/naver_logo_icon.png" >
+																					</a>
+																				</li>
+																				<li>
+																					<a href="javascript:getAuthForm('kakao')" class="kakao"> 
+																						<img alt="카카오 소셜 로그인 " src="/site/images/kakao_logo_icon.png">
+																					</a>
+																				</li>
 																		</ul>
 																</div>
 														</div>
 												</div>
+												
 												<div class="col-md-12">
-														<div
-																id="error_message"
-																style="color: red;"
-														></div>
+														<div id="error_message" style="color: red;"></div>
 														<!-- 오류 메시지 표시 요소 추가 -->
 												</div>
+												
 										</form>
 								</div>
 						</div>
 				</div>
 		</div>
 		<!-- End Contact -->
+		
 		<!-- Start Footer -->
 		<div th:replace="~{fragments/footer :: footer}"></div>
 		<!-- End Footer -->
-		<a
-				href="#"
-				id="back-to-top"
-				title="Back to top"
-				style="display: none;"
-		>&uarr;</a>
+		
+		<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+		
 		<!-- js link -->
 		<div th:replace="~{fragments/footer_link :: footer_link}"></div>
+		
 </body>
 <script type="text/javascript">
 	function getAuthForm(sns) {
@@ -322,7 +289,8 @@
 			pwdError.textContent = "*비밀번호를 입력해주세요.";
 			return false;
 		}
-		return true;
+
+		return true;		
 	}
 
 	function loginCheck() {
@@ -330,7 +298,7 @@
 			return; // 유효성 검사 통과 못하면 함수 종료
 		}
 
-		$
+			$
 				.ajax({
 					url : "/recomember/login",
 					type : "post",
