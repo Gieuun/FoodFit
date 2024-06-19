@@ -74,7 +74,7 @@
     </div>
     <div class="notice-footer">
     <hr>
-        <button class="btn btn-primary" onclick="location.href='/notice'">목록</button>
+        <button class="btn btn-primary" onclick="history.back()">목록</button>
         <!-- 어드민페이지에서만 보일수있도록 비로그인과 일반유저들은 못 보게 막아놓음
             <form id="deleteForm" action="/notice/del" method="post" style="display: inline;" onsubmit="return confirmDelete();">
                 <input type="hidden" name="noticeIdx" th:value="${notice.noticeIdx}">

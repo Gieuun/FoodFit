@@ -1,5 +1,6 @@
 package com.sds.foodfit.model.favoritefood;
 
+import java.util.Collections;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,33 +29,46 @@ public class FavoriteFoodServiceImpl implements FavoriteFoodService {
     private MemberDAO memberDAO;
 
     @Override
-    public boolean insertFavoriteFood(Member member, FavoriteFood favoriteFood) throws InsertionFailedException {
-	favoriteFoodDAO.insertFavoriteFood(member, favoriteFood);
+    public boolean insertFavoriteFood(int memberIdx, int foodIdx) throws InsertionFailedException {
+	favoriteFoodDAO.insertFavoriteFood(memberIdx, foodIdx);
 	log.debug("서비스 왔음=====");
 	return true;
     }
 
     @Override
-    public FavoriteFood selectByMemberIdx(int memberIdx) {
-	FavoriteFood favoriteFood = favoriteFoodDAO.selectByMemberIdx(memberIdx);
-	int water = 14137; // 물을 디폴트 객체로 설정
+    public List<FavoriteFood> selectByMemberIdx(int memberIdx) {
 
-	if (favoriteFood == null) {
-	    FoodDB defaultFood = foodDBDAO.selectOneFood(water);
+	// 물을 디폴트 객체로 설정
+	int water = 14137;
+	FoodDB defaultFood = foodDBDAO.selectOneFood(water);
+
+	List<FavoriteFood> favoriteFoodList = favoriteFoodDAO.selectByMemberIdx(memberIdx);
+
+	// 즐겨찾기가 비었다면, 물을 넣어준다
+	if (favoriteFoodList.isEmpty()) {
 	    Member member = memberDAO.selectByMemberIdx(memberIdx);
-	    favoriteFoodDAO.insertFavoriteFood(member, favoriteFood);
+	    FavoriteFood favoriteFood = new FavoriteFood();
+	    favoriteFood.setFoodDBList(Collections.singletonList(defaultFood));
+	    favoriteFood.setMember(member);
+
+	    // 새로운 즐겨찾기 추가
+	    favoriteFoodDAO.insertFavoriteFood(memberIdx, water);
+
+	    // 추가된 즐겨찾기 목록 조회
+	    favoriteFoodList = favoriteFoodDAO.selectByMemberIdx(memberIdx);
+
 	}
 
-	return favoriteFood;
+	return favoriteFoodList;
     }
 
     @Override
-    public void deleteOnefood(int foodIdx) {
-	favoriteFoodDAO.deleteOnefood(foodIdx);
+    public void deleteOnefood(int memberIdx, int foodIdx) {
+	favoriteFoodDAO.deleteOnefood(memberIdx, foodIdx);
     }
 
     @Override
-    public void deleteMultiFood(List<Integer> foodIdxList) {
-	favoriteFoodDAO.deleteMultiFood(foodIdxList);
+    public void deleteMultiFood(int memberIdx, List<Integer> foodIdxList) {
+	favoriteFoodDAO.deleteMultiFood(memberIdx, foodIdxList);
     }
 }
