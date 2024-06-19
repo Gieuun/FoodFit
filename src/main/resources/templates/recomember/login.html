@@ -1,118 +1,132 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html
+		lang="en"
+		xmlns:th="http://www.thymeleaf.org"
+>
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-
+<meta
+		http-equiv="X-UA-Compatible"
+		content="IE=edge"
+>
 <!-- Mobile Metas -->
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
+<meta
+		name="viewport"
+		content="width=device-width, initial-scale=1"
+>
 <!-- Site Metas -->
 <title>Login</title>
-<meta name="keywords" content="">
-<meta name="description" content="">
-<meta name="author" content="">
-
+<meta
+		name="keywords"
+		content=""
+>
+<meta
+		name="description"
+		content=""
+>
+<meta
+		name="author"
+		content=""
+>
 <!-- 헤더 링크 -->
 <!-- header_link begin -->
 <th:block th:replace="~{fragments/header_link :: header_link}" />
 <!-- header_link end -->
-
 <style type="text/css">
 #sns {
-	justify-content: space-around;
-	width: 100%;
-	display: flex;
+		justify-content: space-around;
+		width: 100%;
+		display: flex;
 }
 
 #sns ul {
-	display: flex;
-	justify-content: space-around;
-	width: 100%;
+		display: flex;
+		justify-content: space-around;
+		width: 100%;
 }
 
 #sns ul>li>a {
-	flex: 1;
+		flex: 1;
 }
 
 #sns ul>li img {
-	width: 60px;
+		width: 60px;
 }
 
 #login_text {
-	position: relative;
-	margin-bottom: 30px;
-	text-align: center;
-	font-size: 12px;
-	color: #09aa5c;
+		position: relative;
+		margin-bottom: 30px;
+		text-align: center;
+		font-size: 12px;
+		color: #09aa5c;
 }
 
 #login_text:before {
-	content: "";
-	position: absolute;
-	top: -15px;
-	left: 0px;
-	width: 100%;
-	height: 1px;
-	border-radius: 5px;
-	background: #dadada;
+		content: "";
+		position: absolute;
+		top: -15px;
+		left: 0px;
+		width: 100%;
+		height: 1px;
+		border-radius: 5px;
+		background: #dadada;
 }
 
 #loginArea {
-	margin: 35px 0px;
-	list-style: none;
-	text-decoration: none;
-	text-align: center;
-	display: block;
+		margin: 35px 0px;
+		list-style: none;
+		text-decoration: none;
+		text-align: center;
+		display: block;
 }
 
 #loginArea li {
-	text-decoration: none;
-	position: relative;
-	display: inline-block;
+		text-decoration: none;
+		position: relative;
+		display: inline-block;
 }
 
 #loginArea li a {
-	text-decoration: none;
+		text-decoration: none;
 }
 
 #loginArea li+li {
-	padding-left: 17px;
+		padding-left: 17px;
 }
 
 #loginArea li+li:before {
-	content: "";
-	position: absolute;
-	top: 4px;
-	left: 6px;
-	width: 1px;
-	height: 12px;
-	border-radius: 5px;
-	background: #dadada;
+		content: "";
+		position: absolute;
+		top: 4px;
+		left: 6px;
+		width: 1px;
+		height: 12px;
+		border-radius: 5px;
+		background: #dadada;
 }
 
 #loginArea .find_text {
-	display: inline-block;
-	font-size: 14px;
-	line-height: 20px;
-	color: #929294;
+		display: inline-block;
+		font-size: 14px;
+		line-height: 20px;
+		color: #929294;
 }
 
 #loginArea .accent {
-	font-weight: 500;
-	color: #09aa5c;
+		font-weight: 500;
+		color: #09aa5c;
 }
 
 .btnArea {
-	margin-top: 30px;
-	width: 30%;
-	margin: 0 auto;
+		margin-top: 30px;
+		width: 30%;
+		margin: 0 auto;
 }
 
 .error {
-	font-size: 12px;
-	color: red;
-	font-weight: 700;
+		font-size: 12px;
+		color: red;
+		font-weight: 700;
 }
 
 label{
@@ -137,105 +151,97 @@ label{
 		</div>
 	</div>
 	<!-- End All Pages -->
-
-	<!-- Start Contact -->
-	<div class="contact-box">
-		<div class="container">
-			<div class="row">
-				<div class="col-lg-12">
-					<div class="heading-title text-center">
-						<h2>로그인</h2>
-					</div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="col-lg-12">
-					<form id="login_form">
-
-						<input type="hidden" name="sns.snsName" value="homepage">
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="id">아이디</label><span id="id_message" style="color: red; font-size: 12px;"></span>
-								<input type="text" class="form-control" id="id" name="id" placeholder="아이디를 입력해주세요.">
-							</div>
-						</div>
-
-						<div class="col-md-12">
-							<div class="form-group">
-								<label for="pwd">비밀번호</label><span id="pwd_message" style="color: red; font-size: 12px;"></span>
-								<input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요">
-							</div>
-						</div>
-						
-						<div class="col-md-12">
-							<div class="submit-button text-center btnArea">
-								<button class="btn btn-common" id="login" type="button" onClick="validateForm()">로그인</button>
-							</div>
-						</div>
-						
-
-						<div class="col-md-12">
-							<div class="form-group">
-								<ul id="loginArea">
-									<li><a href="#" class="find_text">아이디 찾기</a></li>
-									<li><a href="#" class="find_text">비밀번호 찾기</a></li>
-									<li><a href="/recomember/registform"><span class="accent">회원가입</span></a></li>
-								</ul>
-							</div>
-						</div>
-
-						<div class="col-md-12">
-							<div class="form-group">
-								<p id="login_text">소셜 로그인</p>
-								<div id="sns">
-									<ul>
-										<li>
-											<a href="javascript:getAuthForm('google')" class="google"> 
-												<img alt="구글 소셜 로그인 " src="/site/images/google_logo_icon.png">
-											</a>
-										</li>
-										<li>
-											<a href="javascript:getAuthForm('naver')" class="naver"> 
-												<img alt="네이버 소셜 로그인 " src="/site/images/naver_logo_icon.png">
-											</a>
-										</li>
-										<li>
-											<a href="javascript:getAuthForm('kakao')" class="kakao"> 
-												<img alt="카카오 소셜 로그인 " src="/site/images/kakao_logo_icon.png">
-											</a>
-										</li>
-									</ul>
+		<!-- Start Contact -->
+		<div class="contact-box">
+				<div class="container">
+						<div class="row">
+								<div class="col-lg-12">
+										<div class="heading-title text-center">
+												<h2>로그인</h2>
+										</div>
 								</div>
-							</div>
 						</div>
-						
-						 <div class="col-md-12">
-        					<div id="error_message" style="color: red;"></div> <!-- 오류 메시지 표시 요소 추가 -->
-    					</div>
-    					
-					</form>
+						<div class="row">
+								<div class="col-lg-12">
+										<form id="login_form">
+										
+												<input type="hidden" name="sns.snsName" value="homepage">
+												
+												<div class="col-md-12">
+														<div class="form-group">
+																<label for="id">아이디</label><span id="id_message" style="color: red; font-size: 12px;"></span> 
+																<input type="text" class="form-control" id="id" name="id" placeholder="아이디를 입력해주세요."
+																>
+														</div>
+												</div>
+												<div class="col-md-12">
+														<div class="form-group">
+																<label for="pwd">비밀번호</label><span id="pwd_message" style="color: red; font-size: 12px;"></span> 
+																<input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요">
+														</div>
+												</div>
+												<div class="col-md-12">
+														<div class="submit-button text-center btnArea">
+																<button class="btn btn-common" id="login" type="button" onClick="validateForm()">로그인</button>
+														</div>
+												</div>
+												<div class="col-md-12">
+														<div class="form-group">
+																<ul id="loginArea">
+																		<li><a href="#" class="find_text" >아이디 찾기</a></li>
+																		<li><a href="#" class="find_text" >비밀번호 찾기</a></li>
+																		<li><a href="/recomember/registform"><span class="accent">회원가입</span></a></li>
+																</ul>
+														</div>
+												</div>
+												<div class="col-md-12">
+														<div class="form-group">
+																<p id="login_text">소셜 로그인</p>
+																<div id="sns">
+																		<ul>
+																				<li>
+																					<a href="javascript:getAuthForm('google')" class="google"> 
+																						<img alt="구글 소셜 로그인 " src="/site/images/google_logo_icon.png" >
+																					</a>
+																				</li>
+																				<li>
+																					<a href="javascript:getAuthForm('naver')" class="naver"> 
+																						<img alt="네이버 소셜 로그인 " src="/site/images/naver_logo_icon.png" >
+																					</a>
+																				</li>
+																				<li>
+																					<a href="javascript:getAuthForm('kakao')" class="kakao"> 
+																						<img alt="카카오 소셜 로그인 " src="/site/images/kakao_logo_icon.png">
+																					</a>
+																				</li>
+																		</ul>
+																</div>
+														</div>
+												</div>
+												
+												<div class="col-md-12">
+														<div id="error_message" style="color: red;"></div>
+														<!-- 오류 메시지 표시 요소 추가 -->
+												</div>
+												
+										</form>
+								</div>
+						</div>
 				</div>
-			</div>
 		</div>
-	</div>
-	<!-- End Contact -->
-
-	<!-- Start Footer -->
-	<div th:replace="~{fragments/footer :: footer}"></div>
-	<!-- End Footer -->
-
-
-	<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
-
-	<!-- js link -->
-
-	<div th:replace="~{fragments/footer_link :: footer_link}"></div>
-
+		<!-- End Contact -->
+		
+		<!-- Start Footer -->
+		<div th:replace="~{fragments/footer :: footer}"></div>
+		<!-- End Footer -->
+		
+		<a href="#" id="back-to-top" title="Back to top" style="display: none;">&uarr;</a>
+		
+		<!-- js link -->
+		<div th:replace="~{fragments/footer_link :: footer_link}"></div>
+		
 </body>
-
 <script type="text/javascript">
-
-	
 	function getAuthForm(sns) {
 		$.ajax({
 			url : "/rest/recomember/authform/" + sns,
@@ -265,52 +271,54 @@ label{
 			}
 		});
 	}
-	
-	function validateForm(){
-		 let id = document.getElementById("id").value;
-		 let pwd = document.getElementById("pwd").value;
-		 let idError = document.getElementById("id_message");
-		 let pwdError = document.getElementById("pwd_message");
-		
-		idError.textContent = ""; 
-		pwdError.textContent = ""; 
-		
-		if (id === ""){
+
+	function validateForm() {
+		let id = document.getElementById("id").value;
+		let pwd = document.getElementById("pwd").value;
+		let idError = document.getElementById("id_message");
+		let pwdError = document.getElementById("pwd_message");
+
+		idError.textContent = "";
+		pwdError.textContent = "";
+
+		if (id === "") {
 			idError.textContent = "*아이디를 입력해주세요.";
 			return false;
 		}
-		if (pwd === ""){
+		if (pwd === "") {
 			pwdError.textContent = "*비밀번호를 입력해주세요.";
 			return false;
 		}
+
 		return true;		
 	}
 
 	function loginCheck() {
-		if(!validateForm()){
-			return; //유효성 검사 통과 못하면 아래 ajax 실행불가
+		if (!validateForm()) {
+			return; // 유효성 검사 통과 못하면 함수 종료
 		}
-		$.ajax({
-			url : "/recomember/login",
-			type : "post",
-			data : $("#login_form").serialize(),
-			success : function(result, status, xhr) {
-				console.log(result);
-				location.href = "/"
-			},
-			error : function(xhr, status, result) {
-				let json = JSON.parse(xhr.responseText);
-				alert(json.msg);
-				document.getElementById("error_message").textContent = json.msg;
-			}
-		});
+
+			$
+				.ajax({
+					url : "/recomember/login",
+					type : "post",
+					data : $("#login_form").serialize(),
+					success : function(result, status, xhr) {
+						console.log(result);
+						location.href = "/";
+					},
+					error : function(xhr, status, result) {
+						let json = JSON.parse(xhr.responseText);
+						alert(json.msg);
+						document.getElementById("error_message").textContent = json.msg;
+					}
+				});
 	}
 
 	$(function() {
 		$("#login").click(function() {
 			loginCheck();
 		});
-	})
+	});
 </script>
-
 </html>

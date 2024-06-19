@@ -30,7 +30,6 @@ public class MemberServiceImpl implements MemberService {
 	@Autowired
 	private  HttpSession session;
 	
-
 	@Transactional
 	public void regist(Member member) throws MemberException {
 		
@@ -70,13 +69,13 @@ public class MemberServiceImpl implements MemberService {
 			log.debug("member insert 실패  ");
 			throw new MemberException("회원 등록 실패");
 		}
-		
-
+	
 		// 홈페이지만 추가 정보 처리
 		if ("homepage".equals(sns.getSnsName())) {
 			log.debug("홈페이지 사용자 추가 정보 처리");
 			}
 	}
+
 
 	@Override
 	public Member selectById(String id) {
@@ -87,13 +86,11 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectByMemberIdx(int memberIdx) {
 		return memberDAO.selectByMemberIdx(memberIdx);
 	}
-	
-	
-	// 아이디 중복 체크
-    public boolean isIdExists(String id) {
-        int count = memberDAO.isIdExists(id);
-        return count > 0;
-    }
+	//아이디 중복 체크
+	public boolean isIdExists(String id) {
+	    int count = memberDAO.isIdExists(id);
+	    return count > 0;
+	}
 	
 	@Transactional
 	//회원 정보 수정
@@ -146,6 +143,4 @@ public class MemberServiceImpl implements MemberService {
 		}
 	}
 	*/
-
-	
 }

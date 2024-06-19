@@ -57,5 +57,4 @@ public class FavoriteFoodServiceImpl implements FavoriteFoodService {
     public void deleteMultiFood(List<Integer> foodIdxList) {
 	favoriteFoodDAO.deleteMultiFood(foodIdxList);
     }
-
 }

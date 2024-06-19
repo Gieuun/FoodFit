@@ -33,12 +33,7 @@
 	<select id="selectById" parameterType="String" resultMap="MemberMap">
 		select memberIdx , name, id, pwd, email, gender, age, height, weight, snsIdx, roleIdx
 		from member where id=#{id}
-	</select>
-
-	<select id="selectByMemberIdx" parameterType="int" resultMap="MemberMap">
-    	select memberIdx, name, id, pwd, email, gender, age, height, weight, snsIdx, roleIdx
-    	from member where memberIdx=#{memberIdx}
-	</select>
+	</select>	
 	
 	<!--회원정보수정-->
 	<update id="update" parameterType="Member">

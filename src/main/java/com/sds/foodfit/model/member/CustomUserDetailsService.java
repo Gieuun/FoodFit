@@ -57,5 +57,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 	CustomUserDetails userDetails = new CustomUserDetails(member, null);
 
 	return new CustomUserDetails(member, null);
+
     }
 }

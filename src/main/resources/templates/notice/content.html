@@ -29,9 +29,22 @@
             line-height: 1.6;
             margin-bottom: 40px;
         }
+        .btn-primary {
+        padding: 5px 8px; /* 버튼 안쪽 여백 조정 */
+        font-size: 14px; /* 버튼 텍스트 크기 조정 */
+        width: 90px; /* 버튼 너비 설정 */
+        background-color: #D2B48C;
+        color: #ffffff;
+    }
+    .btn-primary:hover {
+        background-color: #D2B48C;
+        border-color: #D2B48C;
+    }
     </style>
 </head>
-<body>
+<body
+	oncontextmenu="return false" ondragstart="return false" onselectstart="return false"
+>
 <!-- Header -->
 <th:block th:replace="~{fragments/header :: header}"/>
 <div class="all-page-title page-breadcrumb">
@@ -49,16 +62,19 @@
     <div class="notice-title">
         <h3 th:text="${notice.title}"></h3>
     </div>
+    <hr>
     <div class="notice-meta">
         <span>등록일: <span th:text="${notice.regdate}"></span></span>
         <span class="ml-4">작성자: <span th:text="${notice.writer}"></span></span>
         <span class="ml-4">조회수: <span th:text="${notice.hit}"></span></span>
     </div>
+    <hr>
     <div class="notice-content" th:utext="${notice.content}">
 
     </div>
     <div class="notice-footer">
-        <button class="btn btn-custom" onclick="location.href='/notice'">목록</button>
+    <hr>
+        <button class="btn btn-primary" onclick="location.href='/notice'">목록</button>
         <!-- 어드민페이지에서만 보일수있도록 비로그인과 일반유저들은 못 보게 막아놓음
             <form id="deleteForm" action="/notice/del" method="post" style="display: inline;" onsubmit="return confirmDelete();">
                 <input type="hidden" name="noticeIdx" th:value="${notice.noticeIdx}">
@@ -75,9 +91,11 @@
 <th:block th:replace="~{fragments/footer_link :: footer_link}"/>
 </body>
 </html>
+<!-- 삭제버튼이 불필요해져서 주석처리해놓음 
 <script>
     function confirmDelete() {
         var confirmDelete = confirm("정말로 삭제하시겠습니까?");
         return confirmDelete;
     }
 </script>
+-->

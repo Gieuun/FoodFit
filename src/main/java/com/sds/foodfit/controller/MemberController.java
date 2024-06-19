@@ -85,7 +85,6 @@ public class MemberController {
 	@PostMapping("/recomember/login")
 	public String login(Member member) {
 		
-		
 		return "redirect:/";
 	}
 
@@ -200,7 +199,8 @@ public class MemberController {
 		log.debug("등록 컨트롤러 호출");
 		memberService.regist(member);
 		
-		session.invalidate();
+		// 세션 무효화하여 자동 로그인 방지
+	    session.invalidate();
 		
 		return "redirect:/login";
 	}
@@ -479,7 +479,7 @@ public class MemberController {
 		return mav;
 	}
 	/*--------------------------------------------------------------------------
-	 구글 소셜 로그인 구현 구현이 잘안됨,,
+	 구글 소셜 로그인 구현
 	 --------------------------------------------------------------------------- */
 	@GetMapping("/recomember/sns/google/callback")
 	public ModelAndView googleCallback(@RequestParam("code") String code, HttpSession session) {

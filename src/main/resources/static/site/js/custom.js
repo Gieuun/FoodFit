@@ -58,31 +58,20 @@
     Special Menu
     ................................................. */
 	
-	var Container = $('.container');
+	let Container = $('.container');
 	Container.imagesLoaded(function () {
-		var portfolio = $('.special-menu');
+		let portfolio = $('.special-menu');
 		portfolio.on('click', 'button', function () {
 			$(this).addClass('active').siblings().removeClass('active');
-			var filterValue = $(this).attr('data-filter');
+			let filterValue = $(this).attr('data-filter');
 			$grid.isotope({
 				filter: filterValue
 			});
 		});
-		var $grid = $('.special-list').isotope({
+		let $grid = $('.special-list').isotope({
 			itemSelector: '.special-grid'
 		});
 	});
-	
-	/* ..............................................
-    BaguetteBox
-    ................................................. */
-	
-	baguetteBox.run('.tz-gallery', {
-		animation: 'fadeIn',
-		noScrollbars: true
-	});
-	
-	
 	
 	/* ..............................................
     Datepicker
@@ -91,9 +80,5 @@
 	$('.datepicker').pickadate();
 	
 	$('.time').pickatime();
-	
-	
-	
-	
 	
 }(jQuery));

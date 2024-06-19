@@ -10,3 +10,4 @@ public class FavoriteFood { // 멤버의 idx가 필요해서 member를 소요. b
     private Member member;
 
 }
+

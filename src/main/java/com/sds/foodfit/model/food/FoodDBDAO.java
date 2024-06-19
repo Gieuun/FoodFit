@@ -33,4 +33,5 @@ public interface FoodDBDAO { // 여기에 FoodDB select 관련로직 다 넣으�
     public List<FoodDB> searchFoodsByName(@Param("search") String search);
 
     public List<FoodDB> findByFoodName(@Param("foodName") String foodName);
+
 }

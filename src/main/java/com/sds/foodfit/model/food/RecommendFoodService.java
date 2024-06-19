@@ -85,5 +85,5 @@ public class RecommendFoodService implements FoodDBService {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
 }
+
