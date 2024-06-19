@@ -1,0 +1,5 @@
+{"properties": [{
+  "name": "spring.mvc.media-types.json",
+  "type": "java.lang.String",
+  "description": "A description for 'spring.mvc.media-types.json'"
+}]}

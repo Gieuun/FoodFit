@@ -255,16 +255,7 @@ p {
 				alert("음식을 선택해 주세요.");
 				return false;
 			}
-			if (protein === "") {
-				document.getElementById('protein').value = 0;
-			}
-			if (fat === "") {
-				document.getElementById('fat').value = 0;
-			}
-			if (carbohydrate === "") {
-				document.getElementById('carbohydrate').value = 0;
-			}
-			
+	
 			// 유효성 검사 추가
 			if (protein < 1 || fat < 1 || carbohydrate < 1) {
 				alert("단백질, 지방, 탄수화물은 1 이상의 값을 입력해주세요.");
@@ -277,6 +268,7 @@ p {
 			}
 			if (weight === "" ) {
 				alert("몸무게를 입력해 주세요.");
+
 				return false;
 			}
 			if (!gender) {

@@ -20,31 +20,24 @@ insert into role(roleName) values('USER');
 insert into role(roleName) values('GUEST');
 
 -- 회원테이블 만들기
-create table member(
+CREATE TABLE member (
     memberIdx int primary key auto_increment,
-    name varchar(20),
-    id varchar(20),
-    pwd varchar(20),
-    email varchar(30),
-    roleIdx int,
-    snsIdx int,
-    constraint fk_role_member foreign key (roleIdx) references role (roleIdx),
-    constraint fk_sns_member foreign key (snsIdx) references sns (snsIdx)
-) default character set utf8;
+    name VARCHAR(100) NOT NULL,
+    id VARCHAR(50) UNIQUE NOT NULL,
+    pwd VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL,
+    gender ENUM('Male', 'Female', 'Other') NOT NULL,
+    age int(10) NOT NULL,
+    height DOUBLE,
+    weight DOUBLE,
+    snsIdx INT,
+    roleIdx INT,
+    CONSTRAINT fk_role_member FOREIGN KEY (roleIdx) REFERENCES role (roleIdx),
+    CONSTRAINT fk_sns_member FOREIGN KEY (snsIdx) REFERENCES sns (snsIdx)
+) DEFAULT CHARACTER SET utf8;
 
 -- member에 관리자 계정 추가
 insert into member(name, id, pwd, email, roleIdx, snsIdx) values('admin', 'admin', '1234', 'a', 1, 4);
-
--- 회원추가정보 테이블
-create table memberDetail(
-    memberDetailIdx int primary key auto_increment,
-    gender varchar(10),
-    age int(10),
-    height FLOAT,
-    weight FLOAT,
-    memberIdx int,
-    constraint fk_member_memberDetail foreign key (memberIdx) references member (memberIdx)
-) default character set utf8;
 
 -- 권한 테이블 (업로드용 admin 만들기용)
 create table role(

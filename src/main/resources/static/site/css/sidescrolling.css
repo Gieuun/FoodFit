@@ -7,25 +7,28 @@
     }
     
     .food-item {
+    	grid-column: span 3;
         display: inline-block;
-        width: 70%; /* 전체화면의 70%비율로 맞춤 */
+        width: 700px; /* 전체화면의 70%비율로 맞춤 */
         margin-right: 1%; /* 좌우 간격을 위한 여백 설정 */
         margin-bottom: 10px;
         border: 1px solid #ddd; /* 경계선 추가 */
         border-radius: 8px; /* 모서리를 둥글게 */
         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* 그림자 추가 */
         background-color: #fff; /* 배경색 추가 */
-        padding: 50px; /* 내부 여백 추가 */
+        padding: 100px; /* 내부 여백 추가 */
     }
 }
 
 @media (max-width: 828px) {
     .item-container {
-        width: 100%; /* 가로 너비를 디바이스 너비에 맞춤 */
+        width: 95%; /* 가로 너비를 디바이스 너비에 맞춤 */
+        height: 95%;
         margin: auto; /* 중앙 정렬을 위해 margin을 auto로 설정 */
     }
 
     .food-item {
+    	grid-column: span 1;
         display: inline-block;
         width: 100%; /* 모바일에서 하나의 객체가 전체 너비를 차지하도록 설정 */
         margin-right: 0; /* 모바일에서는 여백을 제거 */
@@ -63,11 +66,11 @@
 }
 
 .food-item h3 {
-    font-size: 16px;
+    font-size: 21px;
 }
 
 .food-item p {
-    font-size: 11px;
+    font-size: 16px;
 }
 
 .calories {
@@ -77,12 +80,13 @@
 
 .calories h2 {
     margin: 0;
-    font-size: 24px;
+    font-size: 25px;
     color: #333;
 }
 
 .calories p {
-    margin: 0;
+    margin: 1px;
+    font-size: 21px;
     color: #999;
 }
 
@@ -105,7 +109,7 @@
 }
 
 .macro .label span {
-    font-size: 14px;
+    font-size: 18px;
     color: #666;
     margin-left: 30px;
     margin-right: 5px;
