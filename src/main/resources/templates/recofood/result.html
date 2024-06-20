@@ -13,7 +13,11 @@
 		href="/site/css/sidescrolling.css"
 >
 </head>
-<body oncontextmenu="return false" ondragstart="return false" onselectstart="return false">
+<body
+		oncontextmenu="return false"
+		ondragstart="return false"
+		onselectstart="return false"
+>
 		<th:block
 				th:replace="fragments/header :: header"
 				class="header"
@@ -30,15 +34,14 @@
 								th:each="foodDB : ${foodDBList}"
 								class="food-item"
 						>
+								<!-- favoriteFood로 보낼 idx를 여기서 hidden으로 심는다 -->
+								<input
+										type="hidden"
+										th:value="${foodDB.foodIdx}"
+										class="food-idx"
+								>
 								<div class="macro">
 										<p>
-												<img
-														src="/img/favorite.png"
-														alt="즐겨찾기"
-														class="favorite-icon"
-														style="width: 30%; height: auto;"
-														onclick="addToFavorites(/*[[@{foodDB.id}]]*/)"
-												>
 										<h3 th:text="${foodDB.foodName}">음식 이름</h3>
 										</p>
 								</div>
@@ -104,10 +107,24 @@
 												<span th:text="${foodDB.sodium}">0</span> mg
 										</p>
 								</div>
+								<div>
+										<img
+												src="/img/add-favorite.png"
+												alt="즐겨찾기"
+												class="favorite-icon"
+												style="width: 30%; height: auto; display: block; margin: 20px auto 0;"
+												width="50"
+												height="50"
+												onclick="addToFavorites(this)"
+										>
+								</div>
 						</div>
 				</div>
 				<br>
-				<div class="textline">
+				<div
+						class="textline"
+						style="margin-top: 20px;"
+				>
 						<h4>* 본 영양성분 표시는 식품의약품안전처 영양성분DB를 활용한 자료이며, 각 음식의 100g당 함유량 입니다. *</h4>
 						<p>식기별 음식담는 중량 (추정치) : 밥그릇 200g, 국그릇 200g, 사발그릇 200g, 중접시 300g, 대접시 500g</p>
 				</div>
@@ -121,39 +138,51 @@
 				title="Back to top"
 				style="display: none;"
 		>&uarr;</a>
-		
 		<!-- footer_link begin -->
 		<th:block th:replace="fragments/footer_link :: footer_link" />
 		<!-- footer_link end -->
-		
 </body>
 </html>
+
 <!-- 즐겨찾기 추가하기 -->
 <script type="text/javascript">
-	const addToFavorites = (foodIdx) => {	// foodIdx변수 사용해서 할거라 동일하게 변수지정
-	    fetch('/add-to-favorites', {		// rest로 요청할 주소
-	        method: 'POST',
-	        headers: {
-	            'Content-Type': 'application/json',
-	        },
-	        body: JSON.stringify({ id: foodIdx }),		// 식별할 id는 foodIdx
-	    })
-	    .then(response => {
-	        if (response.ok) {
-	            return response.text(); // OK 응답일 경우 콘트롤러 ResponseEntity 텍스트 반환
-	        } else {
-	            throw new Error('이용에 불편을 드려 죄송합니다. 다시 시도해주세요');		// 유저에게 에러메세지 반환
-	        }
-	    })
-	    .then(data => {
-	        alert(data);
-	    })
-	    .catch((error) => {
-	        console.error('Error:', error);
-	        alert('즐겨찾기 추가 중 오류가 발생했습니다.');
-	    });
-	};  
+const addToFavorites = (button) => {
+    const foodIdx = button.closest('.food-item').querySelector('.food-idx').value;
+
+    const memberIdxElement = document.querySelector('#memberIdx');
+    if (!memberIdxElement) {
+        console.error('회원 정보를 찾을 수 없습니다.');
+        alert('회원 정보를 찾을 수 없습니다.');
+        return;
+    }
+
+    const memberIdx = memberIdxElement.innerText.trim(); // memberIdx를 가져옴
+
+    fetch(`/rest/favoritefood/add?foodIdx=${foodIdx}`, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ memberIdx: memberIdx }), // memberIdx만 JSON으로 body에 포함
+    })
+    .then(response => {
+        if (response.ok) {
+            return response.text();
+        } else {
+            throw new Error('이용에 불편을 드려 죄송합니다. 다시 시도해주세요');
+        }
+    })
+    .then(data => {
+        alert(data);
+    })
+    .catch((error) => {
+        console.error('Error:', error);
+        alert('즐겨찾기 추가 중 오류가 발생했습니다.');
+    });
+};
 </script>
+
+
 <!-- 스크롤 구현하기 -->
 <script src="/site/js/sidescrolling.js"></script>
 <script type="text/javascript">
