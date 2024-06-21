@@ -26,7 +26,7 @@ public class RestNoticeController {
 	private NoticeService noticeService;
 
 	@PostMapping("/notice/regist")
-	public ResponseEntity<?> regist(@Validated @RequestBody Notice notice, BindingResult result) {
+	public ResponseEntity<Object> regist(@Validated @RequestBody Notice notice, BindingResult result) {
 		if (result.hasErrors()) {
 			Map<String, String> errors = new HashMap<>();
 			for (FieldError error : result.getFieldErrors()) {
