@@ -8,10 +8,8 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.sds.foodfit.domain.CustomUserDetails;
-import com.sds.foodfit.domain.FavoriteFood;
 import com.sds.foodfit.domain.Member;
 import com.sds.foodfit.exception.MemberException;
-import com.sds.foodfit.model.favoritefood.FavoriteFoodService;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -21,9 +19,6 @@ public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
     private MemberDAO memberDAO;
-
-    @Autowired
-    private FavoriteFoodService favoriteFoodService;
 
     private final PasswordEncoder passwordEncoder;
 
@@ -50,13 +45,13 @@ public class CustomUserDetailsService implements UserDetailsService {
 	Integer memberIdx = member.getMemberIdx();
 	log.debug("회원의 Idx 정보 : " + memberIdx);
 
-	//FavoriteFood favoriteFood = favoriteFoodService.selectByMemberIdx(memberIdx);
+	// FavoriteFood favoriteFood = favoriteFoodService.selectByMemberIdx(memberIdx);
 
-	//log.debug("마이푸드 정보 조회 결과: " + favoriteFood);
+	// log.debug("마이푸드 정보 조회 결과: " + favoriteFood);
 
-	CustomUserDetails userDetails = new CustomUserDetails(member, null);
+	CustomUserDetails userDetails = new CustomUserDetails(member);
 
-	return new CustomUserDetails(member, null);
+	return new CustomUserDetails(member);
 
     }
 }

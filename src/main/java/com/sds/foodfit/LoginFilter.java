@@ -62,12 +62,6 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 	session.setAttribute("member", userDetails.getMember());
 	log.debug("member is :" + userDetails.getMember());
 
-	// FavoriteFood 확인
-	if (userDetails.getFavoriteFood() == null) {
-	    log.warn("사용자의 FavoriteFood가 null입니다.");
-	    // null인 경우에도 로그인 절차를 계속 진행
-	}
-
 	chain.doFilter(request, response);
     }
 

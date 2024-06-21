@@ -106,18 +106,7 @@
 										<p>
 												<span th:text="${foodDB.sodium}">0</span> mg
 										</p>
-								</div>
-								<div>
-										<img
-												src="/img/add-favorite.png"
-												alt="즐겨찾기"
-												class="favorite-icon"
-												style="width: 30%; height: auto; display: block; margin: 20px auto 0;"
-												width="50"
-												height="50"
-												onclick="addToFavorites(this)"
-										>
-								</div>
+								</div>								
 						</div>
 				</div>
 				<br>
@@ -143,45 +132,6 @@
 		<!-- footer_link end -->
 </body>
 </html>
-
-<!-- 즐겨찾기 추가하기 -->
-<script type="text/javascript">
-const addToFavorites = (button) => {
-    const foodIdx = button.closest('.food-item').querySelector('.food-idx').value;
-
-    const memberIdxElement = document.querySelector('#memberIdx');
-    if (!memberIdxElement) {
-        console.error('회원 정보를 찾을 수 없습니다.');
-        alert('회원 정보를 찾을 수 없습니다.');
-        return;
-    }
-
-    const memberIdx = memberIdxElement.innerText.trim(); // memberIdx를 가져옴
-
-    fetch(`/rest/favoritefood/add?foodIdx=${foodIdx}`, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ memberIdx: memberIdx }), // memberIdx만 JSON으로 body에 포함
-    })
-    .then(response => {
-        if (response.ok) {
-            return response.text();
-        } else {
-            throw new Error('이용에 불편을 드려 죄송합니다. 다시 시도해주세요');
-        }
-    })
-    .then(data => {
-        alert(data);
-    })
-    .catch((error) => {
-        console.error('Error:', error);
-        alert('즐겨찾기 추가 중 오류가 발생했습니다.');
-    });
-};
-</script>
-
 
 <!-- 스크롤 구현하기 -->
 <script src="/site/js/sidescrolling.js"></script>

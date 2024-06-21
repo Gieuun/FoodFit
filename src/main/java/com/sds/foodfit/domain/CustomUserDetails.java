@@ -16,11 +16,9 @@ public class CustomUserDetails implements UserDetails {
 
     private Member member;
 
-    private FavoriteFood favoriteFood;
-
-    public CustomUserDetails(Member member, FavoriteFood favoriteFood) {
+    public CustomUserDetails(Member member) {
 	this.member = member;
-	this.favoriteFood = favoriteFood;
+
     }
 
     @Override

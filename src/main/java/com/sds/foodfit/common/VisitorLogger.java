@@ -9,12 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.stereotype.Component;
 
 import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 
+@Component
 public class VisitorLogger {
+
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
@@ -31,7 +34,7 @@ public class VisitorLogger {
 	}
 
 	if (newVisit) {
-	    String sql = "INSERT INTO visitorLogs (visitDate, visitorId) VALUES (?, ?)";
+	    String sql = "INSERT INTO visitorLog (visitDate, visitorId) VALUES (?, ?)";
 	    String visitorId = getVisitorId();
 	    jdbcTemplate.update(sql, Timestamp.valueOf(LocalDateTime.now()), visitorId);
 
