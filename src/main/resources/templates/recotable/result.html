@@ -107,9 +107,9 @@
         <div class="nutrient-bar">
             <span>
                 <img src="/img/carbs-icon.png" alt="탄수화물 아이콘" class="icon">
-                탄수화물
+               
             </span>
-            <span th:text="${totalCarbohydrate} + 'g'">0g</span>
+            <span th:text="'지금까지 먹은 탄수화물은 총 ' + ${totalCarbohydrate} + 'g 입니다'">0g</span>
         </div>
         <div class="progress-bar">
             <div th:style="'width:' + (${totalCarbohydrate} / ${inputCarbohydrate} * 100) + '%'" class="progress carbs"></div>
@@ -117,9 +117,9 @@
         <div class="nutrient-bar">
             <span>
                 <img src="/img/protein-icon.png" alt="단백질 아이콘" class="icon">
-                단백질
+                
             </span>
-            <span th:text="${totalProtein} + 'g'">0g</span>
+            <span th:text="'지금까지 먹은 단백질은 총 ' + ${totalProtein} + 'g 입니다'">0g</span>
         </div>
         <div class="progress-bar">
             <div th:style="'width:' + (${totalProtein} / ${inputProtein} * 100) + '%'" class="progress protein"></div>
@@ -127,9 +127,9 @@
         <div class="nutrient-bar">
             <span>
                 <img src="/img/fat-icon.png" alt="지방 아이콘" class="icon">
-                지방
+               
             </span>
-            <span th:text="${totalFat} + 'g'">0g</span>
+            <span th:text="'지금까지 먹은 지방은 총 ' + ${totalFat} + 'g 입니다'">0g</span>
         </div>
         <div class="progress-bar">
             <div th:style="'width:' + (${totalFat} / ${inputFat} * 100) + '%'" class="progress fat"></div>
