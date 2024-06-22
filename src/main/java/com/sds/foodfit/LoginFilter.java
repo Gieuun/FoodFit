@@ -1,6 +1,8 @@
 package com.sds.foodfit;
 
 import java.io.IOException;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -8,6 +10,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sds.foodfit.domain.CustomUserDetails;
 
 import jakarta.servlet.FilterChain;
@@ -54,13 +58,35 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 	CustomUserDetails userDetails = (CustomUserDetails) authentication.getPrincipal();
 
 	// 세션에 사용자 세부 정보 저장
-	request.getSession().setAttribute("userDetails", userDetails);
+	HttpSession session = request.getSession();
+	session.setAttribute("userDetails", userDetails);
+	session.setAttribute("member", userDetails.getMember());
 
 	log.debug("세션에 사용자 정보 저장: 사용자명 = " + userDetails);
-
-	HttpSession session = request.getSession();
-	session.setAttribute("member", userDetails.getMember());
+	log.debug("memberIdx is" + userDetails.getMember());
 	log.debug("member is :" + userDetails.getMember());
+
+	// JSon 형식으로 세션 정보를 응답 본문에 추가
+	ObjectMapper objectMapper = new ObjectMapper();
+	String userDetailsJson;
+	try {
+	    userDetailsJson = objectMapper.writeValueAsString(userDetails);
+	    response.setContentType("application/json");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write(userDetailsJson);
+
+	    // User-Id 값이 유효한지 확인하고, 필요시 URL 인코딩을 적용
+	    String encodedUserId = URLEncoder.encode(userDetails.getUsername(), StandardCharsets.UTF_8.toString());
+	    response.setHeader("User-Id", encodedUserId);
+
+	    // 로그 메시지 추가
+	    log.debug("응답 본문에 User-Details 추가: " + userDetailsJson);
+	    log.debug("응답 헤더에 User-Id 추가: " + userDetails.getUsername());
+	} catch (JsonProcessingException e) {
+	    log.error("JSON 직렬화 오류", e);
+	    response.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR, "서버 오류");
+	    return;
+	}
 
 	chain.doFilter(request, response);
     }

@@ -17,73 +17,76 @@ import lombok.extern.slf4j.Slf4j;
 @Service("recommendFoodService")
 public class RecommendFoodService implements FoodDBService {
 
-	@Autowired
-	private FoodDBDAO foodDBDAO;
+    @Autowired
+    private FoodDBDAO foodDBDAO;
 
-	@Autowired
-	private ObjectMapper objectMapper;
+    @Autowired
+    private ObjectMapper objectMapper;
 
-	@Override
-	public Map<String, Object> setFoodResult(String jsonData) {
-		Map<String, Object> response = new HashMap<>();
-		Map<String, String> formData;
+    public List<FoodDB> selectRandomHundred() {
+	return foodDBDAO.selectRandomHundred();
+    };
 
-		try {
-			formData = objectMapper.readValue(jsonData, Map.class);
-		} catch (Exception e) {
-			response.put("title", "Error");
-			response.put("foodDBList", null);
-			return response; // Return response immediately in case of error
-		}
+    @Override
+    public Map<String, Object> setFoodResult(String jsonData) {
+	Map<String, Object> response = new HashMap<>();
+	Map<String, String> formData;
 
-		String type = formData.get("type");
-		List<FoodDB> foodDBList = null; // 초기화 안해주면 오류남
-
-		switch (type) {
-		case "highProtein":
-			foodDBList = foodDBDAO.selectHighProtein();
-			response.put("title", "I♥프로틴");
-			break;
-		case "lowSugar":
-			foodDBList = foodDBDAO.selectLowSugar();
-			response.put("title", "프로 다이어터");
-			break;
-		case "lowSodium":
-			foodDBList = foodDBDAO.selectLowSodium();
-			response.put("title", "네? 저..염?!");
-			break;
-		case "random":
-			foodDBList = foodDBDAO.selectRandomHundred();
-			response.put("title", "아무거나 10개 뽑았다");
-			break;
-		}
-
-		response.put("foodDBList", foodDBList);
-		return response;
+	try {
+	    formData = objectMapper.readValue(jsonData, Map.class);
+	} catch (Exception e) {
+	    response.put("title", "Error");
+	    response.put("foodDBList", null);
+	    return response; // Return response immediately in case of error
 	}
 
-	@Override
-	public Model setTableResult(String jsonData, Model model) {
-		// TODO Auto-generated method stub
-		return null;
+	String type = formData.get("type");
+	List<FoodDB> foodDBList = null; // 초기화 안해주면 오류남
+
+	switch (type) {
+	case "highProtein":
+	    foodDBList = foodDBDAO.selectHighProtein();
+	    response.put("title", "I♥프로틴");
+	    break;
+	case "lowSugar":
+	    foodDBList = foodDBDAO.selectLowSugar();
+	    response.put("title", "프로 다이어터");
+	    break;
+	case "lowSodium":
+	    foodDBList = foodDBDAO.selectLowSodium();
+	    response.put("title", "네? 저..염?!");
+	    break;
+	case "random":
+	    foodDBList = foodDBDAO.selectRandomHundred();
+	    response.put("title", "아무거나 10개 뽑았다");
+	    break;
 	}
 
-	@Override
-	public List<FoodDB> getAllFoods() {
-		// TODO Auto-generated method stub
-		return null;
-	}
+	response.put("foodDBList", foodDBList);
+	return response;
+    }
 
-	@Override
-	public List<FoodDB> searchFoodsByName(String search) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public Model setTableResult(String jsonData, Model model) {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
-	@Override
-	public List<FoodDB> findByFoodName(String foodName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<FoodDB> getAllFoods() {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public List<FoodDB> searchFoodsByName(String search) {
+	// TODO Auto-generated method stub
+	return null;
+    }
+
+    @Override
+    public List<FoodDB> findByFoodName(String foodName) {
+	// TODO Auto-generated method stub
+	return null;
+    }
 }
-
