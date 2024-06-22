@@ -45,4 +45,3 @@ public class TableServiceImpl implements FoodDBService {
         return model;
     }
 }
-

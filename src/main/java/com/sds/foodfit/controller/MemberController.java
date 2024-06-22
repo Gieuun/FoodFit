@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
+import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -32,8 +33,10 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sds.foodfit.domain.CustomUserDetails;
 import com.sds.foodfit.domain.Member;
 import com.sds.foodfit.domain.Role;
+import com.sds.foodfit.exception.MemberException;
 import com.sds.foodfit.model.member.MemberService;
 import com.sds.foodfit.model.role.RoleService;
 import com.sds.foodfit.model.sns.SnsService;
@@ -73,8 +76,9 @@ public class MemberController {
 	@Autowired
 	private PasswordEncoder passwordEncoder;
 	
-
-
+	@Autowired
+    private HttpSession session;
+	
 	// 로그인 폼 요청 처리
 	@GetMapping("/recomember/loginform")
 	public String getLoginForm() {
@@ -102,15 +106,56 @@ public class MemberController {
 		return "recomember/regist";
 	}
 	
-	// 아이디 중복 확인 처리
-	 @PostMapping("/recomember/checkId")
-	    @ResponseBody
-	    public String checkId(@RequestParam("id") String id) {
-	        boolean isExists = memberService.isIdExists(id);
-	        return String.valueOf(isExists); // true 또는 false 문자열 반환
-	    }
+	 // 아이디 중복 확인 처리
+	@PostMapping("/recomember/checkId")
+	@ResponseBody
+	public String checkId(@RequestParam("id") String id) {
+	    boolean isExists = memberService.isIdExists(id);
+	    return String.valueOf(isExists); // true 또는 false 문자열 반환
+	}
+
+     /*---------------------------------------------------------------------------------------------------------------------------
+  	  아이디 변경 요청 처리
+ 	 --------------------------------------------------------------------------------------------------------------------------- */
+	 @PostMapping("/recomember/updateId")
+	 @ResponseBody
+	 public String updateId(@RequestParam("newId") String newId, HttpSession session) {
+	     Member loginUser = (Member) session.getAttribute("member");
+
+	     // 세션에 저장된 회원 정보가 없다면 로그인 페이지로 리다이렉트
+	     if (loginUser == null) {
+	         return "redirect:/login";
+	     }
+
+	     // 새로운 아이디 유효성 검사를 수행 (필요에 따라 추가 구현)
+	     if (!isValidId(newId)) {
+	         return "invalid"; // 유효하지 않은 아이디일 경우 처리 방법 정의
+	     }
+
+	     try {
+	         // 새로운 아이디로 회원 정보 업데이트
+	         memberService.updateId(loginUser.getMemberIdx(), newId); // Service에서 아이디 업데이트 처리
+
+	         // 업데이트된 회원 정보 세션에 다시 설정
+	         loginUser.setId(newId);
+	         session.setAttribute("member", loginUser);
+
+	         return "success"; // 아이디 업데이트 성공
+	     } catch (MemberException e) {
+	         // 아이디 업데이트 중 예외 발생 시 처리
+	         return "error"; // 실패 시 처리 방법 정의
+	     }
+	 }
+
+	 // 아이디 유효성 검사 메서드
+	 private boolean isValidId(String id) {
+	     return true; // 임시로 true를 반환하도록 설정, 실제 구현 필요
+	 }
+
+	/*---------------------------------------------------------------------------------------------------------------------------
+	  회원 정보 수정 처리
+	 -------------------------------------------------------------------------------------------------------------------------- */
 	
-	//회원 정보 수정 처리
 	@PostMapping("/recomember/update")
 	public ResponseEntity<String> update(Member member, HttpSession session) {
 	    Member loginUser = (Member) session.getAttribute("member");
@@ -126,46 +171,75 @@ public class MemberController {
 	    return ResponseEntity.ok("회원 정보가 성공적으로 업데이트 되었습니다.");
     }
 	
-	/*
-	//회원 정보 삭제 처리
+	/*---------------------------------------------------------------------------------------------------------------------------
+	  비밀번호 변경 처리
+	-------------------------------------------------------------------------------------------------------------------------- */
+	@PostMapping("/recomember/changePassword")
+	public ResponseEntity<String> changePassword(@RequestParam("currentPwd") String currentPwd, @RequestParam("newPwd") String newPwd, HttpSession session) {
+		
+		log.debug("비밀번호 변경 요청");
+	    
+	    Member loginUser = (Member) session.getAttribute("member");
+	    log.debug("로그인된 사용자 ID 는 {}", loginUser.getId());
+	    
+	    // 현재 비밀번호 확인
+	    if (!passwordEncoder.matches(currentPwd, loginUser.getPwd())) {
+	        log.warn("현재 비밀번호가 일치하지 않습니다.");
+	        return ResponseEntity.badRequest().body("currentPwdMismatch");
+	    }
+	    
+	    log.debug("현재 비밀번호가 일치합니다.");
+	    
+	    // 새로운 비밀번호로 업데이트
+	    String encodedNewPwd = passwordEncoder.encode(newPwd);
+	    log.debug("새로운 비밀번호는(해시) ? {}", encodedNewPwd);
+	    loginUser.setPwd(encodedNewPwd);
+	    
+	    try {
+	        log.debug("비밀번호 업데이트 시도");
+	        memberService.updatePassword(loginUser.getMemberIdx(), currentPwd, encodedNewPwd);
+	        log.debug("비밀번호 업데이트 성공");
+	    } catch (Exception e) {
+	        log.error("비밀번호 업데이트 중 오류 발생", e);
+	        return ResponseEntity.badRequest().body("error");
+	    }
+
+	    // 세션 정보 업데이트 (옵션)
+	    session.setAttribute("member", loginUser);
+	    log.debug("세션 정보 업데이트 완료");
+	    
+	    session.invalidate();
+	    log.debug("세션 무효화 완료");
+	    
+	    return ResponseEntity.ok("success");
+	}
+
+	/*---------------------------------------------------------------------------------------------------------------------------
+	  회원 탈퇴 처리
+	----------------------------------------------------------------------------------------------------------------------------- */	
+
 	@PostMapping("/recomember/delete")
-	public String delete(int memberIdx) {
-		
-		memberService.delete(memberIdx);
-		
-		return "redirect:/logout";
-	}
-	*/
-	
-	// 마이페이지 폼 요청 처리
-	@GetMapping("/recomember/mypage")
-	public String getMypageForm(Model model, HttpSession session) {
-		// 로그인한 회원 정보 가져오기
-		Member member = (Member) session.getAttribute("member");
+	public ResponseEntity<String> deleteMember(Member member, HttpSession session){
+		// 현재 로그인된 회원 정보 가져오기
+        Member loginUser = (Member) session.getAttribute("member");
+        log.debug("loginUser 정보는 " + loginUser);
 
-		model.addAttribute("member", member);
+        try {
+            // 회원 탈퇴 서비스 호출
+            memberService.deleteMember(loginUser.getMemberIdx());
 
-		log.debug("member is{} " + member);
+            // 세션에서 로그인 정보 제거
+            session.removeAttribute("member");
 
-		return "recomember/mypage";
-	}
-	
-	
-	// 선호 음식 폼 요청 처리
-	@GetMapping("/recomember/favorite")
-	public String getMypage2Form(Model model, HttpSession session) {
-
-		// 로그인한 회원 정보 가져오기
-		Member member = (Member) session.getAttribute("member");
-
-		model.addAttribute("member", member);
-
-		log.debug("member is{} " + member);
-
-		return "recomember/favorite";
-	}
-
-	// 홈페이지 회원가입 요청 처리
+            return ResponseEntity.ok("success");
+        } catch (MemberException e) {
+            log.error("회원 탈퇴 중 오류 발생: " + e.getMessage());
+            return ResponseEntity.badRequest().body("회원 탈퇴 실패: " + e.getMessage());
+        }
+    }
+	/*---------------------------------------------------------------------------------------------------------------------------
+	  홈페이지 회원가입 처리
+	----------------------------------------------------------------------------------------------------------------------------- */
 	@PostMapping("/recomember/regist")
 	public String HealthForm(Member member, HttpSession session) {
 		log.debug("회원가입 요청 시도");
@@ -205,6 +279,29 @@ public class MemberController {
 		return "redirect:/login";
 	}
 	
+	/*---------------------------------------------------------------------------------------------------------------------------
+	  마이페이지 
+	----------------------------------------------------------------------------------------------------------------------------- */	
+	@GetMapping("/recomember/mypage")
+	public String getMypageForm(Model model, HttpSession session) {
+		
+		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+		
+		log.debug("사용자의 권한 정보는 " +authentication.getAuthorities());
+		
+		
+		// 로그인한 회원 정보 가져오기
+		Member member = (Member) session.getAttribute("member");
+
+		model.addAttribute("member", member);
+
+		log.debug("member is{} " + member);
+
+		return "recomember/mypage";
+	}
+	
+
+	
 
 	/*================================================================== 
 	  네이버 서버에서들어온 콜백 요청처리
@@ -215,6 +312,15 @@ public class MemberController {
 
 		String code = request.getParameter("code");
 		log.debug("네이버 인증 코드: " + code);
+		
+		if (code == null || code.isEmpty()) {
+	        // 네이버 로그인 취소 처리
+	        log.debug("네이버 로그인이 취소되었습니다.");
+	        // 취소 처리 후 로그인 페이지로 리다이렉트 또는 다른 처리를 수행할 수 있습니다.
+	        
+	        // 예시: 로그인 페이지로 리다이렉트
+	        return new ModelAndView("redirect:/login");
+	    }
 
 		// 토큰 요청을 위한 Post 헤더 Body 구성
 		String token_url = naverLogin.getToken_request_url();
@@ -316,6 +422,7 @@ public class MemberController {
 		Member dto  = memberService.selectById(id);
 
 		if (dto == null ) {
+			member.setPwd("");
 			memberService.regist(member);
 			dto = member;
 		} else {
@@ -455,6 +562,7 @@ public class MemberController {
 
 		if (dto == null) {
 		    // 신규 사용자 등록
+			member.setPwd("");
 		    memberService.regist(member);
 		    dto = member;
 		    log.debug("가입처리");
@@ -536,13 +644,18 @@ public class MemberController {
 	            HashMap<String, String> userMap = objectMapper2.readValue(userBody, new TypeReference<HashMap<String, String>>() {});
 
 	            // 사용자 정보 파싱 및 처리
-	            String uid = userMap.get("id");
+	            String uid = userMap.get("sub");
 	            String email = userMap.get("email");
 	            String nickname = userMap.get("name");
 
 	            log.debug("uid is: " + uid);
 	            log.debug("email is: " + email);
 	            log.debug("nickname is: " + nickname);
+	            
+	            if(uid == null || uid.trim().isEmpty()) {
+	            	log.error("Google에서 받은 uid가 null이거나 비어있습니다");
+	            	throw new MemberException("Google에서 받은 uid가 null이거나 비어 있습니다");
+	            }
 	            
 	            Member member = new Member();
 	        	member.setId(uid);
@@ -560,6 +673,7 @@ public class MemberController {
 
 	    		if (dto == null) {
 	    		    // 신규 사용자 등록
+	    			member.setPwd(""); //비밀번호 필드를null로 설정
 	    		    memberService.regist(member);
 	    		    dto = member;
 	    		    log.debug("가입처리");

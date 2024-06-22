@@ -86,4 +86,3 @@ public class RecommendFoodService implements FoodDBService {
 		return null;
 	}
 }
-

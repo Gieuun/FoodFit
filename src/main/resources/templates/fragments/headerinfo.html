@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Header Info</title>
+</head>
+<body>
+    <th:block th:fragment="headerinfo" th:inline="text">
+        <!-- Gender -->
+        <input type="hidden" id="hiddenGender" th:value="${gender}" name="headerinfo.gender">
+
+        <!-- Age -->
+        <input type="hidden" id="hiddenAge" th:value="${age}" name="headerinfo.age">
+
+        <!-- Height -->
+        <input type="hidden" id="hiddenHeight" th:value="${height}" name="headerinfo.height">
+
+        <!-- Weight -->
+        <input type="hidden" id="hiddenWeight" th:value="${weight}" name="headerinfo.weight">
+    </th:block>
+</body>
+</html>

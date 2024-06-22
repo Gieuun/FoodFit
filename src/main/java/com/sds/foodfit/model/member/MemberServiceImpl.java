@@ -1,6 +1,7 @@
 package com.sds.foodfit.model.member;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -11,6 +12,7 @@ import com.sds.foodfit.exception.MemberException;
 import com.sds.foodfit.model.role.RoleDAO;
 import com.sds.foodfit.model.sns.SnsDAO;
 
+import jakarta.mail.MessagingException;
 import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
@@ -29,6 +31,10 @@ public class MemberServiceImpl implements MemberService {
 	
 	@Autowired
 	private  HttpSession session;
+	
+	@Autowired
+	private PasswordEncoder passwordEncoder;
+	
 	
 	@Transactional
 	public void regist(Member member) throws MemberException {
@@ -61,19 +67,15 @@ public class MemberServiceImpl implements MemberService {
 		
 		Role role = roleDAO.selectByName(member.getRole().getRoleName());
 		member.setRole(role); // role_idx가 채워진 DTO를 다시 MemberDTO 에 대입
+		
 
 		// Member 삽입
 		int result = memberDAO.insert(member);
-
-		if (result < 1) {
-			log.debug("member insert 실패  ");
-			throw new MemberException("회원 등록 실패");
+		
+		if(result <1) {
+			throw new MemberException("회원  등록 실패");
 		}
-	
-		// 홈페이지만 추가 정보 처리
-		if ("homepage".equals(sns.getSnsName())) {
-			log.debug("홈페이지 사용자 추가 정보 처리");
-			}
+
 	}
 
 
@@ -86,6 +88,7 @@ public class MemberServiceImpl implements MemberService {
 	public Member selectByMemberIdx(int memberIdx) {
 		return memberDAO.selectByMemberIdx(memberIdx);
 	}
+	
 	//아이디 중복 체크
 	public boolean isIdExists(String id) {
 	    int count = memberDAO.isIdExists(id);
@@ -133,14 +136,97 @@ public class MemberServiceImpl implements MemberService {
 	     }
 	     
 	}
-	/*
-	//회원 탈퇴 처리
-	public void delete(int memberIdx) throws MemberException {
-		int result = memberDAO.delete(memberIdx);
-		
-		if(result <1) {
-			throw new MemberException("회원 탈퇴 실패");
-		}
+	
+	@Transactional
+    // 아이디 변경
+    public void updateId(int memberIdx, String newId) throws MemberException {
+        // 새로운 아이디 유효성 검사
+        if (!isValidId(newId)) {
+            throw new MemberException("유효하지 않은 아이디입니다");
+        }
+
+        // 현재 로그인된 회원 정보 가져오기
+        Member loginUser = (Member) session.getAttribute("member");
+        log.debug("loginUser 정보는 " + loginUser);
+
+        // 로그인 여부 확인
+        if (loginUser == null) {
+            throw new MemberException("로그인이 필요합니다");
+        }
+
+        // 로그인한 회원의 회원 번호 가져오기
+        int currentMemberIdx = loginUser.getMemberIdx();
+        if (currentMemberIdx != memberIdx) {
+            throw new MemberException("변경 권한이 없는 회원입니다");
+        }
+
+        // 새로운 아이디로 회원 정보 업데이트
+        loginUser.setId(newId);
+        memberDAO.update(loginUser); // 데이터베이스에서 회원 정보 업데이트
+
+        // 세션에 업데이트된 회원 정보 다시 설정
+        session.setAttribute("member", loginUser);
+    }
+	
+	//아이디 유효성 검사 메서드
+	private boolean isValidId(String newId) {
+		return true;
 	}
-	*/
+
+
+	//회원 탈퇴 메서드
+	@Transactional
+    public void deleteMember(int memberIdx) throws MemberException {
+        // 현재 로그인된 회원 정보 가져오기
+        Member loginUser = (Member) session.getAttribute("member");
+        log.debug("loginUser 정보는 " + loginUser);
+
+        // 로그인 여부 확인
+        if (loginUser == null) {
+            throw new MemberException("로그인이 필요합니다");
+        }
+
+        // 로그인한 회원의 회원 번호 가져오기
+        int currentMemberIdx = loginUser.getMemberIdx();
+        if (currentMemberIdx != memberIdx) {
+            throw new MemberException("탈퇴 권한이 없는 회원입니다");
+        }
+
+        // 회원 삭제
+        memberDAO.deleteMember(memberIdx);
+
+        // 세션에서 로그인 정보 제거
+        session.removeAttribute("member");
+    }
+
+	//비밀번호 변경
+	@Override
+	public void updatePassword(int memberIdx, String currentPwd, String encodedNewPwd) throws MemberException {
+		// 현재 로그인된 회원 정보 가져오기
+	    Member loginUser = (Member) session.getAttribute("member");
+	    log.debug("loginUser 정보는 {}", loginUser);
+
+	    // 로그인 여부 확인
+	    if (loginUser == null) {
+	        throw new MemberException("로그인이 필요합니다");
+	    }
+
+	    // 로그인한 회원의 회원 번호 가져오기
+	    int currentMemberIdx = loginUser.getMemberIdx();
+	    if (currentMemberIdx != memberIdx) {
+	        throw new MemberException("비밀번호 변경 권한이 없는 회원입니다");
+	    }
+
+	    // 새로운 비밀번호 설정
+	    loginUser.setPwd(encodedNewPwd);
+
+	    // 회원 정보 업데이트
+	    memberDAO.update(loginUser);
+	    log.debug("회원 정보 업데이트 완료");
+
+	    // 세션에 업데이트된 회원 정보 다시 설정
+	    session.setAttribute("member", loginUser);
+	    log.debug("세션 정보 업데이트 완료");
+	}
+
 }
