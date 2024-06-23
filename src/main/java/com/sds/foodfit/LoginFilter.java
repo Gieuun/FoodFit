@@ -1,17 +1,13 @@
 package com.sds.foodfit;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.sds.foodfit.domain.CustomUserDetails;
@@ -38,27 +34,18 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 	log.debug("로그인 시도중");
 
 	// 사용자가 로그인폼에서 전송한 아이디, 패스워드에 이 메서드로 전달되는지부터 체크
-	String id  = request.getParameter("id");
-	String password = request.getParameter("pwd");
+	String id = request.getParameter("id");
+	String pwd = request.getParameter("pwd");
 
 	log.debug("===== 로그인필터 : 로그인 아이디 확인 " + id);
-	log.debug("===== 로그인필터 : 로그인 pwd 확인 " + password);
-	
-	
-	// 사용자에게 부여할 권한을 설정
-	List<GrantedAuthority> authorities = new ArrayList<>();
-	// Authentication 객체를 생성합니다.
-	authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
-	// 권한을 "ROLE_USER"로 설정
-	Authentication auth = new UsernamePasswordAuthenticationToken(id, password, authorities);
-	
-	 // SecurityContextHolder에 Authentication 객체를 설정
-	SecurityContextHolder.getContext().setAuthentication(auth);  //이 코드가 존재해야,  권한이 스프링시큐리티에 저장됨
-	
-	log.debug("auth 에 들어있느 객체는 "+auth);
+	log.debug("===== 로그인필터 : 로그인 pwd 확인 " + pwd);
+
+	// 이 객체를 생성해 인증매니저를통해 인증시도한다.
+	UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(id, pwd, Collections.singletonList(new SimpleGrantedAuthority("USER")));
+	log.debug("authToken 에 들어있느 객체는 "+authToken);
 
 	// 인증 매니저를 통해 인증 시도
-	return this.getAuthenticationManager().authenticate(auth);
+	return this.getAuthenticationManager().authenticate(authToken);
 
     }
 
