@@ -3,7 +3,6 @@ package com.sds.foodfit.controller;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +22,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.client.RestClientException;
@@ -83,9 +83,14 @@ public class MemberController {
 	public String getLoginForm() {
 		return "recomember/login";
 	}
-
-
-
+	
+	// 로그인 요청처리
+	@PostMapping("/recomember/login")
+	public ResponseEntity login(Member member) {
+		log.debug("컨트롤러에서 로그인 요청 받음");
+		return ResponseEntity.ok().build();
+	}
+		
 	// 로그아웃 요청 처리
 	@GetMapping("/recomember/logout")
 	public String logout(HttpSession session) {
@@ -207,7 +212,17 @@ public class MemberController {
 	    
 	    return ResponseEntity.ok("success");
 	}
-
+	
+	/*---------------------------------------------------------------------------------------------------------------------------
+	  이메일 중복 처리
+	-------------------------------------------------------------------------------------------------------------------------- */
+	 @PostMapping("/recomember/checkEmail")
+	 public ResponseEntity<Boolean> checkEmail(@RequestBody Map<String, String> request) {
+	        String email = request.get("email");
+	        boolean isExists = memberService.isEmailExists(email);
+	        return ResponseEntity.ok(isExists);
+	    }
+	
 	/*---------------------------------------------------------------------------------------------------------------------------
 	  회원 탈퇴 처리
 	----------------------------------------------------------------------------------------------------------------------------- */	

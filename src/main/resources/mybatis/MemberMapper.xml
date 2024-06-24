@@ -61,5 +61,10 @@
         delete from member where memberIdx = #{memberIdx}
     </delete>
     
+    <!-- 이메일 중복처리 -->
+    <select id="selectByEmail" resultType="Member">
+        select * from member where email = #{email}
+    </select>
+    
       
 </mapper>

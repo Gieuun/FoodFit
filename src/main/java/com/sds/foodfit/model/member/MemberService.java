@@ -20,5 +20,7 @@ public interface MemberService {
     public void deleteMember(int memberIdx); // 회원 삭제
     
     public void updatePassword(int memberIdx, String currentPwd, String newPwd); //비밀번호 변경
+    
+    public boolean isEmailExists(String email); // 이메일 중복 확인
   
 }

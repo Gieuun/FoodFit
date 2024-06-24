@@ -51,19 +51,19 @@ public class SecurityConfig {
 		.requestMatchers("/").permitAll() // 모든 요청을 인증 없이 허용.
 		.requestMatchers("/recofood/**").permitAll() // 음식추천경로를 인증 없이 허용. 결과물 나오면 수정필요!
 		.requestMatchers("/food/**").permitAll() // 음식추천요청을 인증 없이 허용. 결과물 나오면 수정필요!
-		.requestMatchers("/favoritefood/**").permitAll() // 즐겨찾기 호출 허용
-		.requestMatchers("/rest/favoritefood/**").permitAll() // 즐겨찾기 rest 호출 허용
 		.requestMatchers("/rest/foodTypeSurvey/regist").permitAll() // 서베이등록post허용
 
 		.requestMatchers("/rest/notice/**").permitAll() // 모든 요청을 인증 없이 허용. 결과물 나오면 수정필요!
 		.requestMatchers("/recomember/sns/**").permitAll() // sns 이용자 요청 허용
 		.requestMatchers("/rest/recomember/**").permitAll()
 
+		//.requestMatchers("/recofood/**").hasAnyAuthority("USER")
 		//.requestMatchers("/recomember/mypage").hasAnyAuthority("USER")
 		
 
 		.anyRequest().authenticated() // 그 외의 요청은 인증 필요
 	);
+	
 
 	http.csrf((auth) -> auth.disable());
 
