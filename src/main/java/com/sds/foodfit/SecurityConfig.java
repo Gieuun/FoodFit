@@ -51,8 +51,9 @@ public class SecurityConfig {
 		.requestMatchers("/notice/**").permitAll().requestMatchers("/rest/notice/**").permitAll()
 		.requestMatchers("/recomember/sns/**").permitAll() // sns 이용자 요청 허용
 		.requestMatchers("/rest/recomember/**").permitAll() // rest요청
-		.requestMatchers("/recomember/mypage").hasAnyAuthority("USER") // 마이페이지
+		
 		.requestMatchers("/recofood/**").hasAnyAuthority("USER") // 회원만 이용
+		.requestMatchers("/recotable/**").hasAnyAuthority("USER") // 회원만 이용
 		.requestMatchers("/recomember/mypage").hasAnyAuthority("USER") // 회원만 이용
 
 		.anyRequest().authenticated() // 그 외의 요청은 인증 필요

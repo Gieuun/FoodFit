@@ -145,74 +145,23 @@ p {
 </body>
 </html>
 
-<script type="text/javascript">
-    $(document).ready(function() {
-        // DOM이 준비되면 실행될 코드
-
-        // Gender와 Age 값을 가져와서 다른 div에 반영하는 함수 (session 완성 시 테스트)
-        function updateInfo() {
-            const gender = $('input[name="gender"]:checked').val();
-            const age = $('input[name="age"]:checked').val();
-
-            // 다른 div에 값을 반영 (예: alert으로 표시)
-            if (gender && age) {
-                // 그냥 지나간다
-            } else {
-                alert("성별과 연령을 선택해주세요.");
-            }
-        }
-
-        // '결과 보기' 버튼 클릭 시 실행될 코드 (타입에 따른 객체 호출)
-        $("#bt_result").click(function() {
-            // form 데이터 가져오기
-            let formDataArray = $("#InfoInputForm").serializeArray();
-            let formData = {};
-            $.each(formDataArray, function(_, field) {
-                formData[field.name] = field.value;
-            });
-
-            // 필수 입력 필드 배열 정의
-            let requiredFields = ['gender', 'age', 'type'];
-
-            // 필수 입력 값 확인
-            let missingFields = [];
-            $.each(requiredFields, function(_, fieldName) {
-                if (!formData.hasOwnProperty(fieldName) || formData[fieldName] === "") {
-                    missingFields.push(fieldName);
-                }
-            });
-
-            // 필수 입력 값이 누락된 경우 알림 후 중단
-            if (missingFields.length > 0) {
-                alert("모든 문항을 체크해주세요 ㅠㅠ (빠진문항 :" + missingFields + ")");
-                return;
-            }
-
-            // Ajax 요청
-            $.ajax({
-                url: "/food/result",
-                type: "POST",
-                contentType: "application/json",
-                data: JSON.stringify(formData),
-                success: function(result, status, xhr) {
-                    alert("나에게 맞는 음식이 선정됐습니다. 다음의 결과를 확인해주세요 :D");
-                    window.location.href = "/food/result";
-                },
-                error: function(xhr, status, err) {
-                    alert("서버에 오류가 있습니다. 이용에 불편을 드려 죄송합니다.");
-                }
-            });
-        });
-
-        // '결과 보기' 클릭 시 updateInfo 함수 호출
-        $("#bt_result").click(updateInfo);
-    });
-</script>
-
 <!-- 서베이로 저장할 객체 insert 메서드 -->
 <script type="text/javascript">
     $(document).ready(function() {
         // DOM이 준비되면 실행될 코드
+        
+        
+        // alert 창을 띄우는 함수
+        function showAlert(message) {
+            alert(message);
+        }
+
+        // 서버에서 받은 에러 메시지 띄우기 (템플릿에서 전달된 메시지 사용)
+        var errorMessage = /*[[${error_message}]]*/ null;
+        if (errorMessage) {
+            showAlert(errorMessage);
+        }
+        
 
         // '결과 보기' 버튼 클릭 시 실행될 코드
         $("#bt_result").click(function() {

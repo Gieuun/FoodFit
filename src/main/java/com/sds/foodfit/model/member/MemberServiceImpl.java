@@ -228,4 +228,11 @@ public class MemberServiceImpl implements MemberService {
 	    log.debug("세션 정보 업데이트 완료");
 	}
 
+
+	//이메일 중복 처리
+	public boolean isEmailExists(String email) {
+		Member member = memberDAO.selectByEmail(email); // 이메일로 회원 정보 조회
+	    return member != null;
+	}
+
 }

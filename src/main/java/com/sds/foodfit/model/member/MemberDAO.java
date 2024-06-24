@@ -26,4 +26,5 @@ public interface MemberDAO {
 	
 	public void updatePassword(int memberIdx, String currentPwd, String newPwd); //비밀번호 변경
 	
+	public Member selectByEmail(String email); // 이메일로 회원 정보 조회
 }
