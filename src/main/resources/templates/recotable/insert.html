@@ -141,11 +141,11 @@ p {
 								</div>
 								<div class="form-group">
 									<h3><label for="height">키 (cm):</label></h3>
-									<input type="number" id="height" name="height" placeholder="키를 입력하세요">
+									<input type="number" id="height" name="height" placeholder="키를 입력하세요" th:value="${session.member.height}">
 								</div>
 								<div class="form-group">
 									<h3><label for="weight">몸무게 (kg):</label></h3>
-									<input type="number" id="weight" name="weight" placeholder="몸무게를 입력하세요">
+									<input type="number" id="weight" name="weight" placeholder="몸무게를 입력하세요" th:value="${session.member.weight}">
 								</div>
 							</div>
 							<br>
@@ -153,10 +153,10 @@ p {
 								<div class="form-group">
 									<h3>성별</h3>
 									<p>
-										<input id="male" name="gender" type="radio" value="male"> 남성
+										 <input id="male" name="gender" type="radio" value="male" th:checked="${session.member.gender == 'male'}"> 남성
 									</p>
 									<p>
-										<input id="female" name="gender" type="radio" value="female"> 여성
+										<input id="female" name="gender" type="radio" value="female" th:checked="${session.member.gender == 'female'}"> 여성
 									</p>
 								</div>
 							</div>
@@ -164,24 +164,24 @@ p {
 							<div class="col-md-12">
 								<div class="form-group">
 									<h3>연령</h3>
-									<p>
-										<input id="teen" name="age" type="radio" value="10"> 10대
-									</p>
-									<p>
-										<input id="twenties" name="age" type="radio" value="20"> 20대
-									</p>
-									<p>
-										<input id="thirties" name="age" type="radio" value="30"> 30대
-									</p>
-									<p>
-										<input id="forties" name="age" type="radio" value="40"> 40대
-									</p>
-									<p>
-										<input id="fifties" name="age" type="radio" value="50"> 50대
-									</p>
-									<p>
-										<input id="sixties" name="age" type="radio" value="60"> 60대 이상
-									</p>
+							        <p>
+							            <input id="teen" name="age" type="radio" value="10" th:checked="${session.member.age == '10'}"> 10대
+							        </p>
+							        <p>
+							            <input id="twenties" name="age" type="radio" value="20" th:checked="${session.member.age == '20'}"> 20대
+							        </p>
+							        <p>
+							            <input id="thirties" name="age" type="radio" value="30" th:checked="${session.member.age == '30'}"> 30대
+							        </p>
+							        <p>
+							            <input id="forties" name="age" type="radio" value="40" th:checked="${session.member.age == '40'}"> 40대
+							        </p>
+							        <p>
+							            <input id="fifties" name="age" type="radio" value="50" th:checked="${session.member.age == '50'}"> 50대
+							        </p>
+							        <p>
+							            <input id="sixties" name="age" type="radio" value="60" th:checked="${session.member.age == '60'}"> 60대 이상
+							        </p>
 								</div>
 							</div>
 							<br>

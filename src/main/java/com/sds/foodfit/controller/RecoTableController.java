@@ -49,8 +49,8 @@ public class RecoTableController {
                             @RequestParam("protein") float protein,
                             @RequestParam("fat") float fat,
                             @RequestParam("carbohydrate") float carbohydrate,
-                            @RequestParam("height") int height,
-                            @RequestParam("weight") int weight,
+                            @RequestParam("height") float height,
+                            @RequestParam("weight") float weight,
                             @RequestParam("gender") String gender,
                             @RequestParam("age") int age,
                             Model model) {
