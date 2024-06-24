@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -111,7 +110,7 @@
                 return;
             }
             $.ajax({
-                url: "/recotable/api/foods", // URL 경로를 수정했습니다.
+                url: "/recotable/api/foods", // URL 경로가 올바른지 확인합니다.
                 type: "GET",
                 data: { search: query },
                 success: function(data) {
@@ -132,8 +131,12 @@
         }
 
         function selectFood(foodName) {
-            opener.setSelectedFood(foodName);
-            window.close();
+            if (opener && !opener.closed) {
+                opener.setSelectedFood(foodName);
+                window.close();
+            } else {
+                alert('부모 창이 닫혀 있습니다.');
+            }
         }
     </script>
 </body>

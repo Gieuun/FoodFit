@@ -129,15 +129,15 @@ p {
 								</div>
 								<div class="form-group">
 									<h3><label for="protein">단백질 (g):</label></h3>
-									<input type="number" id="protein" name="protein" placeholder="단백질을 입력하세요" step="0.1">
+									<input type="number" id="protein" name="protein" placeholder="단백질을 입력하세요" step="0.1" min="1">
 								</div>
 								<div class="form-group">
 									<h3><label for="fat">지방 (g):</label></h3>
-									<input type="number" id="fat" name="fat" placeholder="지방을 입력하세요" step="0.1">
+									<input type="number" id="fat" name="fat" placeholder="지방을 입력하세요" step="0.1" min="1">
 								</div>
 								<div class="form-group">
 									<h3><label for="carbohydrate">탄수화물 (g):</label></h3>
-									<input type="number" id="carbohydrate" name="carbohydrate" placeholder="탄수화물을 입력하세요" step="0.1">
+									<input type="number" id="carbohydrate" name="carbohydrate" placeholder="탄수화물을 입력하세요" step="0.1" min="1">
 								</div>
 								<div class="form-group">
 									<h3><label for="height">키 (cm):</label></h3>
@@ -236,7 +236,7 @@ p {
 			var table = document.getElementById('selectedFoodsTable').getElementsByTagName('tbody')[0];
 			var row = table.rows[0]; // 첫 번째 행 선택
 			for (var i = 0, cell; cell = row.cells[i]; i++) {
-				selectedFoods.push(cell.innerText.trim());
+				selectedFoods.push(cell.innerText.replace(" 삭제", "").trim());
 			}
 			document.getElementById('selectedFoods').value = selectedFoods.join(',');
 		}
@@ -268,7 +268,6 @@ p {
 			}
 			if (weight === "" ) {
 				alert("몸무게를 입력해 주세요.");
-
 				return false;
 			}
 			if (!gender) {

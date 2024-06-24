@@ -1,6 +1,7 @@
 package com.sds.foodfit.controller;
 
 import com.sds.foodfit.domain.FoodDB;
+import com.sds.foodfit.model.food.CalculateFoodService;
 import com.sds.foodfit.model.food.FoodDBService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -12,16 +13,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Controller
 public class RecoTableController {
 
     private final FoodDBService foodDBService;
+    private final CalculateFoodService calculateFoodService;
 
     @Autowired
-    public RecoTableController(@Qualifier("tableServiceImpl") FoodDBService foodDBService) {
+    public RecoTableController(@Qualifier("tableServiceImpl") FoodDBService foodDBService,
+                               @Qualifier("calculateFoodService") CalculateFoodService calculateFoodService) {
         this.foodDBService = foodDBService;
+        this.calculateFoodService = calculateFoodService;
     }
 
     @GetMapping("recotable/insert")
@@ -55,40 +58,7 @@ public class RecoTableController {
                             @RequestParam("age") int age,
                             Model model) {
 
-        List<String> foodNames = List.of(selectedFoods.split(","))
-                                      .stream()
-                                      .map(String::trim)
-                                      .map(name -> name.replace(" 삭제", ""))
-                                      .collect(Collectors.toList());
-
-        List<FoodDB> foods = foodNames.stream()
-                .flatMap(name -> foodDBService.findByFoodName(name).stream())
-                .collect(Collectors.toList());
-
-        float totalProtein = (float) foods.stream().mapToDouble(FoodDB::getProtein).sum();
-        float totalFat = (float) foods.stream().mapToDouble(FoodDB::getFat).sum();
-        float totalCarbohydrate = (float) foods.stream().mapToDouble(FoodDB::getCarbohydrate).sum();
-        float totalKcal = (float) foods.stream().mapToDouble(FoodDB::getKcal).sum();
-
-        double bmr;
-        if (gender.equals("male")) {
-            bmr = 10 * weight + 6.25 * height - 5 * age + 5;
-        } else {
-            bmr = 10 * weight + 6.25 * height - 5 * age - 161;
-        }
-
-        int dailyCalories = (int) Math.round(bmr * 1.55);
-
-        model.addAttribute("totalKcal", totalKcal);
-        model.addAttribute("dailyCalories", dailyCalories);
-        model.addAttribute("totalProtein", totalProtein);
-        model.addAttribute("totalFat", totalFat);
-        model.addAttribute("totalCarbohydrate", totalCarbohydrate);
-
-        model.addAttribute("inputCarbohydrate", carbohydrate);
-        model.addAttribute("inputProtein", protein);
-        model.addAttribute("inputFat", fat);
-
+        calculateFoodService.calculateNutrition(selectedFoods, protein, fat, carbohydrate, height, weight, gender, age, model);
         return "recotable/result";
     }
 }
