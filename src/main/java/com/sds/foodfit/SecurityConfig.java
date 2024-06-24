@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
@@ -44,6 +45,7 @@ public class SecurityConfig {
 		.requestMatchers("/site/**").permitAll() // 모든 요청을 인증 없이 허용.
 		.requestMatchers("/img/**").permitAll() // 모든 요청을 인증 없이 허용.
 		.requestMatchers("/").permitAll() // 모든 요청을 인증 없이 허용.
+		.requestMatchers("/demo/**").permitAll() // 모든 요청을 인증 없이 허용.
 		.requestMatchers("/recomember/login", "/recomember/loginform").permitAll()
 		.requestMatchers("/recomember/regist", "/recomember/registform").permitAll()
 		.requestMatchers("/notice/**").permitAll().requestMatchers("/rest/notice/**").permitAll()
@@ -73,14 +75,26 @@ public class SecurityConfig {
 		.deleteCookies("JSESSIONID") // 로그아웃 시 삭제할 쿠키 이름 설정
 	);
 
-	http.httpBasic(httpBasic -> httpBasic.realmName("FoodFit") // 기본 인증 사용 시 realm 이름 설정
-	);
+	http.httpBasic(httpBasic -> httpBasic.disable()).exceptionHandling(
+		exceptionHandling -> exceptionHandling.authenticationEntryPoint(authenticationEntryPoint()));
 
 	http.addFilterAt(loginFilter(), UsernamePasswordAuthenticationFilter.class);
 	// http.addFilterAfter(new SecurityContextPersistenceFilter(),
 	// LoginFilter.class);
 
 	return http.build();
+    }
+
+    // 로그인 하지 않은 상태에서 회원제 서비스 접근했을 때 로그인 페이지로 보내기 (html에 스크립트 날려서 처리)
+    @Bean
+    public AuthenticationEntryPoint authenticationEntryPoint() {
+	return (request, response, authException) -> {
+	    response.setContentType("text/html");
+	    response.setCharacterEncoding("UTF-8");
+	    response.getWriter().write("<script>" + "alert('로그인이 필요합니다.');"
+		    + "window.location.href='/recomember/loginform';" + "</script>");
+	    response.getWriter().flush();
+	};
     }
 
 }
