@@ -23,10 +23,6 @@ public class RecommendFoodService implements FoodDBService {
     @Autowired
     private ObjectMapper objectMapper;
 
-    public List<FoodDB> selectRandomHundred() {
-	return foodDBDAO.selectRandomHundred();
-    };
-
     @Override
     public Map<String, Object> setFoodResult(String jsonData) {
 	Map<String, Object> response = new HashMap<>();
@@ -56,10 +52,6 @@ public class RecommendFoodService implements FoodDBService {
 	    foodDBList = foodDBDAO.selectLowSodium();
 	    response.put("title", "네? 저..염?!");
 	    break;
-	case "random":
-	    foodDBList = foodDBDAO.selectRandomHundred();
-	    response.put("title", "아무거나 10개 뽑았다");
-	    break;
 	}
 
 	response.put("foodDBList", foodDBList);
@@ -72,11 +64,11 @@ public class RecommendFoodService implements FoodDBService {
 	return null;
     }
 
-	@Override
-	public List<FoodDB> findByFoodName(String foodName) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+    @Override
+    public List<FoodDB> findByFoodName(String foodName) {
+	// TODO Auto-generated method stub
+	return null;
+    }
 
     @Override
     public List<FoodDB> getAllFoods() {

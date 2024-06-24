@@ -18,8 +18,6 @@ public interface FoodDBDAO { // 여기에 FoodDB select 관련로직 다 넣으�
 
     public List<FoodDB> selectLowSodium();
 
-    public List<FoodDB> selectRandomHundred();
-
     public int sumKcalByFoodIdx(@Param("foodIdxList") List<Integer> foodIdxList);
 
     public int sumCarbohydrateByFoodIdx(@Param("foodIdxList") List<Integer> foodIdxList);
