@@ -2,8 +2,9 @@ package com.sds.foodfit;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
+
 
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -12,7 +13,6 @@ import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
-import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.sds.foodfit.domain.CustomUserDetails;
@@ -73,8 +73,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 		for(GrantedAuthority auth : userDetails.getAuthorities()) {
 			log.debug("인증 성공 시 권한 정보는 "+auth.getAuthority());
 		}
-
-		
+	
 		 // SecurityContextHolder에 Authentication 객체를 설정
 		SecurityContextHolder.getContext().setAuthentication(authentication);  //이 코드가 존재해야,  권한이 스프링시큐리티에 저장됨
 		
@@ -88,6 +87,9 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 		
 		//super.successfulAuthentication(request, response, chain, authentication);
 		//chain.doFilter(request, response);
+
+
+	chain.doFilter(request, response);
     }
 
     // 사용자가 로그인 실패할때

@@ -74,12 +74,12 @@
         .fat-box { background-color: #fce4ec; }
         .button-container {
             display: flex;
-            justify-content: space-between;
+            justify-content: center; /* 버튼을 가운데 정렬 */
             gap: 10px; /* 버튼 사이의 간격을 추가 */
         }
         .button {
             display: block;
-            width: 45%; /* 버튼 크기를 10% 줄임 */
+            width: 50%; /* 버튼 크기를 50%로 설정 */
             padding: 15px;
             text-align: center;
             background-color: black;
@@ -107,7 +107,6 @@
         <div class="nutrient-bar">
             <span>
                 <img src="/img/carbs-icon.png" alt="탄수화물 아이콘" class="icon">
-               
             </span>
             <span th:text="'지금까지 먹은 탄수화물은 총 ' + ${totalCarbohydrate} + 'g 입니다'">0g</span>
         </div>
@@ -117,7 +116,6 @@
         <div class="nutrient-bar">
             <span>
                 <img src="/img/protein-icon.png" alt="단백질 아이콘" class="icon">
-                
             </span>
             <span th:text="'지금까지 먹은 단백질은 총 ' + ${totalProtein} + 'g 입니다'">0g</span>
         </div>
@@ -127,7 +125,6 @@
         <div class="nutrient-bar">
             <span>
                 <img src="/img/fat-icon.png" alt="지방 아이콘" class="icon">
-               
             </span>
             <span th:text="'지금까지 먹은 지방은 총 ' + ${totalFat} + 'g 입니다'">0g</span>
         </div>
@@ -156,8 +153,12 @@
             </span>
             <span th:text="${inputFat} - ${totalFat} > 0 ? ${inputFat} - ${totalFat} + 'g 더 먹어도 괜찮아요' : '충분히 드셨어요'"></span>
         </div>
+        <br>
+        <div class="textline" style="margin-top: 20px;">
+            <h4>* 본 영양성분 표시는 식품의약품안전처 영양성분DB를 활용한 자료이며, 각 음식의 100g당 함유량 입니다. *</h4>
+            <p>식기별 음식담는 중량 (추정치) : 밥그릇 200g, 국그릇 200g, 사발그릇 200g, 중접시 300g, 대접시 500g</p>
+        </div>
         <div class="button-container">
-            <a href="#" class="button record-button">기록하기</a>
             <a href="javascript:history.back()" class="button record-button">다시 진단 받기</a>
         </div>
     </div>
