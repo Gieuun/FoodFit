@@ -40,8 +40,6 @@ p {
 </style>
 </head>
 <body>
-
-		
     <th:block th:insert="fragments/headerinfo :: headerinfo" />
     <!-- Start header -->
     <th:block th:replace="fragments/header :: header" />
@@ -72,39 +70,39 @@ p {
                     <div class="contact-block">
                         <form id="InfoInputForm">
                             <div class="col-md-12">
-                                <div id="genderInfo" class="row">
+                                <div id="genderInfo" class="row">                               
                                     <h3>성별</h3>
                                     <p>
-                                        <input id="male" name="gender" type="radio" value="male"> 남성
+                                        <input id="male" name="gender" type="radio" value="male" th:checked="${session.member.gender == 'male'}"> 남성
                                     </p>
                                     <p>
-                                        <input id="female" name="gender" type="radio" value="female"> 여성
+                                        <input id="female" name="gender" type="radio" value="female" th:checked="${session.member.gender == 'female'}"> 여성
                                     </p>
                                 </div>
                             </div>
                             <br>
                             <div class="col-md-12">
                                 <div id="ageInfo" class="row">
-                                    <h3>연령</h3>
-                                    <p>
-                                        <input id="teen" name="age" type="radio" value="10"> 10대
-                                    </p>
-                                    <p>
-                                        <input id="twenties" name="age" type="radio" value="20"> 20대
-                                    </p>
-                                    <p>
-                                        <input id="thirties" name="age" type="radio" value="30"> 30대
-                                    </p>
-                                    <p>
-                                        <input id="forties" name="age" type="radio" value="40"> 40대
-                                    </p>
-                                    <p>
-                                        <input id="fifties" name="age" type="radio" value="50"> 50대
-                                    </p>
-                                    <p>
-                                        <input id="sixties" name="age" type="radio" value="60"> 60대 이상
-                                    </p>
-                                </div>
+							        <h3>연령</h3>
+							        <p>
+							            <input id="teen" name="age" type="radio" value="10" th:checked="${session.member.age == '10'}"> 10대
+							        </p>
+							        <p>
+							            <input id="twenties" name="age" type="radio" value="20" th:checked="${session.member.age == '20'}"> 20대
+							        </p>
+							        <p>
+							            <input id="thirties" name="age" type="radio" value="30" th:checked="${session.member.age == '30'}"> 30대
+							        </p>
+							        <p>
+							            <input id="forties" name="age" type="radio" value="40" th:checked="${session.member.age == '40'}"> 40대
+							        </p>
+							        <p>
+							            <input id="fifties" name="age" type="radio" value="50" th:checked="${session.member.age == '50'}"> 50대
+							        </p>
+							        <p>
+							            <input id="sixties" name="age" type="radio" value="60" th:checked="${session.member.age == '60'}"> 60대 이상
+							        </p>
+							    </div>
                             </div>
                             <br>
                             <div class="col-md-12">
@@ -151,6 +149,19 @@ p {
 <script type="text/javascript">
     $(document).ready(function() {
         // DOM이 준비되면 실행될 코드
+        
+        
+        // alert 창을 띄우는 함수
+        function showAlert(message) {
+            alert(message);
+        }
+
+        // 서버에서 받은 에러 메시지 띄우기 (템플릿에서 전달된 메시지 사용)
+        var errorMessage = /*[[${error_message}]]*/ null;
+        if (errorMessage) {
+            showAlert(errorMessage);
+        }
+        
 
         // '결과 보기' 버튼 클릭 시 실행될 코드
         $("#bt_result").click(function() {
