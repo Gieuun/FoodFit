@@ -72,9 +72,14 @@
         .carbs-box { background-color: #e0f7fa; }
         .protein-box { background-color: #f1f8e9; }
         .fat-box { background-color: #fce4ec; }
-        .record-button {
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            gap: 10px; /* 버튼 사이의 간격을 추가 */
+        }
+        .button {
             display: block;
-            width: 93%;
+            width: 45%; /* 버튼 크기를 10% 줄임 */
             padding: 15px;
             text-align: center;
             background-color: black;
@@ -83,7 +88,7 @@
             border-radius: 5px;
             font-size: 18px;
         }
-        .record-button:hover {
+        .button:hover {
             background-color: #333;
         }
         .icon {
@@ -102,9 +107,9 @@
         <div class="nutrient-bar">
             <span>
                 <img src="/img/carbs-icon.png" alt="탄수화물 아이콘" class="icon">
-                탄수화물
+               
             </span>
-            <span th:text="${totalCarbohydrate} + 'g'">0g</span>
+            <span th:text="'지금까지 먹은 탄수화물은 총 ' + ${totalCarbohydrate} + 'g 입니다'">0g</span>
         </div>
         <div class="progress-bar">
             <div th:style="'width:' + (${totalCarbohydrate} / ${inputCarbohydrate} * 100) + '%'" class="progress carbs"></div>
@@ -112,9 +117,9 @@
         <div class="nutrient-bar">
             <span>
                 <img src="/img/protein-icon.png" alt="단백질 아이콘" class="icon">
-                단백질
+                
             </span>
-            <span th:text="${totalProtein} + 'g'">0g</span>
+            <span th:text="'지금까지 먹은 단백질은 총 ' + ${totalProtein} + 'g 입니다'">0g</span>
         </div>
         <div class="progress-bar">
             <div th:style="'width:' + (${totalProtein} / ${inputProtein} * 100) + '%'" class="progress protein"></div>
@@ -122,9 +127,9 @@
         <div class="nutrient-bar">
             <span>
                 <img src="/img/fat-icon.png" alt="지방 아이콘" class="icon">
-                지방
+               
             </span>
-            <span th:text="${totalFat} + 'g'">0g</span>
+            <span th:text="'지금까지 먹은 지방은 총 ' + ${totalFat} + 'g 입니다'">0g</span>
         </div>
         <div class="progress-bar">
             <div th:style="'width:' + (${totalFat} / ${inputFat} * 100) + '%'" class="progress fat"></div>
@@ -151,7 +156,10 @@
             </span>
             <span th:text="${inputFat} - ${totalFat} > 0 ? ${inputFat} - ${totalFat} + 'g 더 먹어도 괜찮아요' : '충분히 드셨어요'"></span>
         </div>
-        <a href="#" class="record-button">기록하기</a>
+        <div class="button-container">
+            <a href="#" class="button record-button">기록하기</a>
+            <a href="javascript:history.back()" class="button record-button">다시 진단 받기</a>
+        </div>
     </div>
 </body>
 </html>

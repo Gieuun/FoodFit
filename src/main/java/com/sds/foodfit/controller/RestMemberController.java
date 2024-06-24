@@ -37,6 +37,14 @@ public class RestMemberController {
 	@Autowired
 	private GoogleLogin googleLogin;
 	
+	
+	// 로그인 요청처리
+	@PostMapping("/recomember/login")
+	public ResponseEntity login(Member member) {
+		log.debug("컨트롤러에서 로그인 요청 받음");
+		return ResponseEntity.ok().build();
+	}
+	
 	// 로그인 요청에 필요한 링크 주소 및 파라미터 생성 요청 처리
 	@GetMapping("/rest/recomember/authform/{sns}")
 	public ResponseEntity getLink(@PathVariable("sns") String sns) {

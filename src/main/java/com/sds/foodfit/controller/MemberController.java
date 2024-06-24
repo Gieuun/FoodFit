@@ -3,6 +3,7 @@ package com.sds.foodfit.controller;
 import java.io.IOException;
 import java.util.Collections;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +15,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -33,7 +33,6 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sds.foodfit.domain.CustomUserDetails;
 import com.sds.foodfit.domain.Member;
 import com.sds.foodfit.domain.Role;
 import com.sds.foodfit.exception.MemberException;
@@ -85,12 +84,7 @@ public class MemberController {
 		return "recomember/login";
 	}
 
-	// 로그인 요청처리
-	@PostMapping("/recomember/login")
-	public String login(Member member) {
-		
-		return "redirect:/";
-	}
+
 
 	// 로그아웃 요청 처리
 	@GetMapping("/recomember/logout")
@@ -276,7 +270,7 @@ public class MemberController {
 		// 세션 무효화하여 자동 로그인 방지
 	    session.invalidate();
 		
-		return "redirect:/login";
+		return "redirect:/recomember/loginform";
 	}
 	
 	/*---------------------------------------------------------------------------------------------------------------------------
@@ -284,11 +278,6 @@ public class MemberController {
 	----------------------------------------------------------------------------------------------------------------------------- */	
 	@GetMapping("/recomember/mypage")
 	public String getMypageForm(Model model, HttpSession session) {
-		
-		Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-		
-		log.debug("사용자의 권한 정보는 " +authentication.getAuthorities());
-		
 		
 		// 로그인한 회원 정보 가져오기
 		Member member = (Member) session.getAttribute("member");

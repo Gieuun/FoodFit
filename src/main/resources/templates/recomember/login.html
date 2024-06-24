@@ -322,15 +322,15 @@ label{
 			type : "post",
 			data : $("#login_form").serialize(),
 			success : function(result, status, xhr) {
-			console.log(result);
-			alert("로그인 성공!");
-			location.href = "/";
+				console.log(result);
+				alert("로그인 성공!");
+				location.href = "/";
 			},
 			error : function(xhr, status, result) {
 				if(xhr.status ===401){
 				let json = JSON.parse(xhr.responseText);
 				document.getElementById("error_message").textContent = "아이디 또는 비밀번호가 일치하지 않습니다.";
-				location.href="redirect:/loginform"
+				location.href="redirect:/recomember/loginform"
 				setTimeout(function() {
 					error_message.textContent='';
 				 }, 1500); 
