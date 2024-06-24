@@ -105,7 +105,13 @@
 		background: #dadada;
 }
 
-#loginArea .find_text {
+#loginArea .find_id {
+		display: inline-block;
+		font-size: 14px;
+		line-height: 20px;
+		color: #929294;
+}
+#loginArea .find_pwd {
 		display: inline-block;
 		font-size: 14px;
 		line-height: 20px;
@@ -180,20 +186,29 @@ label{
 																<input type="password" class="form-control" id="pwd" name="pwd" placeholder="비밀번호를 입력해주세요">
 														</div>
 												</div>
+												
+												
+												<div class="col-md-12">
+														<div id="error_message" style="color: red;"></div>
+														<!-- 오류 메시지 표시 요소 추가 -->
+												</div>
+												
+												
 												<div class="col-md-12">
 														<div class="submit-button text-center btnArea">
 																<button class="btn btn-common" id="login" type="button" onClick="validateForm()">로그인</button>
 														</div>
 												</div>
+												
 												<div class="col-md-12">
-														<div class="form-group">
-																<ul id="loginArea">
-																		<li><a href="#" class="find_text" >아이디 찾기</a></li>
-																		<li><a href="#" class="find_text" >비밀번호 찾기</a></li>
-																		<li><a href="/recomember/registform"><span class="accent">회원가입</span></a></li>
-																</ul>
-														</div>
+												    <div class="form-group">
+												        <ul id="loginArea">
+												            <li><a href="/recomember/registform"><span class="accent">회원가입</span></a></li>
+												        </ul>
+												    </div>
 												</div>
+												
+																									
 												<div class="col-md-12">
 														<div class="form-group">
 																<p id="login_text">소셜 로그인</p>
@@ -219,10 +234,7 @@ label{
 														</div>
 												</div>
 												
-												<div class="col-md-12">
-														<div id="error_message" style="color: red;"></div>
-														<!-- 오류 메시지 표시 요소 추가 -->
-												</div>
+												
 												
 										</form>
 								</div>
@@ -271,48 +283,63 @@ label{
 			}
 		});
 	}
-
 	function validateForm() {
 		let id = document.getElementById("id").value;
 		let pwd = document.getElementById("pwd").value;
 		let idError = document.getElementById("id_message");
 		let pwdError = document.getElementById("pwd_message");
+		let error_message = document.getElementById("error_message");
 
 		idError.textContent = "";
 		pwdError.textContent = "";
+		error_message.textContent="";
 
 		if (id === "") {
 			idError.textContent = "*아이디를 입력해주세요.";
+			// 2초 후에 메시지를 숨기기
+		   	setTimeout(function() {
+		   		idError.textContent='';
+		    }, 2000); 
 			return false;
 		}
 		if (pwd === "") {
 			pwdError.textContent = "*비밀번호를 입력해주세요.";
+			// 2초 후에 메시지를 숨기기
+		   	setTimeout(function() {
+		   		pwdError.textContent='';
+		    }, 2000); 
 			return false;
 		}
 
 		return true;		
 	}
-
 	function loginCheck() {
 		if (!validateForm()) {
 			return; // 유효성 검사 통과 못하면 함수 종료
 		}
-
-			$
-				.ajax({
-					url : "/recomember/login",
-					type : "post",
-					data : $("#login_form").serialize(),
-					success : function(result, status, xhr) {
-						console.log(result);
-						location.href = "/";
-					},
-					error : function(xhr, status, result) {
-						let json = JSON.parse(xhr.responseText);
-						alert(json.msg);
-						document.getElementById("error_message").textContent = json.msg;
-					}
-				});
+		$.ajax({
+			url : "/recomember/login",
+			type : "post",
+			data : $("#login_form").serialize(),
+			success : function(result, status, xhr) {
+				console.log(result);
+				alert("로그인 성공!");
+				location.href = "/";
+			},
+			error : function(xhr, status, result) {
+				if(xhr.status ===401){
+				let json = JSON.parse(xhr.responseText);
+				document.getElementById("error_message").textContent = "아이디 또는 비밀번호가 일치하지 않습니다.";
+				location.href="redirect:/recomember/loginform"
+				setTimeout(function() {
+					error_message.textContent='';
+				 }, 1500); 
+				
+				} else{
+					alert("로그인 요청 중 오류가 발생했습니다.")
+				}
+			}
+		});
 	}
 
 	$(function() {

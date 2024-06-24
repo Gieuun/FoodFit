@@ -28,7 +28,7 @@
 						 <!-- 로그인 상태에 따라 다른 내용을 보여주기 -->
 					  <th:block th:if="${session.member == null}">
                         <li class="nav-item">
-                            <a class="nav-link" href="/login">로그인/회원가입</a>
+                            <a class="nav-link" href="/recomember/loginform">로그인/회원가입</a>
                         </li>
                       </th:block>  
                         
@@ -42,7 +42,6 @@
 	                            </a>
 	                            <div  class="dropdown-menu" aria-labelledby="navbarDropdown">
 	                                <a class="dropdown-item" href="/recomember/mypage">회원정보</a>
-	                                <a class="dropdown-item" href="/recomember/favorite">선호 음식정보</a>
 	                                <a class="dropdown-item" href="/logout">로그아웃</a>
 	                            </div>
 	                        </li>

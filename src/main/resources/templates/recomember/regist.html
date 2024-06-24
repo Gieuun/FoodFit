@@ -201,6 +201,14 @@ mark{
 									</div>
 								</div>
 						<!-- 체중 입력 끝 -->	
+						
+							<div class="col-md-12" style="text-align: center;">
+									<div class="form-group">
+											<p>가입한 아이디가 있으신가요? <a href="/recomember/loginform"><span style="text-decoration: underline;">로그인</span></a></p>
+									</div>
+								</div>
+						
+
 								
 								<div class="col-md-12">
         							<div id="error_message" style="color: red;"></div> <!-- 오류 메시지 표시 요소 추가 -->
@@ -209,8 +217,7 @@ mark{
 
 							<div class="col-md-12">
 								<div class="submit-button text-center btArea">
-									<button class="btn btn-common" id="bt_prev" type="button" onClick="prev()">이전</button>
-									<button class="btn btn-common" id="bt_regist" type="button" onClick="validateForm()">가입하기</button>
+									<button class="btn btn-common" id="bt_regist" type="button" onClick="validateForm()">회원가입하기</button>
 								</div>
 							</div>
 						</div>
@@ -264,9 +271,11 @@ mark{
 		            if (response === 'true') {
 		                document.getElementById("id_message").style.color = 'red';
 		                document.getElementById("id_check_result").innerHTML = '이미 사용 중인 아이디입니다.';
+		                alert("이미 사용중인 아이디입니다.");
 		            } else {
 		                document.getElementById("id_message").style.color = 'green';
 		                document.getElementById("id_check_result").innerHTML = '사용 가능한 아이디입니다.';
+		                alert("사용가능한 아이디입니다.");
 		            }
 		        },
 		        error: function() {

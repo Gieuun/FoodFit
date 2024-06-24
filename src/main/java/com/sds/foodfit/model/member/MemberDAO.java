@@ -1,6 +1,7 @@
 package com.sds.foodfit.model.member;
 
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import com.sds.foodfit.domain.Member;
 
@@ -19,7 +20,10 @@ public interface MemberDAO {
 
 	public void update(Member member); // 회원정보 수정
 
-	//public int delete(int memberIdx);  //회원탈퇴
-
-
+	public void updateId(int memberIdx, String newId); // 아이디 업데이트
+	
+	public void deleteMember(int memberIdx); // 회원 삭제
+	
+	public void updatePassword(int memberIdx, String currentPwd, String newPwd); //비밀번호 변경
+	
 }

@@ -35,6 +35,10 @@
 		from member where id=#{id}
 	</select>	
 	
+	<select id="selectByMemberIdx" resultType="Member">
+    	select * from member WHERE memberIdx = #{memberIdx}
+	</select>
+	
 	<!--회원정보수정-->
 	<update id="update" parameterType="Member">
 		update member 
@@ -42,10 +46,20 @@
 		where memberIdx=#{memberIdx}
 	</update>
 	
-	
-	<!--회원정보삭제
-	<delete id="delete" parameterType="int">
-		delete from member where memberIdx=#{memberIdx}
-	</delete>
-	-->
+	<!-- 아이디 변경 -->
+    <update id="updateId" parameterType="java.util.Map">
+        update member set id=#{id} where memberIdx=#{memberIdx}
+    </update>
+    
+    <!-- 비밀번호 변경 -->
+    <update id="updatePassword" parameterType="java.util.Map">
+        update member set pwd=#{newPwd} where memberIdx=#{memberIdx} and pwd=#{currentPwd}
+    </update>
+    
+    <!-- 회원 완전 삭제 -->
+    <delete id="deleteMember" parameterType="int">
+        delete from member where memberIdx = #{memberIdx}
+    </delete>
+    
+      
 </mapper>

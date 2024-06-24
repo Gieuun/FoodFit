@@ -13,24 +13,28 @@ import com.sds.foodfit.exception.MemberException;
 
 import lombok.extern.slf4j.Slf4j;
 
+// CustomUserDetails에서 구현한 사용자 정보를 로드하는 서비스
 @Slf4j
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
     @Autowired
-    private MemberDAO memberDAO;
+    private final MemberDAO memberDAO;
 
     private final PasswordEncoder passwordEncoder;
 
     // 생성자 주입
-    public CustomUserDetailsService(PasswordEncoder passwordEncoder) {
+    public CustomUserDetailsService(PasswordEncoder passwordEncoder, MemberDAO memberDAO) {
 	this.passwordEncoder = passwordEncoder;
+	this.memberDAO  = memberDAO;
     }
 
+    //사용ㅇ자 ID 또는 사용자명으로 사용자 정보를 로드하는 메서드
     @Override
     public UserDetails loadUserByUsername(String id) throws UsernameNotFoundException, MemberException {
 	log.debug("로그인 검증할 아이디는 " + id);
 
+	// DB에서 ID로 사용자 정보 조회
 	Member member = memberDAO.selectById(id);
 	log.debug("회원 정보 : " + member);
 
@@ -45,13 +49,10 @@ public class CustomUserDetailsService implements UserDetailsService {
 	Integer memberIdx = member.getMemberIdx();
 	log.debug("회원의 Idx 정보 : " + memberIdx);
 
-	// FavoriteFood favoriteFood = favoriteFoodService.selectByMemberIdx(memberIdx);
-
-	// log.debug("마이푸드 정보 조회 결과: " + favoriteFood);
-
+	// CustomUserDetails 객체 생성 및 반환
 	CustomUserDetails userDetails = new CustomUserDetails(member);
 
-	return new CustomUserDetails(member);
+	return userDetails;
 
     }
 }

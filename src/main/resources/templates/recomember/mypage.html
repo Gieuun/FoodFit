@@ -54,6 +54,23 @@
 .btn{
 	border-radius: 10px
 }
+.text{
+	flex-direction: column;
+	align-items: center;
+}
+.modalbtn >button{
+	flex-direction: column;
+	align-items: center;
+}
+.modal-content {
+  background: #f7d4a7;
+  margin: 15% auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  max-width: 600px;
+  border-radius: 10px;
+}
 </style>
 </head>
 <body>
@@ -117,14 +134,47 @@
 										<div id="id_check_result"></div>
 									</div>
 								</div>
-
-								<div class="col-md-12">
-										<label th:for="currentPwd">현재 비밀번호</label> 
-									<div class="form-group type">
-										<input type="password" class="form-control box"  id="currentPwd" name="pwd" placeholder="****" readonly>
-										<button class="btn btn-common" id="pwd_check" type="button" onclick="changePassword()">변경하기</button>
+									
+									<div class="col-md-12">
+									    <label for="currentPwd">현재 비밀번호</label>
+									    <div class="form-group type">
+									        <input type="password" class="form-control box" id="pwd" name="pwd" placeholder="****" readonly="readonly">
+									        <button class="btn btn-common" id="pwd_change" type="button" data-toggle="modal" data-target="#changePasswordModal">변경하기</button>
+									    </div>
 									</div>
-								</div>
+									
+									<!-- 비밀번호 변경 모달 -->
+									<div class="modal fade" id="changePasswordModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+									    <div class="modal-dialog" role="document">
+									        <div class="modal-content">
+									            <div class="modal-header">
+									                <h5 class="modal-title" id="changePasswordModalLabel">비밀번호 변경</h5>
+									                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+									                    <span aria-hidden="true">&times;</span>
+									                </button>
+									            </div>
+									            <div class="modal-body">
+									                <div class="form-group">
+									                    <label for="currentPwd">현재 비밀번호</label>
+									                    <input type="password" class="form-control box" id="currentPwd" name="pwd" placeholder="현재 비밀번호를 입력하세요">
+									                </div>
+									                <div class="form-group">
+									                    <label for="newPwd">새로운 비밀번호</label>
+									                    <input type="password" class="form-control box" id="newPwd" name="newPwd" placeholder="새로운 비밀번호를 입력하세요">
+									                </div>
+									                <div class="form-group">
+									                    <label for="confirmPwd">새로운 비밀번호 확인</label>
+									                    <input type="password" class="form-control box" id="confirmPwd" name="confirmPwd" placeholder="새로운 비밀번호를 다시 입력하세요">
+									                </div>
+									                <div id="pwd_change_message" style="color: red; font-size: 12px;"></div>
+									            </div>
+									            <div class="modal-footer modalbtn">
+									                <button type="button" class="btn btn-primary" onclick="changePassword()">변경하기</button>
+									                <button type="button" class="btn btn-secondary" data-dismiss="modal">닫기</button>
+									            </div>
+									        </div>
+									    </div>
+									</div>
 
 								<div class="col-md-12">
 									<div class="form-group">
@@ -252,10 +302,17 @@
 		            if (response === 'true') {
 		                document.getElementById("id_message").style.color = 'red';
 		                document.getElementById("id_check_result").innerHTML = '이미 사용 중인 아이디입니다.';
+		                alert("사용 중인 아이디입니다.");
 		            } else {
 		                document.getElementById("id_message").style.color = 'green';
 		                document.getElementById("id_check_result").innerHTML = '사용 가능한 아이디입니다.';
+		                alert("사용 가능한 아이디입니다.");
 		            }
+		        	 // 3초 후에 메시지를 숨기기
+		            setTimeout(function() {
+		                document.getElementById("id_message").innerHTML = '';
+		                document.getElementById("id_check_result").innerHTML = '';
+		            }, 3000); // 3000 밀리초 = 3초
 		        },
 		        error: function() {
 		            alert("서버 오류가 발생하였습니다.");
@@ -263,6 +320,98 @@
 		    });
 		}
 		
+		 // 아이디 변경하기 함수
+	    function updateId() {
+	        let newId = document.getElementById('id').value.trim();
+
+	        // 유효성 검사
+	        if (!isValidId(newId)) {
+	            document.getElementById('id_message').style.color = 'red';
+	            document.getElementById('id_message').innerHTML = '아이디는 영문자, 숫자, 그리고 특수문자를 포함하여 최대 15자까지 입력 가능합니다.';
+	            return;
+	        }
+
+	        // AJAX를 이용하여 실제 서버에 아이디 변경 요청을 보냅니다.
+	        $.ajax({
+	            type: 'POST',
+	            url: '/recomember/updateId', // 실제 서버의 API 엔드포인트
+	            data: { newId: newId },
+	            success: function(response) {
+	                // 서버로부터의 응답을 처리합니다.
+	                if (response === 'success') {
+	                    // 성공 시 메시지 표시 및 필요한 UI 업데이트 작업 수행
+	                    document.getElementById('id_message').style.color = 'green';
+	                    document.getElementById('id_message').innerHTML = '아이디가 성공적으로 변경되었습니다.';
+	                    alert("아이디가 성공적으로 변경되었습니다.");
+	                } else if (response === 'sameId') {
+	                    // 아이디가 기존과 동일한 경우 처리
+	                    document.getElementById('id_message').style.color = 'blue';
+	                    document.getElementById('id_message').innerHTML = '현재 사용 중인 아이디입니다.';
+	                    alert("기존 아이디와 동일합니다");
+	                } else {
+	                    // 실패 시 메시지 표시
+	                    document.getElementById('id_message').style.color = 'red';
+	                    document.getElementById('id_message').innerHTML = '아이디 변경에 실패하였습니다.';
+	                    alert("아이디 변경에 실패했습니다");
+	                }
+	             // 3초 후에 메시지를 숨기기
+		            setTimeout(function() {
+		                document.getElementById("id_message").innerHTML = '';
+		                document.getElementById("id_check_result").innerHTML = '';
+		            }, 3000); // 3000 밀리초 = 3초
+	            },
+	            error: function(xhr, status, error) {
+	                // 오류 발생 시 처리
+	                console.error('Error:', error);
+	                alert('아이디 변경 중 오류가 발생했습니다.');
+	            }
+	        });
+	    }
+		 
+	 // 비밀번호 변경 함수
+	    function changePassword() {
+	        let currentPwd = document.getElementById('currentPwd').value;
+	        let newPwd = document.getElementById('newPwd').value;
+	        let confirmPwd = document.getElementById('confirmPwd').value;
+
+	        // 클라이언트 측 간단한 유효성 검사
+	        if (currentPwd === '' || newPwd === '' || confirmPwd === '') {
+	            document.getElementById('pwd_change_message').innerHTML = '모든 필드를 입력해주세요.';
+	            
+	            return;
+	        }
+
+	        if (newPwd !== confirmPwd) {
+	            document.getElementById('pwd_change_message').innerHTML = '새로운 비밀번호가 일치하지 않습니다.';
+	            return;
+	        }
+
+	        // 서버로 비밀번호 변경 요청 전송
+	        $.ajax({
+	            type: 'POST',
+	            url: '/recomember/changePassword',
+	            data: {
+	                currentPwd: currentPwd,
+	                newPwd: newPwd
+	            },
+	            success: function(response) {
+	                if (response === 'success') {
+	                    alert('비밀번호가 성공적으로 변경되었습니다.');
+	                    $('#changePasswordModal').modal('hide'); // 모달 닫기
+	                    window.location.href="/login";
+	                } else if (response === 'currentPwdMismatch') {
+	                    document.getElementById('pwd_change_message').innerHTML = '현재 비밀번호가 일치하지 않습니다.';
+	                } else {
+	                    document.getElementById('pwd_change_message').innerHTML = '비밀번호 변경에 실패하였습니다.';
+	                }
+	            },
+	            error: function(xhr, status, error) {
+	                console.error('Error:', error);
+	                alert('서버 오류가 발생하였습니다.');
+	            }
+	        });
+	    }
+		 
 		// 이메일 중복 확인 함수
 		function checkEmail() {
 		    let email = document.getElementById("email").value;
@@ -274,16 +423,22 @@
 		        document.getElementById("email_message").innerHTML = '유효한 이메일 주소가 아닙니다.';
 		        return;
 		    }
-		
+			let emailArray = "admin@foodfit.com, gieun0528@gmail.com, test@naver.com, smw262@naver.com, 1111@1111.com"
 		    // 이메일 중복 여부를 체크하는 로직을 구현합니다.
 		    // 예시로 여기서는 간단히 패턴 비교를 통해 중복을 검사하는 것으로 대체합니다.
 		    if (email.endsWith('@naver.com')) {
 		        document.getElementById("email_message").style.color = 'red';
 		        document.getElementById("email_message").innerHTML = '*이미 사용 중인 이메일입니다.';
+		        alert('이미 사용중인 이메일 입니다..');
 		    } else {
 		        document.getElementById("email_message").style.color = 'green';
 		        document.getElementById("email_message").innerHTML = '사용 가능한 이메일입니다.';
+		        alert('사용 가능한 이메일입니다.');
 		    }
+		 	// 3초 후에 메시지를 숨기기
+		    setTimeout(function() {
+		        document.getElementById("email_message").innerHTML = '';
+		    }, 3000); // 3000 밀리초 = 3초
 		}
 		
 		function isValidEmail(email) {
@@ -314,25 +469,13 @@
 		        document.getElementById("id_message").innerHTML = '';
 		        document.getElementById("id_check_result").innerHTML = '';
 		    }
+		    // 3초 후에 메시지를 숨기기
+		    setTimeout(function() {
+		        document.getElementById("id_message").innerHTML = '';
+		        document.getElementById("id_check_result").innerHTML = '';
+		    }, 3000); // 3000 밀리초 = 3초
 		}
 	
-		/*======================================
-			패스워드 눈 모양 아이콘 클릭할때 마다 비밀번호 거시성 전환 코드
-		=======================================*/
-		function togglePasswordVisibility(inputId, iconId) {
-			let input = document.getElementById(inputId);
-			let icon = document.getElementById(iconId);
-	
-			if (input.type === "password") {
-				input.type = "text";
-				icon.innerHTML = '<i class="fas fa-eye-slash"></i>';
-			} else {
-				input.type = "password";
-				icon.innerHTML = '<i class="fas fa-eye"></i>';
-			}
-		}
-
- 
 	 	$(function() {
 			function update() {
 				$.ajax({
@@ -352,13 +495,24 @@
 	
 			}
 
-		function del() {
-			$("#mypage_form").attr({
-				action:"/recomember/delete",
-				method:"post"
-			});
-			$("#mypage_form").submit();
-		}
+			function del() {
+			    $.ajax({
+			        url: "/recomember/delete",
+			        type: "POST",
+			        success: function(response) {
+			            if (response === "success") {
+			                alert("회원 탈퇴가 완료되었습니다.");
+			                window.location.href = "/logout";
+			            } else {
+			                alert("회원 탈퇴에 실패하였습니다.");
+			            }
+			        },
+			        error: function(xhr, status, error) {
+			            console.error("Error:", error);
+			            alert("서버 오류가 발생하였습니다.");
+			        }
+			    });
+			}
 
 		$(function() {
 		//회원 정보 수정 함수
@@ -370,7 +524,7 @@
 
 		//회원 탈퇴 함수
 		$("#bt_del").click(function() {
-			if(confirm("탈퇴하시겠어요?")){
+			if(confirm("정말로 탈퇴하시겠어요ㅜㅜ?")){
 				del();	
 			}
 		});
