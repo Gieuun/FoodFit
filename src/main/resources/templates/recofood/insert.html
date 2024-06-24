@@ -40,179 +40,6 @@ p {
 </style>
 </head>
 <body>
-<<<<<<< HEAD
-		<th:block th:insert="fragments/headerinfo :: headerinfo" />		
-		<!-- Start header -->
-		<th:block th:replace="fragments/header :: header" />
-		<!-- End header -->
-		<!-- Start All Pages -->
-		<div class="all-page-title page-breadcrumb">
-				<div class="container text-center">
-						<div class="row">
-								<div class="col-lg-12">
-										<h1>음식추천받기</h1>
-								</div>
-						</div>
-				</div>
-		</div>
-		<!-- End All Pages -->
-		<!-- Start Reservation -->
-		<div class="reservation-box">
-				<div class="container">
-						<div class="row">
-								<div class="col-lg-12">
-										<div class="heading-title text-center">
-												<p>아래의 유저정보를 확인해주세요</p>
-										</div>
-								</div>
-						</div>
-						<div class="row">
-								<div class="col-lg-12 col-sm-12 col-xs-12">
-										<div class="contact-block">
-												<form
-														id="InfoInputForm"
-														method="post"
-														action="/food/result"
-												>
-														<div class="col-md-12">
-																<div id="genderInfo" class="row">
-																		<h3>성별</h3>
-																		<p>
-																				<input
-																						id="male"
-																						name="gender"
-																						type="radio"
-																						value="male"
-																				> 남성
-																		</p>
-																		<p>
-																				<input
-																						id="female"
-																						name="gender"
-																						type="radio"
-																						value="female"
-																				> 여성
-																		</p>
-																</div>
-														</div>
-														<br>
-														<div class="col-md-12">
-																<div id="ageInfo" class="row">
-																		<h3>연령</h3>
-																		<p>
-																				<input
-																						id="teen"
-																						name="age"
-																						type="radio"
-																						value="10"
-																				> 10대
-																		</p>
-																		<p>
-																				<input
-																						id="twenties"
-																						name="age"
-																						type="radio"
-																						value="20"
-																				> 20대
-																		</p>
-																		<p>
-																				<input
-																						id="thirties"
-																						name="age"
-																						type="radio"
-																						value="30"
-																				> 30대
-																		</p>
-																		<p>
-																				<input
-																						id="forties"
-																						name="age"
-																						type="radio"
-																						value="40"
-																				> 40대
-																		</p>
-																		<p>
-																				<input
-																						id="fifties"
-																						name="age"
-																						type="radio"
-																						value="50"
-																				> 50대
-																		</p>
-																		<p>
-																				<input
-																						id="sixties"
-																						name="age"
-																						type="radio"
-																						value="60"
-																				> 60대 이상
-																		</p>
-																</div>
-														</div>
-														<br>
-														<div class="col-md-12">
-																<div class="row">
-																		<h3>식습관 목표</h3>
-																		<p>
-																				<input
-																						type="radio"
-																						name="type"
-																						value="highProtein"
-																				> 근력향상 (단백질 섭취량 높이기)
-																		</p>
-																		<p>
-																				<input
-																						type="radio"
-																						name="type"
-																						value="lowSugar"
-																				> 체중감량(탄수화물 줄이기)
-																		</p>
-																		<p>
-																				<input
-																						type="radio"
-																						name="type"
-																						value="lowSodium"
-																				> 싱겁게 먹기 (저나트륨식)
-																		</p>
-																		<p>
-																				<input
-																						type="radio"
-																						name="type"
-																						value="lowSodium"
-																				> 아무거나 10개
-																		</p>
-																</div>
-														</div>
-												</form>
-												<br>
-												<div class="row">
-														<div class="col-md-6 text-center">
-																<button
-																		type="button"
-																		class="btn btn-common"
-																		id="bt_result"
-																>결과보러가기</button>
-														</div>
-												</div>
-										</div>
-								</div>
-						</div>
-				</div>
-		</div>
-		<!-- End Reservation -->
-		<!-- Start Footer -->
-		<th:block th:replace="fragments/footer :: footer" />
-		<!-- End Footer -->
-		<a
-				href="#"
-				id="back-to-top"
-				title="Back to top"
-				style="display: none;"
-		>&uarr;</a>
-		<!-- footer_link begin -->
-		<th:block th:replace="fragments/footer_link :: footer_link" />
-		<!-- footer_link end -->
-=======
     <th:block th:insert="fragments/headerinfo :: headerinfo" />
     <!-- Start header -->
     <th:block th:replace="fragments/header :: header" />
@@ -243,39 +70,39 @@ p {
                     <div class="contact-block">
                         <form id="InfoInputForm">
                             <div class="col-md-12">
-                                <div id="genderInfo" class="row">
+                                <div id="genderInfo" class="row">                               
                                     <h3>성별</h3>
                                     <p>
-                                        <input id="male" name="gender" type="radio" value="male"> 남성
+                                        <input id="male" name="gender" type="radio" value="male" th:checked="${session.member.gender == 'male'}"> 남성
                                     </p>
                                     <p>
-                                        <input id="female" name="gender" type="radio" value="female"> 여성
+                                        <input id="female" name="gender" type="radio" value="female" th:checked="${session.member.gender == 'female'}"> 여성
                                     </p>
                                 </div>
                             </div>
                             <br>
                             <div class="col-md-12">
                                 <div id="ageInfo" class="row">
-                                    <h3>연령</h3>
-                                    <p>
-                                        <input id="teen" name="age" type="radio" value="10"> 10대
-                                    </p>
-                                    <p>
-                                        <input id="twenties" name="age" type="radio" value="20"> 20대
-                                    </p>
-                                    <p>
-                                        <input id="thirties" name="age" type="radio" value="30"> 30대
-                                    </p>
-                                    <p>
-                                        <input id="forties" name="age" type="radio" value="40"> 40대
-                                    </p>
-                                    <p>
-                                        <input id="fifties" name="age" type="radio" value="50"> 50대
-                                    </p>
-                                    <p>
-                                        <input id="sixties" name="age" type="radio" value="60"> 60대 이상
-                                    </p>
-                                </div>
+							        <h3>연령</h3>
+							        <p>
+							            <input id="teen" name="age" type="radio" value="10" th:checked="${session.member.age == '10'}"> 10대
+							        </p>
+							        <p>
+							            <input id="twenties" name="age" type="radio" value="20" th:checked="${session.member.age == '20'}"> 20대
+							        </p>
+							        <p>
+							            <input id="thirties" name="age" type="radio" value="30" th:checked="${session.member.age == '30'}"> 30대
+							        </p>
+							        <p>
+							            <input id="forties" name="age" type="radio" value="40" th:checked="${session.member.age == '40'}"> 40대
+							        </p>
+							        <p>
+							            <input id="fifties" name="age" type="radio" value="50" th:checked="${session.member.age == '50'}"> 50대
+							        </p>
+							        <p>
+							            <input id="sixties" name="age" type="radio" value="60" th:checked="${session.member.age == '60'}"> 60대 이상
+							        </p>
+							    </div>
                             </div>
                             <br>
                             <div class="col-md-12">
@@ -315,7 +142,6 @@ p {
     <!-- footer_link begin -->
     <th:block th:replace="fragments/footer_link :: footer_link" />
     <!-- footer_link end -->
->>>>>>> upstream
 </body>
 </html>
 
