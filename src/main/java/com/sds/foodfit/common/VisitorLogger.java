@@ -51,7 +51,7 @@ public class VisitorLogger {
 	if (authentication != null && authentication.isAuthenticated()) {
 	    return authentication.getName();
 	} else {
-	    return "anonymous";
+	    return "anonymousUser";
 	}
     }
 }
