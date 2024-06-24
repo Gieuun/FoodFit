@@ -46,20 +46,16 @@ dependencies {
     testImplementation 'org.mybatis.spring.boot:mybatis-spring-boot-starter-test:3.0.3'
     testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
     
-    compileJava {
-    options.compilerArgs << "-parameters"
-	}    
-    
+    // Servlet API
+    compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
 }
 
+//UTF-8
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
+    options.compilerArgs << '-parameters'
 }
 
 tasks.withType(Test) {
     useJUnitPlatform()
-}
-
-tasks.withType(JavaCompile) {
-    options.compilerArgs << '-parameters'
 }
