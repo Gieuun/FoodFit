@@ -8,6 +8,16 @@ group = 'com.example'
 version = '1.0.0'
 sourceCompatibility = '17'
 
+
+// Spring Boot의 내장 톰캣을 WAR 배포용으로 변경
+
+apply plugin: 'war'
+
+war{
+    archiveFileName = 'Foodfit.war' // 생성할 WAR 파일명 설정
+    exclude '**/spring-boot-starter-tomcat/**' // 내장 톰캣 관련 의존성 제외	
+}
+
 repositories {
     mavenCentral()
 }
@@ -48,9 +58,11 @@ dependencies {
     
     // Servlet API
     compileOnly 'javax.servlet:javax.servlet-api:4.0.1'
+    
+    providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat' // 톰캣 제공 런타임 설정
 }
 
-//UTF-8
+// UTF-8
 tasks.withType(JavaCompile) {
     options.encoding = 'UTF-8'
     options.compilerArgs << '-parameters'
@@ -58,4 +70,15 @@ tasks.withType(JavaCompile) {
 
 tasks.withType(Test) {
     useJUnitPlatform()
+}
+
+
+
+// Spring Boot의 내장 톰캣 사용 안함 설정
+bootJar {
+    enabled = false
+}
+
+springBoot {
+    mainClass = 'com.sds.foodfit' 
 }
